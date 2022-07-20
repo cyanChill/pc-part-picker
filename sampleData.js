@@ -15,7 +15,8 @@ module.exports = {
   products: [
     {
       category: "CPU",
-      name: "Intel Core i3 (12th Gen) i3-12100",
+      name: "Intel Core i3 (12th Gen) i3-12100 Quad-core (4 Core) 3.30 GHz Processor",
+      short_name: "Intel Core i3-12100",
       brand: "Intel",
       price: 122,
       image_url:
@@ -35,7 +36,8 @@ module.exports = {
     },
     {
       category: "CPU",
-      name: "Intel Core i5 (12th Gen) i5-12600K",
+      name: "Intel Core i5 (12th Gen) i5-12600K 10 (6P+4E) Cores up to 4.9 GHz Unlocked Processor",
+      short_name: "Intel Core i5-12600k",
       brand: "Intel",
       price: 143,
       image_url:
@@ -56,7 +58,8 @@ module.exports = {
     },
     {
       category: "CPU",
-      name: "Intel Core i7 (12th Gen) i7-12700K",
+      name: "Intel Core i7 (12th Gen) i7-12700K 12 (8P+4E) Cores up to 5.0 GHz Unlocked Processor",
+      short_name: "Intel Core i7-12700k",
       brand: "Intel",
       price: 409,
       image_url:
@@ -77,7 +80,8 @@ module.exports = {
     },
     {
       category: "CPU",
-      name: "Intel Core i9 (12th Gen) i9-12900KS",
+      name: "Intel Core i9 (12th Gen) i9-12900KS 16 (8P+8E) Cores Up to 5.5 GHz Unlocked Processor",
+      short_name: "Intel Core i9-12900KS",
       brand: "Intel",
       price: 739,
       image_url:
@@ -98,7 +102,8 @@ module.exports = {
     },
     {
       category: "CPU",
-      name: "AMD Ryzen 5 5600X",
+      name: "AMD Ryzen 5 5600X 6-core, 12-Thread Unlocked Processor",
+      short_name: "AMD Ryzen 5 5600X",
       brand: "AMD",
       price: 199,
       image_url:
@@ -115,7 +120,8 @@ module.exports = {
     },
     {
       category: "CPU",
-      name: "AMD Ryzen 7 5800X3D",
+      name: "AMD Ryzen 7 5800X3D 8-core, 16-Thread Unlocked Processor",
+      short_name: "AMD Ryzen 7 5800X3D",
       brand: "AMD",
       price: 449,
       image_url:
@@ -132,7 +138,8 @@ module.exports = {
     },
     {
       category: "CPU",
-      name: "AMD Ryzen 9 5950X",
+      name: "AMD Ryzen 9 5950X 16-core, 32-Thread Unlocked Processor",
+      short_name: "AMD Ryzen 9 5950X",
       brand: "AMD",
       price: 799,
       image_url:
@@ -151,6 +158,7 @@ module.exports = {
     {
       category: "Motherboard",
       name: "ASUS Prime B660-PLUS D4",
+      short_name: "ASUS Prime B660-PLUS D4",
       brand: "Asus",
       price: 139.99,
       image_url:
@@ -167,6 +175,7 @@ module.exports = {
     {
       category: "Motherboard",
       name: "ASUS ROG Strix Z690-E Gaming WiFi",
+      short_name: "ASUS ROG Strix Z690-E Gaming WiFi",
       brand: "Asus",
       price: 469.99,
       image_url:
@@ -187,6 +196,7 @@ module.exports = {
     {
       category: "Motherboard",
       name: "ASUS ROG Strix B550-A Gaming",
+      short_name: "ASUS ROG Strix B550-A Gaming",
       brand: "Asus",
       price: 179.99,
       image_url:
@@ -202,6 +212,7 @@ module.exports = {
     {
       category: "Motherboard",
       name: "ASUS ROG Strix X570-E Gaming WiFi II",
+      short_name: "ASUS ROG Strix X570-E Gaming WiFi II",
       brand: "Asus",
       price: 379.99,
       image_url:
@@ -221,7 +232,8 @@ module.exports = {
 
     {
       category: "CPU Cooler",
-      name: "Noctua NH-U12S chromax.Black",
+      name: "Noctua NH-U12S chromax.Black, 120mm Single-Tower CPU Cooler (Black)",
+      short_name: "Noctua NH-U12S chromax.Black",
       brand: "Noctua",
       price: 79.99,
       image_url:
@@ -238,6 +250,7 @@ module.exports = {
     {
       category: "Memory",
       name: "Corsair Vengeance LPX 16GB (2x8GB) DDR4 DRAM 3200MHz",
+      short_name: "Corsair Vengeance LPX 16GB (2x8GB) DDR4 DRAM 3200MHz",
       brand: "Corsair",
       price: 74.99,
       image_url:
@@ -253,6 +266,7 @@ module.exports = {
     {
       category: "Memory",
       name: "CORSAIR Vengeance DDR5 32GB (2x16GB) DDR5 5200MHz",
+      short_name: "CORSAIR Vengeance DDR5 32GB (2x16GB) DDR5 5200MHz",
       brand: "Corsair",
       price: 184.99,
       image_url:
@@ -268,7 +282,8 @@ module.exports = {
 
     {
       category: "Storage",
-      name: "SAMSUNG 980 PRO SSD 1TB PCIe 4.0 NVMe",
+      name: "SAMSUNG 980 PRO SSD 1TB PCIe 4.0 NVMe Gen 4 Gaming M.2 Internal Solid State Hard Drive",
+      short_name: "SAMSUNG 980 PRO SSD 1TB",
       brand: "Samsung",
       price: 119.99,
       image_url:
@@ -283,6 +298,7 @@ module.exports = {
     {
       category: "Video Card",
       name: "NVIDIA GeForce RTX 3060 Ti Founders Edition 8GB GDDR6",
+      name: "GeForce RTX 3060 Ti",
       brand: "Nvidia",
       price: 399.99,
       image_url:
@@ -296,7 +312,8 @@ module.exports = {
 
     {
       category: "Case",
-      name: "Corsair 4000D Airflow - Black",
+      name: "Corsair 4000D Airflow Tempered Glass Mid-Tower ATX PC Case - Black",
+      short_name: "Corsair 4000D Airflow - Black",
       brand: "Corsair",
       price: 104.99,
       image_url:
@@ -310,7 +327,8 @@ module.exports = {
 
     {
       category: "Power Supply",
-      name: "CORSAIR RM850 80 Plus Gold Certified, Fully Modular",
+      name: "CORSAIR RM Series (2021), RM850, 850 Watt, 80 Plus Gold Certified, Fully Modular Power Supply",
+      short_name: "CORSAIR RM850",
       brand: "Corsair",
       price: 114.99,
       image_url:
@@ -332,14 +350,14 @@ module.exports = {
       thumbnail_url:
         "https://cdna.pcpartpicker.com/static/forever/images/userbuild/399924.0f3f8f5fd30d18d9fa6427b597c2fb5d.1600.jpg",
       components: {
-        CPU: "Intel Core i9 (12th Gen) i9-12900KS",
+        CPU: "Intel Core i9-12900KS",
         Motherboard: "ASUS ROG Strix Z690-E Gaming WiFi",
         "CPU Cooler": "Noctua NH-U12S chromax.Black",
         Memory: "CORSAIR Vengeance DDR5 32GB (2x16GB) DDR5 5200MHz",
-        Storage: "SAMSUNG 980 PRO SSD 1TB PCIe 4.0 NVMe",
-        "Video Card": "NVIDIA GeForce RTX 3060 Ti Founders Edition 8GB GDDR6",
+        Storage: "SAMSUNG 980 PRO SSD 1TB",
+        "Video Card": "GeForce RTX 3060 Ti",
         Case: "Corsair 4000D Airflow - Black",
-        "Power Supply": "CORSAIR RM850 80 Plus Gold Certified, Fully Modular",
+        "Power Supply": "CORSAIR RM850",
       },
     },
     {
@@ -353,10 +371,10 @@ module.exports = {
         Motherboard: "ASUS ROG Strix X570-E Gaming WiFi II",
         "CPU Cooler": "Noctua NH-U12S chromax.Black",
         Memory: "Corsair Vengeance LPX 16GB (2x8GB) DDR4 DRAM 3200MHz",
-        Storage: "SAMSUNG 980 PRO SSD 1TB PCIe 4.0 NVMe",
-        "Video Card": "NVIDIA GeForce RTX 3060 Ti Founders Edition 8GB GDDR6",
+        Storage: "SAMSUNG 980 PRO SSD 1TB",
+        "Video Card": "GeForce RTX 3060 Ti",
         Case: "Corsair 4000D Airflow - Black",
-        "Power Supply": "CORSAIR RM850 80 Plus Gold Certified, Fully Modular",
+        "Power Supply": "CORSAIR RM850",
       },
     },
   ],

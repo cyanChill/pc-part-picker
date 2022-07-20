@@ -55,10 +55,10 @@ const categoryCreate = async (categoryName) => {
 const productCreate = async (productInfo) => {
   try {
     const result = await Product.create(productInfo);
-    productIdRef[productInfo.name] = result._id;
+    productIdRef[productInfo.short_name] = result._id;
   } catch (err) {
     console.log(
-      `There was an error creating the Product '${productInfo.name}'`,
+      `There was an error creating the Product '${productInfo.short_name}'`,
       err
     );
   }
