@@ -1,11 +1,11 @@
 {
-  "name": "pc-part-picker",
+  "name": "pc-parts-list",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "serverstart": "SET DEBUG=express-pc-part-picker:* & npm run devstart"
+    "serverstart": "SET DEBUG=express-pc-parts-list:* & npm run devstart"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
