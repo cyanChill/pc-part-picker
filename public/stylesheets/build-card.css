@@ -1,0 +1,57 @@
+.build-card {
+  background-color: white;
+}
+
+.build-card:hover {
+  outline: 2px solid var(--yellow);
+}
+
+/* Card Header */
+.card-header {
+  --gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: var(--light-navy);
+}
+
+.card-header > img {
+  width: 1.5rem;
+  aspect-ratio: 1;
+}
+
+.card-header > span {
+  color: var(--off-white);
+  font-weight: 500;
+}
+
+/* Build Thumbnail */
+.thumbnail {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+/* Build Info */
+.build-info {
+  outline: 1px solid var(--off-white);
+  font-size: 0.8rem;
+}
+
+.build-info > * {
+  padding: 0.75rem;
+}
+
+.build-summary {
+  border-bottom: 1px solid var(--off-white);
+}
+
+.build-name {
+  padding-block-end: 0.5rem;
+}
+
+.build-name,
+.price {
+  font-size: 0.9rem;
+  font-weight: 500;
+}

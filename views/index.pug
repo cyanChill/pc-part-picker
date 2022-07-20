@@ -1,5 +1,45 @@
 extends layout
 
+block extraInfo 
+  link(rel='stylesheet', href='/stylesheets/home.css')
+  link(rel='stylesheet', href='/stylesheets/build-card.css')
+
 block content
-  //- Home page so display lists of previously made PC lists
-  p TEMP Content
+  div.flex.hero
+    div.flex.hero-content 
+      h1 Create & Share Your Builds! 
+      p Have you've made a build or wanted to get into building PCs? Well 
+        | this is the tool for you to show to the world your awesome PC!
+      a(href="/builds/create").flex.btn.hero_btn 
+        object(type="image/svg+xml" data="/images/wrench.svg")
+        span View the PC Builder
+
+    img(src="/images/logo.png").hero_img
+
+  h2.secondary_header Completed Builds
+
+  //- Limited list of completed builds
+  div.grid.builds-container 
+    each build in completedBuilds
+      div.build-card
+        //- Card Header
+        div.flex.card-header 
+          img(src="/images/logo.png")
+          span= build.author_name
+        //- Card Preview
+        img(src=build.thumbnail_url).thumbnail
+        //- Card Content
+        div.build-info
+          div.build-summary 
+            p.build-name= build.build_name 
+            div 
+              if build.components.get("CPU")
+                p= build.components.get("CPU").short_name
+              if build.components.get("Video Card")
+                p= build.components.get("Video Card").short_name
+          div.price
+            p= build.price
+
+    a(href="/builds").btn.flex.builds_btn
+      object(type="image/svg+xml" data="/images/pc_case.svg")
+      | See All Completed Builds

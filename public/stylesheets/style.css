@@ -2,10 +2,12 @@
 
 :root {
   --blue: #2c87c3;
+  --cyan: #1e5c85;
   --light-navy: #191b2a;
   --navy: #11121d;
   --yellow: #eda920;
   --orange: #e26723;
+  --off-white: #eaeaea;
   --light-grey: #f4f4f3;
   --grey: #dddcdb;
   --dark-grey: #535559;
@@ -26,14 +28,54 @@
 }
 
 body {
+  min-height: 100vh;
+  max-width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+
+  overflow-x: hidden;
   font-family: var(--font-family);
+  background-color: var(--light-grey);
+}
+
+#main-content-wrapper {
+  width: 100%;
+  max-width: var(--max-width-min);
+  padding-inline: 0.5rem;
 }
 
 /* Template Classes */
 .flex {
   display: flex;
   gap: var(--gap, 1rem);
+}
+
+.grid {
+  display: grid;
+}
+
+.btn {
+  height: max-content;
+  cursor: pointer;
+  padding: 0.75rem;
+
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+
+  background-color: var(--blue);
+  border-radius: 0.5rem;
+  border: 0;
+  text-decoration: none;
+  transition: background-color 200ms ease-in-out;
+}
+
+.btn.flex {
+  justify-content: center;
+  align-items: center;
+}
+
+.btn:hover {
+  background-color: var(--cyan);
 }
