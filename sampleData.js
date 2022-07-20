@@ -298,7 +298,7 @@ module.exports = {
     {
       category: "Video Card",
       name: "NVIDIA GeForce RTX 3060 Ti Founders Edition 8GB GDDR6",
-      name: "GeForce RTX 3060 Ti",
+      short_name: "GeForce RTX 3060 Ti",
       brand: "Nvidia",
       price: 399.99,
       image_url:
