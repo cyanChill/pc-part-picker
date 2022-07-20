@@ -5,9 +5,9 @@ const Schema = mongoose.Schema;
 const schemaOpt = { virtuals: true };
 const ListSchema = new Schema(
   {
-    author_name: { type: String, required: true },
-    build_name: { type: String, required: true },
-    description: { type: String, required: true },
+    author_name: { type: String, required: true, maxLength: 30 },
+    build_name: { type: String, required: true, maxLength: 30 },
+    description: { type: String, required: true, maxLength: 200 },
     thumbnail_url: { type: String },
     components: {
       type: Map,
@@ -25,7 +25,7 @@ const ListSchema = new Schema(
 */
 
 /*
-ProductSchema.virtual("populatedComponents", {
+ListSchema.virtual("populatedComponents", {
   ref: "Product",
   localField: "components",
   foreignField: "_id",

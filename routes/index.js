@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+const indexController = require("../controllers/indexController");
+
 /* GET home page. */
-router.get("/", (req, res, next) => {
-  res.render("index", { title: "PC Parts List" });
-});
+router.get("/", indexController.homeGet);
 
 module.exports = router;

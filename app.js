@@ -21,6 +21,11 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
+// Load Models
+const Brand = require("./models/brand");
+const Category = require("./models/category");
+const List = require("./models/list");
+const Product = require("./models/product");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
