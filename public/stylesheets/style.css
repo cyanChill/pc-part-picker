@@ -1,8 +1,39 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+:root {
+  --blue: #2c87c3;
+  --light-navy: #191b2a;
+  --navy: #11121d;
+  --yellow: #eda920;
+  --orange: #e26723;
+  --light-grey: #f4f4f3;
+  --grey: #dddcdb;
+  --dark-grey: #535559;
+  --brown: #b18c5a;
+
+  --font-family: "Roboto", sans-serif;
+
+  --max-width-min: 82.5rem;
+  --max-width: 90rem;
 }
 
-a {
-  color: #00B7FF;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: var(--font-family);
+}
+
+/* Template Classes */
+.flex {
+  display: flex;
+  gap: var(--gap, 1rem);
 }

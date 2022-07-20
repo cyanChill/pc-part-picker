@@ -1,0 +1,23 @@
+div#nav-wrapper.flex
+  nav#main-nav.flex
+    a.flex.logo-container(href="/")
+        img(src="/images/logo.png" alt="logo")
+        | PC
+        span.highlight PART
+        | Picker 
+
+    input#menu-ctrl(type="checkbox") 
+
+    ul.flex.sidebar
+      li 
+        a(href="/lists/create") 
+          object(type="image/svg+xml" data="/images/wrench.svg")
+          span PC Builder 
+      li 
+        a(href="/lists")
+          object(type="image/svg+xml" data="/images/pc_case.svg")
+          span Completed Builds 
+      li 
+        a(href="/products") 
+          object(type="image/svg+xml" data="/images/cpu.svg")
+          span Browse Products 
