@@ -15,6 +15,7 @@ const sampleData = require("./sampleData");
 const Brand = require("./models/brand");
 const Category = require("./models/category");
 const Product = require("./models/product");
+const List = require("./models/list");
 
 const mongoose = require("mongoose");
 mongoose.connect(userArgs[0], {
@@ -27,7 +28,8 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 let brandIdRef = {};
 let categoryIdRef = {};
-let product = [];
+let productIdRef = {};
+let finalLists = [];
 
 const brandCreate = async (brandName) => {
   try {
@@ -53,12 +55,21 @@ const categoryCreate = async (categoryName) => {
 const productCreate = async (productInfo) => {
   try {
     const result = await Product.create(productInfo);
-    product.push(result._doc);
+    productIdRef[productInfo.name] = result._id;
   } catch (err) {
     console.log(
       `There was an error creating the Product '${productInfo.name}'`,
       err
     );
+  }
+};
+
+const listCreate = async (listInfo) => {
+  try {
+    const result = await List.create(listInfo);
+    finalLists.push(result._doc);
+  } catch (err) {
+    console.log(`There was an error creating the List '${listInfo.name}'`, err);
   }
 };
 
@@ -94,10 +105,28 @@ const createProducts = async () => {
   }
 };
 
+const createLists = async () => {
+  const filledLists = sampleData.lists.map((listTemp) => {
+    let productInfo = { ...listTemp };
+    for (let comp in listTemp.components) {
+      productInfo.components[comp] = productIdRef[listTemp.components[comp]];
+    }
+    return productInfo;
+  });
+
+  try {
+    await Promise.all(filledLists.map((list) => listCreate(list)));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const populateData = async () => {
   try {
     await Promise.all([createBrands(), createCategories()]);
-    await Promise.all([createProducts()]);
+    await createProducts();
+    await createLists();
+    console.log(finalLists);
   } catch (err) {
     console.log(err);
   }
