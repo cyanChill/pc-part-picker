@@ -20,9 +20,10 @@
 .logo-container {
   --gap: 0;
   align-items: center;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 500;
   text-decoration: none;
+  text-transform: uppercase;
   color: var(--grey);
 }
 
@@ -93,7 +94,7 @@
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  font-size: 1.05rem;
+  font-size: clamp(1.05rem, 5vw, 1.5rem);
   font-weight: 500;
   color: var(--grey);
 }
@@ -115,11 +116,24 @@
 }
 
 @media (min-width: 768px) {
+  .logo-container {
+    font-size: 1.5rem;
+  }
+
+  .logo-container img {
+    width: 2.5rem;
+  }
+
+  #main-nav {
+    padding: 1rem;
+  }
+
   #menu-ctrl {
     display: none;
   }
 
   .sidebar {
+    --gap: 1.5rem;
     height: max-content;
     flex-direction: row;
     position: initial;
@@ -127,5 +141,9 @@
     padding: 0 1rem;
     background-color: transparent;
     transform: translate(0);
+  }
+
+  .sidebar a {
+    font-size: 1.05rem;
   }
 }
