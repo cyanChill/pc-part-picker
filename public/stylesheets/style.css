@@ -5,15 +5,20 @@
   --cyan: #1e5c85;
   --light-navy: #191b2a;
   --navy: #11121d;
+
+  --brown: #b18c5a;
   --yellow: #eda920;
   --orange: #e26723;
+  --error: #ed4337;
+
   --off-white: #eaeaea;
   --light-grey: #f4f4f3;
   --grey: #dddcdb;
   --dark-grey: #535559;
-  --brown: #b18c5a;
   --lilac: #545578;
-  --error: #ed4337;
+
+  --green: #00b16a;
+  --dark-green: #00653c;
 
   --font-family: "Roboto", sans-serif;
 
@@ -54,31 +59,6 @@ body {
 /* Ignore Pointer Events of object Tags */
 object {
   pointer-events: none;
-}
-
-/* Basic Table Styling */
-table {
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-}
-
-tr {
-  border-bottom: 1px solid var(--grey);
-}
-
-th {
-  text-align: start;
-  font-weight: 500;
-}
-
-td {
-  font-size: 0.9rem;
-}
-
-th,
-td {
-  padding: 0.5rem;
 }
 
 /* Template Classes */
@@ -129,4 +109,9 @@ td {
 
 .btn:hover {
   background-color: var(--cyan);
+}
+
+.btn object {
+  width: 1.5rem;
+  aspect-ratio: 1;
 }
