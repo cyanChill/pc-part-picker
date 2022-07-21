@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
+const schemaOpt = { toJSON: { virtuals: true } };
 
-const schemaOpt = { virtuals: true };
 const ListSchema = new Schema(
   {
     author_name: { type: String, required: true, maxLength: 30 },

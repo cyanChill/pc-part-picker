@@ -11,8 +11,6 @@ exports.homeGet = async (req, res, next) => {
     return build;
   });
 
-  console.log(builds);
-
   res.render("index", {
     title: "PC Parts List",
     completedBuilds: builds,
