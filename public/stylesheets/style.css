@@ -12,6 +12,8 @@
   --grey: #dddcdb;
   --dark-grey: #535559;
   --brown: #b18c5a;
+  --lilac: #545578;
+  --error: #ed4337;
 
   --font-family: "Roboto", sans-serif;
 
@@ -45,6 +47,40 @@ body {
   padding-inline: 0.5rem;
 }
 
+.hidden {
+  display: none;
+}
+
+/* Ignore Pointer Events of object Tags */
+object {
+  pointer-events: none;
+}
+
+/* Basic Table Styling */
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 1px solid var(--grey);
+}
+
+th {
+  text-align: start;
+  font-weight: 500;
+}
+
+td {
+  font-size: 0.9rem;
+}
+
+th,
+td {
+  padding: 0.5rem;
+}
+
 /* Template Classes */
 .flex {
   display: flex;
@@ -55,6 +91,21 @@ body {
   display: grid;
 }
 
+/* Custom Header for page */
+.page_header {
+  padding: 1.25rem;
+
+  color: white;
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-weight: 600;
+  text-align: center;
+
+  background-color: var(--header-clr, var(--orange));
+  box-shadow: 0 0 0 100vmax var(--header-clr, var(--orange));
+  clip-path: inset(0 -100vmax);
+}
+
+/* Custom Button (Works with links) */
 .btn {
   height: max-content;
   cursor: pointer;

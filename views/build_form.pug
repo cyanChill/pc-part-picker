@@ -1,0 +1,66 @@
+extends layout
+
+block extraInfo 
+  link(rel='stylesheet', href='/stylesheets/build-form.css')
+
+block content
+  //- Where we create our PC Parts List; can be used to create a new list
+  //- or update an existing list (given we provide a password -- aka
+  //- validation)
+  //- We can access with an admin password or list password the creator
+  //- provided
+  //- If we're creating/updating a list, save the parts in local storage
+  //- or something
+
+
+  //- Header
+  header.page_header.custom_clr= title
+
+  //- Base structure on table HTML tag
+  table 
+    colgroup 
+      col(style="word-wrap: break-word; width: 10rem;")
+      col(style="word-wrap: break-word;")
+      col(style="word-wrap: break-word; width: 5rem;")
+      col(style="word-wrap: break-word; width: 7.5rem;")
+
+    thead 
+      tr.custom_columns 
+        th 
+          div(style="max-width: 10rem;") Component 
+        th 
+          div Selection 
+        th 
+          div(style="max-width: 5rem;") Price 
+        th 
+          div(style="max-width: 5rem;") Buy
+
+    tbody
+      each category in categories 
+        tr.component_row 
+          td.category_name
+            a(href=`/category/${category._id}`)= category.name
+
+          td 
+            if currList[category.name] 
+              a(href=`/products/${currList[category.name]._id}`).flex.selected_component 
+                img(src=currList[category.name].image_url)
+                | #{currList[category.name].short_name}
+            else
+              a(href=`/category/${category._id}`).btn.selection_btn
+                | + Choose a #{category.name}
+
+          td 
+            if currList[category.name] 
+              b $#{currList[category.name].price}
+
+          td 
+            if currList[category.name]
+              div.flex.component_actions
+                a(href=currList[category.name].buy_link target="_blank").btn.flex.buy_btn
+                  object(type="image/svg+xml" data="/images/amazon.svg")
+
+                form(method="POST" action="/builds/create/deleteComponent")
+                  input(type='text' name='component' value=category.name).hidden
+                  button.btn
+                    object(type="image/svg+xml" data="/images/close.svg")

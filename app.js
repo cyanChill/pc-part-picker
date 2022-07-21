@@ -10,6 +10,9 @@ const logger = require("morgan");
 
 // Application Routes Imports
 const indexRouter = require("./routes/index");
+const buildsRouter = require("./routes/builds");
+const categoryRouter = require("./routes/category");
+const productsRouter = require("./routes/products");
 
 const app = express();
 
@@ -38,6 +41,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/builds", buildsRouter);
+app.use("/category", categoryRouter);
+app.use("/products", productsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

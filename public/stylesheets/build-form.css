@@ -1,0 +1,65 @@
+.custom_clr {
+  --header-clr: var(--lilac);
+}
+
+.custom_columns > th > div {
+  word-wrap: break-word;
+}
+
+/* Custom Styling For Each Non-Header Row in Table */
+.component_row {
+  height: 4rem;
+}
+
+.category_name > a {
+  font-weight: 500;
+  color: var(--blue);
+  text-decoration: none;
+}
+
+/* Component Product Preview */
+.selected_component {
+  align-items: center;
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.selected_component > img {
+  width: 2rem;
+  aspect-ratio: 1;
+}
+
+.selection_btn {
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+/* Contains Buy Button + Remove From List Button */
+.component_actions {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buy_btn {
+  max-width: max-content;
+}
+
+.buy_btn > object {
+  width: 1.25rem;
+}
+
+.component_actions > form > button {
+  background-color: transparent !important;
+  padding: 0.5rem;
+}
+
+.component_actions > form > button > object {
+  width: 1.25rem;
+}
+
+.component_actions > form > button:hover {
+  filter: invert(34%) sepia(82%) saturate(2889%) hue-rotate(342deg)
+    brightness(97%) contrast(92%);
+}
