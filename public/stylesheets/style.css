@@ -2,6 +2,7 @@
 
 :root {
   --blue: #2c87c3;
+  --jean-blue: #505fa1;
   --cyan: #1e5c85;
   --light-navy: #191b2a;
   --navy: #11121d;
@@ -49,11 +50,23 @@ body {
 #main-content-wrapper {
   width: 100%;
   max-width: var(--max-width-min);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-inline: 0.5rem;
 }
 
 .hidden {
   display: none;
+}
+
+/* Hover Effect to indicate link*/
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 /* Ignore Pointer Events of object Tags */
@@ -98,7 +111,6 @@ object {
   background-color: var(--blue);
   border-radius: 0.5rem;
   border: 0;
-  text-decoration: none;
   transition: background-color 200ms ease-in-out;
 }
 

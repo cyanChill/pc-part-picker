@@ -1,0 +1,40 @@
+extends ../layout
+
+block extraInfo
+  link(rel='stylesheet', href='/stylesheets/product-detail.css')
+
+block content
+  h1.page_header.cstm_pg_head= title 
+  
+  main.flex.prod_detail_pg 
+    img(src=prodInfo.image_url).prod_img
+
+    form(method="POST" action=`/products/${prodInfo._id}/add`)
+      input(type='text' name='prodId' value=prodInfo._id).hidden
+      input(type='text' name='ctgyId' value=prodInfo.category._id).hidden
+      button(type="submit").btn.addProduct Add
+
+    div.grid.info_container 
+      aside.prod_info
+        div
+          p Category 
+          a(href=`/category/${prodInfo.category._id}`)= prodInfo.category.name
+        div
+          p Manufacturer 
+          a(href=`/brands/${prodInfo.brand._id}`)= prodInfo.brand.name
+        div
+          p Price 
+          p $#{prodInfo.price}
+        div
+          p Stock 
+          p= prodInfo.stock
+
+      div.specs
+        h2 Features
+        for feat in prodInfo.features
+          p.feature #{feat.feature}: #{feat.description}
+
+    //- TODO: Add fucntionality to these buttons
+    div.flex.prod_actions
+      a.btn Update Product
+      a.btn Delete Product

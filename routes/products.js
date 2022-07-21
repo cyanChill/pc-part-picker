@@ -14,4 +14,7 @@ router.post("/create", productsController.productCreatePost);
 /* GET product detail page */
 router.get("/:productId", productsController.productDetailGet);
 
+/* POST add product to products list */
+router.post("/:productId/add", productsController.productAddListPost);
+
 module.exports = router;
