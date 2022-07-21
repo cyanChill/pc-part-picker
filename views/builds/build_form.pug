@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block extraInfo 
   link(rel='stylesheet', href='/stylesheets/build-form.css')
@@ -11,6 +11,8 @@ block content
   //- provided
   //- If we're creating/updating a list, save the parts in local storage
   //- or something
+
+  //- TODO: Need to add fields for author name, description, save password, etc.
 
 
   //- Header
@@ -47,7 +49,7 @@ block content
               object(type="image/svg+xml" data="/images/amazon.svg")
 
             form(method="POST" action="/builds/create/deleteComponent")
-              input(type='text' name='componentId' value=category._id).hidden
+              input(type='text' name='ctgyId' value=category._id).hidden
               button.btn.flex.remove_btn
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
                 span.show_mob Remove

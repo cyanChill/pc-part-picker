@@ -1,16 +1,13 @@
 const Category = require("../models/category");
 const Product = require("../models/product");
 
-/* 
-  TODO: Can potentially generalize this later on
-*/
-
-exports.getCurrBuildInfo = async (req) => {
+exports.getBuildInfo = async (req, listType) => {
   if (!req) throw new Error("Did not provide Request object.");
+  if (!listType) throw new Error("Did not provide list type/name.");
 
   // Get Category Names
   const categories = await Category.find({}).sort({ name: 1 });
-  const categoryIds = categories.map((cat) => `${cat._id}-curr`);
+  const categoryIds = categories.map((cat) => `${cat._id}-${listType}`);
 
   // Get the ids of the products we've saved in the cookies
   const browserCookies = req.cookies ? req.cookies : {};
@@ -44,12 +41,4 @@ exports.getCurrBuildInfo = async (req) => {
   });
 
   return { categories: categories, selectedProducts: selectedProducts };
-};
-
-exports.deleteCompFromCurrBuild = async (res, componentId) => {
-  if (!res) throw new Error("Did not provide Response object.");
-  if (!componentId) throw new Error("Did not provide componentId.");
-
-  // Delete a cookie
-  res.clearCookie(`${componentId}-curr`);
 };

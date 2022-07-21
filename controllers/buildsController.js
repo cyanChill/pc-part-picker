@@ -1,29 +1,34 @@
 const buildsHelper = require("../helpers/buildsHelper");
+const productHelper = require("../helpers/productHelper");
 const Category = require("../models/category");
 const List = require("../models/list");
 
 exports.buildGet = async (req, res, next) => {
-  /* TESTING PURPOSES */
-  res.cookie(
-    `${"62d86f6970ae17716c474dd3"}-curr`,
-    "62d86f6a70ae17716c474e24", // Product Id
-    { maxAge: 900000, httpOnly: true }
-  );
+  try {
+    /* TESTING PURPOSES */
+    productHelper.addProdToList(
+      res,
+      "62d86f6a70ae17716c474e24", // Product Id
+      "62d86f6970ae17716c474dd3", // Category Id
+      "curr"
+    );
 
-  res.render("builds", {
-    title: "Completed Builds",
-  });
+    res.render("builds/builds", {
+      title: "Completed Builds",
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 exports.buildCreateGet = async (req, res, next) => {
   try {
-    const { categories, selectedProducts } =
-      await buildsHelper.getCurrBuildInfo(req);
+    const results = await buildsHelper.getBuildInfo(req, "curr");
 
-    res.render("build_form", {
+    res.render("builds/build_form", {
       title: "PC Builder",
-      categories: categories,
-      currList: selectedProducts,
+      categories: results.categories,
+      currList: results.selectedProducts,
     });
   } catch (err) {
     return next(err);
@@ -32,8 +37,8 @@ exports.buildCreateGet = async (req, res, next) => {
 
 exports.buildComponentDelete = async (req, res, next) => {
   try {
-    const { componentId } = req.body;
-    await buildsHelper.deleteCompFromCurrBuild(res, componentId);
+    const { ctgyId } = req.body;
+    await productHelper.removeItemFromList(res, ctgyId, "curr");
 
     res.redirect("/builds/create");
   } catch (err) {
