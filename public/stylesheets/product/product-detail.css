@@ -1,7 +1,6 @@
 /* Page Header Customization */
-.cstm_pg_head {
+.cstm_clr {
   --header-clr: var(--jean-blue);
-  font-size: 1.5rem;
 }
 
 .prod_detail_pg {

@@ -40,18 +40,18 @@ const brandCreate = async (brandName) => {
   }
 };
 
-const categoryCreate = async (categoryName) => {
+const categoryCreate = async (categoryInfo) => {
   try {
     const result = await Category.create({
-      name: categoryName,
-      previewImg: `/images/products/${categoryName
+      ...categoryInfo,
+      previewImg: `/images/products/${categoryInfo.name
         .toLowerCase()
         .replace(" ", "_")}.png`,
     });
-    categoryIdRef[categoryName] = result._id;
+    categoryIdRef[categoryInfo.name] = result._id;
   } catch (err) {
     console.log(
-      `There was an error creating the Category '${categoryName}'`,
+      `There was an error creating the Category '${categoryInfo.name}'`,
       err
     );
   }

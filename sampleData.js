@@ -2,14 +2,45 @@ module.exports = {
   brands: ["AMD", "Intel", "Nvidia", "Noctua", "Corsair", "Asus", "Samsung"],
 
   categories: [
-    "CPU",
-    "CPU Cooler",
-    "Motherboard",
-    "Memory",
-    "Storage",
-    "Video Card",
-    "Case",
-    "Power Supply",
+    {
+      name: "CPU",
+      description:
+        "A Central Processing Unit (CPU) is teh brain of the computer and runs all your programs, calculations, and operations.",
+    },
+    {
+      name: "CPU Cooler",
+      description:
+        "This is what keeps your CPU cool, drawing away all the heat it generates and preventing it from frying itself.",
+    },
+    {
+      name: "Motherboard",
+      description:
+        "This connects all the components of a PC together and gives us access to ports we can use to plug in our peripherals.",
+    },
+    {
+      name: "Memory",
+      description:
+        "Also known as RAM, this stores small amounts of data which can be accessed by the CPU at high speeds. However, it is volatile, meaning data stored is lost when the power goes off.",
+    },
+    {
+      name: "Storage",
+      description:
+        "This is where you store documents and games long-term (and is not volatile compared to RAM).",
+    },
+    {
+      name: "Video Card",
+      description:
+        "This is a piece of hardware that allows for video rendering (outputing video to a screen) and for playing games.",
+    },
+    {
+      name: "Case",
+      description: "This is where you house all your PC components securely.",
+    },
+    {
+      name: "Power Supply",
+      description:
+        "This is required to run a PC and power all the components in it.",
+    },
   ],
 
   products: [

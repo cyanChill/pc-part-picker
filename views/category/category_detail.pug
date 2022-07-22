@@ -4,7 +4,9 @@ block extraInfo
   link(rel='stylesheet', href='/stylesheets/category/category-detail.css')
 
 block content
-  h1.page_header.cstm_clr= title
+  header.pg_header.cstm_clr
+    p= title
+    p.pg_header_subText= category.description
   
   section.prod_container 
     div.table_header
@@ -12,6 +14,7 @@ block content
       p Manufacturer 
       p Stock 
       p Price 
+      p Buy
       p 
 
     each prod in products
@@ -42,6 +45,6 @@ block content
 
         form(method="POST" action=`/products/${prod._id}/add`).add_action
           input(type='text' name='prodId' value=prod._id).hidden
-          input(type='text' name='ctgyId' value=categoryId).hidden
+          input(type='text' name='ctgyId' value=category._id).hidden
           button.btn.flex.add_btn
             span Add

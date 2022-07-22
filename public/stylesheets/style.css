@@ -94,17 +94,25 @@ object {
 }
 
 /* Custom Header for page */
-.page_header {
+.pg_header {
   padding: 1.25rem;
 
   color: white;
-  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-size: clamp(1.45rem, 5vw, 1.75rem);
   font-weight: 600;
   text-align: center;
 
   background-color: var(--header-clr, var(--orange));
   box-shadow: 0 0 0 100vmax var(--header-clr, var(--orange));
   clip-path: inset(0 -100vmax);
+}
+
+.pg_header_subText {
+  max-width: var(--max-width-min);
+  color: var(--light-grey);
+  font-size: 0.9rem;
+  font-weight: 300;
+  padding-block-start: 0.25rem;
 }
 
 /* Custom Button (Works with links) */

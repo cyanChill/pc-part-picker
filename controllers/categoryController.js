@@ -38,7 +38,7 @@ exports.categoryDetailGet = async (req, res, next) => {
 
     res.render("category/category_detail", {
       title: `${ctgyInfo.name} Products`,
-      categoryId: categoryId,
+      category: ctgyInfo,
       products: ctgyProducts,
     });
   } catch (err) {
