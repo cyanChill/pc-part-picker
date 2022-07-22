@@ -7,7 +7,10 @@ exports.addProdToList = async (res, prodId, ctgyId, listType) => {
   if (!ctgyId) throw new Error("Did not provide Category Id.");
   if (!listType) throw new Error("Did not provide list type/name.");
 
-  res.cookie(`${ctgyId}-${listType}`, prodId, { maxAge: 9000, httpOnly: true });
+  res.cookie(`${ctgyId}-${listType}`, prodId, {
+    maxAge: 259200000, // Saves for 3 days (in milliseconds)
+    httpOnly: true,
+  });
 };
 
 exports.removeItemFromList = async (res, ctgyId, listType) => {

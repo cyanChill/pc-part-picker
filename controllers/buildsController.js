@@ -5,19 +5,11 @@ const List = require("../models/list");
 
 exports.buildGet = async (req, res, next) => {
   try {
-    /* TESTING PURPOSES */
-    productHelper.addProdToList(
-      res,
-      "62d86f6a70ae17716c474e24", // Product Id
-      "62d86f6970ae17716c474dd3", // Category Id
-      "curr"
-    );
-
     res.render("builds/builds", {
       title: "Completed Builds",
     });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 };
 
