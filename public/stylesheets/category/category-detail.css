@@ -19,7 +19,7 @@
   .prod_entry {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    row-gap: 0.25rem;
+    gap: 0.25rem;
     padding-block: 0.25rem;
     border-bottom: 1px solid var(--grey);
   }
@@ -50,6 +50,7 @@
 }
 
 .prod_manufac,
+.prod_stock,
 .prod_price {
   grid-column: span 1;
   font-size: 0.9rem;
@@ -57,11 +58,13 @@
 }
 
 .prod_manufac > *,
+.prod_stock > *,
 .prod_price > * {
   display: block;
 }
 
 .prod_manufac :first-child,
+.prod_stock :first-child,
 .prod_price :first-child {
   font-weight: 400;
   font-size: 0.85rem;
@@ -69,19 +72,31 @@
 
 /* Product Price Styling */
 .prod_price {
+  grid-column: span 2;
   color: var(--green);
 }
 
-/* Add Button Section */
-.add_action {
-  grid-column: span 2;
+/* Buy Button Section */
+.buy_btn {
+  --gap: 0.25rem;
+  grid-column: span 1;
 }
 
+.buy_btn > * {
+  height: 1rem;
+}
+
+.buy_btn,
 .add_btn {
   width: 100%;
   align-items: center;
   padding: 0.5rem;
   font-size: 0.9rem;
+}
+
+/* Add Button Section */
+.add_action {
+  grid-column: span 1;
 }
 
 @media (min-width: 768px) {
@@ -92,7 +107,7 @@
   /* Styling Each Row of "Table" */
   .prod_container > div {
     display: grid;
-    grid-template-columns: 1fr 7rem 4rem 5rem 1rem;
+    grid-template-columns: 1fr 7rem repeat(4, 4rem);
     align-items: center;
     gap: 1rem 0.5rem;
 
@@ -102,7 +117,9 @@
 
   .sel_prod,
   .prod_manufac,
+  .prod_stock,
   .prod_price,
+  .buy_btn,
   .add_action {
     grid-column: span 1;
   }

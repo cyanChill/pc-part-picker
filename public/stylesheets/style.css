@@ -74,6 +74,10 @@ a:hover {
   text-decoration: underline;
 }
 
+.ign_a_hov:hover {
+  text-decoration: none;
+}
+
 /* Ignore Pointer Events of object Tags */
 object {
   pointer-events: none;

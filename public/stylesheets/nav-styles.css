@@ -26,10 +26,6 @@
   color: var(--grey);
 }
 
-.logo-container:hover {
-  text-decoration: none;
-}
-
 .logo-container img {
   width: 2rem;
   aspect-ratio: 1;
@@ -99,10 +95,6 @@
   font-size: clamp(1.05rem, 5vw, 1.5rem);
   font-weight: 500;
   color: var(--grey);
-}
-
-.sidebar a:hover {
-  text-decoration: none;
 }
 
 .sidebar a > * {

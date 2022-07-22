@@ -40,11 +40,6 @@
   font-size: 0.9rem;
 }
 
-.hero_btn:hover,
-.builds_btn:hover {
-  text-decoration: none;
-}
-
 .hero_btn object,
 .builds_btn object {
   width: 1.25rem;

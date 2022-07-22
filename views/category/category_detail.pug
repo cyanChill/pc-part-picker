@@ -28,9 +28,17 @@ block content
           a(href="/")
             | #{prod.brand.name}
 
+        p.prod_stock
+          span.show_mob Stock 
+          | #{prod.stock}
+
         p.prod_price 
           span.show_mob Price
           | $#{prod.price}
+
+        a(href=prod.buy_link target="_blank").btn.flex.ign_a_hov.buy_btn
+          span Buy
+          object(type="image/svg+xml" data="/images/products/amazon.svg")
 
         form(method="POST" action=`/products/${prod._id}/add`).add_action
           input(type='text' name='prodId' value=prod._id).hidden

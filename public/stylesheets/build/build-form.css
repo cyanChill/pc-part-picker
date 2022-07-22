@@ -167,10 +167,6 @@ span.show_mob {
   padding: 0.5rem;
 }
 
-.selection_btn:hover {
-  text-decoration: none;
-}
-
 @media (min-width: 768px) {
   .show_mob {
     display: none;

@@ -9,10 +9,15 @@ block content
   main.flex.prod_detail_pg 
     img(src=prodInfo.image_url).prod_img
 
-    form(method="POST" action=`/products/${prodInfo._id}/add`)
-      input(type='text' name='prodId' value=prodInfo._id).hidden
-      input(type='text' name='ctgyId' value=prodInfo.category._id).hidden
-      button(type="submit").btn.addProduct Add
+    div.flex
+      form(method="POST" action=`/products/${prodInfo._id}/add`)
+        input(type='text' name='prodId' value=prodInfo._id).hidden
+        input(type='text' name='ctgyId' value=prodInfo.category._id).hidden
+        button(type="submit").btn.addProduct Add
+
+      a(href=prodInfo.buy_link target="_blank").btn.flex.ign_a_hov.buy_btn
+        span Buy
+        object(type="image/svg+xml" data="/images/products/amazon.svg")
 
     div.grid.info_container 
       aside.prod_info
