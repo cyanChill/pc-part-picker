@@ -107,6 +107,11 @@ object {
   clip-path: inset(0 -100vmax);
 }
 
+.pg_header_subHead {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
 .pg_header_subText {
   max-width: var(--max-width-min);
   color: var(--light-grey);
@@ -143,4 +148,21 @@ object {
 .btn object {
   width: 1.5rem;
   aspect-ratio: 1;
+}
+
+/* Show Mobile Tag */
+.show_mob {
+  display: block;
+}
+
+span.show_mob {
+  color: var(--dark-grey);
+  font-size: 0.8rem;
+  font-weight: initial;
+}
+
+@media (min-width: 768px) {
+  .show_mob {
+    display: none;
+  }
 }

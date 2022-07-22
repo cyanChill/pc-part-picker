@@ -1,7 +1,9 @@
 extends ../layout
+include ./build_info_table.pug
 
 block extraInfo 
   link(rel='stylesheet', href='/stylesheets/build/build-form.css')
+  link(rel='stylesheet', href='/stylesheets/build/build-info-table.css')
 
 block content
   //- Where we create our PC Parts List; can be used to create a new list
@@ -18,43 +20,5 @@ block content
   //- Header
   header.pg_header.cstm_clr= title
 
-  section.table_container 
-    div.table_header
-      p Component
-      p Selection
-      p Price
-      p Buy
+  +build_info_table(categories, comp_list, true, true)
 
-    each category in categories 
-      div.table_row
-        div.flex.row_label
-          a(href=`/category/${category._id}`).cat_name= category.name
-          div.show_mob.line
-
-        //- If we have a product
-        if currList[category.name]
-          div.flex.sel_prod 
-            a(href=`/products/${currList[category.name]._id}`)
-              img(src=currList[category.name].image_url)
-            a(href=`/products/${currList[category.name]._id}`)
-              | #{currList[category.name].short_name}
-
-          p.prod_price 
-            span.show_mob Price
-            | $#{currList[category.name].price}
-
-          div.flex.prod_actions
-            a(href=currList[category.name].buy_link target="_blank").btn.flex.buy_btn
-              span.show_mob Buy
-              object(type="image/svg+xml" data="/images/products/amazon.svg")
-
-            form(method="POST" action="/builds/create/deleteComponent")
-              input(type='text' name='ctgyId' value=category._id).hidden
-              button.btn.flex.remove_btn
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
-                span.show_mob Remove
-
-        //- If we don't have a product
-        else 
-          a(href=`/category/${category._id}`).btn.ign_a_hov.selection_btn
-            | + Choose a #{category.name}

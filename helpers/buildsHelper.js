@@ -42,3 +42,11 @@ exports.getBuildInfo = async (req, listType) => {
 
   return { categories: categories, selectedProducts: selectedProducts };
 };
+
+exports.addBuildPriceField = (buildInfo) => {
+  let price = 0;
+  buildInfo.components.forEach((val, key) => (price += val.price));
+  buildInfo.price = `$${price}`;
+
+  return buildInfo;
+};

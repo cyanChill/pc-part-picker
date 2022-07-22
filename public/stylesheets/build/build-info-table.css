@@ -1,0 +1,211 @@
+/* Styling Each Row of "Table" */
+.bld_tb_cont > div {
+  padding-block: 0.5rem;
+}
+
+/* Push the main content into the container */
+@media (max-width: 768px) {
+  .sel_prod,
+  .prod_price,
+  .prod_actions {
+    padding-inline: 1rem;
+  }
+}
+
+/* Table Container */
+.bld_tb_cont {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.bld_tb_header {
+  display: none;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+/* Main Styling of Product Row */
+@media (max-width: 768px) {
+  .bld_tb_row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 0.25rem;
+  }
+}
+
+.bld_tb_row_lbl {
+  grid-column: span 2;
+  align-items: center;
+}
+
+/* Category Name Section */
+.ctgy_name {
+  flex-shrink: 0;
+  color: var(--blue);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.bld_tb_lbl_line {
+  flex: 1;
+  height: 2px;
+  background-color: var(--dark-grey);
+}
+
+/* Product Preview Section */
+.sel_prod {
+  grid-column: span 2;
+
+  align-items: center;
+}
+
+.sel_prod img {
+  object-fit: contain;
+  max-width: 3rem;
+  aspect-ratio: 1;
+}
+
+.sel_prod > :last-child {
+  color: black;
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+/* Product Price Styling */
+.prod_price {
+  grid-column: span 2;
+  color: var(--green);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+/* Action Buttons */
+.prod_actions {
+  grid-column: span 2;
+}
+
+.prod_actions > * {
+  flex: 1;
+}
+
+/* Buy Button Section */
+.buy_btn {
+  align-items: center;
+  padding: 0.5rem;
+  background-color: var(--green);
+}
+
+.buy_btn:hover {
+  background-color: var(--dark-green);
+}
+
+.buy_btn span {
+  color: white;
+}
+
+.buy_btn object {
+  width: 1.25rem;
+}
+
+.buy_btn span,
+.remove_btn span {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+/* Remove Component Section */
+.remove_btn {
+  width: 100%;
+  align-items: center;
+  padding: calc(0.5rem - 2px);
+  background-color: transparent;
+  border: 2px solid var(--grey);
+  border-radius: 0.5rem;
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out,
+    border-color 250ms ease-in-out, fill 250ms ease-in-out;
+}
+
+.remove_btn svg {
+  width: 1.25rem;
+  fill: var(--dark-grey);
+}
+
+.remove_btn span {
+  color: var(--dark-grey);
+}
+
+.remove_btn:hover {
+  border-color: var(--dark-grey);
+  background-color: var(--dark-grey);
+}
+
+.remove_btn:hover svg {
+  fill: white;
+}
+
+.remove_btn:hover span {
+  color: white;
+}
+
+/* Selection Button Styling */
+.selection_btn {
+  width: max-content;
+  padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  /* Styling Each Row of "Table" */
+  .bld_tb_cont > div {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr 5rem 5rem;
+    gap: 1rem 0.5rem;
+
+    border-bottom: 1px solid var(--grey);
+  }
+
+  .bld_tb_row_lbl,
+  .sel_prod,
+  .prod_price,
+  .prod_actions {
+    grid-column: span 1;
+  }
+
+  .ctgy_name {
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+
+  .sel_prod {
+    padding: 0.5rem;
+  }
+
+  .sel_prod > :last-child {
+    font-size: 1.05rem;
+  }
+
+  .sel_prod img {
+    max-width: 2rem;
+  }
+
+  .prod_price {
+    align-self: center;
+  }
+
+  .prod_actions {
+    align-self: center;
+  }
+
+  .remove_btn {
+    padding: 0.5rem;
+    border: 0;
+  }
+
+  .remove_btn:hover {
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  .remove_btn:hover svg {
+    fill: var(--error);
+  }
+}

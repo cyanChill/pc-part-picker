@@ -1,0 +1,14 @@
+.cstm_clr {
+  --header-clr: var(--blue);
+}
+
+.thumbnail_img {
+  width: 100%;
+  padding-block: 0.5rem;
+}
+
+@media (min-width: 568px) {
+  .thumbnail_img {
+    max-width: 20rem;
+  }
+}

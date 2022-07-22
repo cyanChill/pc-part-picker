@@ -21,7 +21,7 @@ block content
   //- Limited list of completed builds
   div.grid.builds-container 
     each build in completedBuilds
-      div.build-card
+      a(href=`/builds/${build._id}`).build-card
         //- Card Header
         div.flex.card-header 
           img(src="/images/logo.png")
