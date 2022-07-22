@@ -54,14 +54,14 @@
   right: 0.25rem;
 
   cursor: pointer;
-  background-image: url("/images/icon-hamburger.svg");
+  background-image: url("/images/ui/icon-hamburger.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-color: transparent;
 }
 
 #menu-ctrl:checked::after {
-  background-image: url("/images/icon-close.svg");
+  background-image: url("/images/ui/ui/icon-close.svg");
 }
 
 /* Navigation Items */
