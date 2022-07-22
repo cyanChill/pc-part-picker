@@ -42,7 +42,12 @@ const brandCreate = async (brandName) => {
 
 const categoryCreate = async (categoryName) => {
   try {
-    const result = await Category.create({ name: categoryName });
+    const result = await Category.create({
+      name: categoryName,
+      previewImg: `/images/products/${categoryName
+        .toLowerCase()
+        .replace(" ", "_")}.png`,
+    });
     categoryIdRef[categoryName] = result._id;
   } catch (err) {
     console.log(
