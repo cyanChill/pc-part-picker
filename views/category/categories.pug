@@ -1,0 +1,13 @@
+extends ../layout
+
+block extraInfo 
+  link(rel='stylesheet', href='/stylesheets/category/categories.css')
+
+block content
+  h1.page_header.cstm_clr= title
+
+  div.grid.ctgy_container
+    each ctgy in categories 
+      a(href=`/category/${ctgy._id}`).btn.ctgy_btn
+        img(src=ctgy.previewImg).ctgy_img
+        | #{ctgy.name}

@@ -3,7 +3,7 @@ const Product = require("../models/product");
 
 exports.categoryGet = async (req, res, next) => {
   // Get all categories
-  const results = await Category.find({});
+  const results = await Category.find({}).sort({ name: 1 });
 
   res.render("category/categories", {
     title: "Product Categories",

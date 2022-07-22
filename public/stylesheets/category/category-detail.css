@@ -44,6 +44,10 @@
 }
 
 /* Manufacturer Styling */
+.prod_manufac a {
+  color: black;
+}
+
 .prod_manufac,
 .prod_price {
   grid-column: span 1;
