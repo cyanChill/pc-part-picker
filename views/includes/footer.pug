@@ -1,3 +1,24 @@
-footer 
-  br
-  p Footer
+footer.flex#footer 
+  div.grid.footer_info 
+    div(style="flex-direction: column;").flex
+      img(src="/images/logo.png").footer_logo 
+      div.footer_catch_phrase
+        p Pick Parts.
+        p Build Your PC.
+        p Compare And Share.
+
+    div.footer_pg_links
+      p.subheading Categories
+      
+      ul 
+        li 
+          a(href="/builds/create") PC Builder 
+        li 
+          a(href="/builds") Completed Builds 
+        li 
+          a(href="/category") Browse Products 
+
+
+  div.flex.footer_socials
+    a(href="https://github.com/cyanChill" alt="Link to my github")
+      object(type="image/svg+xml" data="/images/products/github.svg")
