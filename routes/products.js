@@ -3,9 +3,6 @@ const router = express.Router();
 
 const productsController = require("../controllers/productsController");
 
-/* GET list of all products page. */
-router.get("/", productsController.productsGet);
-
 /* GET product create page. */
 router.get("/create", productsController.productCreateGet);
 /* POST product page */

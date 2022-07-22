@@ -8,6 +8,11 @@ span.show_mob {
   font-weight: initial;
 }
 
+/* Styling Each Row of "Table" */
+.table_container > div {
+  padding-block: 0.5rem;
+}
+
 /* Push the main content into the container */
 @media (max-width: 768px) {
   .sel_prod,
@@ -69,6 +74,7 @@ span.show_mob {
 }
 
 .sel_prod img {
+  object-fit: contain;
   max-width: 3rem;
   aspect-ratio: 1;
 }
@@ -176,7 +182,6 @@ span.show_mob {
     grid-template-columns: 7.5rem 1fr 5rem 5rem;
     gap: 1rem 0.5rem;
 
-    padding-block: 0.25rem;
     border-bottom: 1px solid var(--grey);
   }
 

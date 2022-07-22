@@ -33,6 +33,7 @@
 }
 
 .sel_prod img {
+  object-fit: contain;
   max-width: 3rem;
   aspect-ratio: 1;
 }
