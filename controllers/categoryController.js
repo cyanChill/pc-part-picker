@@ -32,7 +32,7 @@ exports.categoryDetailGet = async (req, res, next) => {
 
     if (!ctgyInfo) {
       // TODO: Handle by throwing different error page
-      return next(new Error("Category Not Found"));
+      throw new Error("Category Not Found");
     }
     console.log(ctgyProducts);
 

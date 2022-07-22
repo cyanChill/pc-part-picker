@@ -1,16 +1,16 @@
 extends ../layout
+include ./build_card.pug
 
 block extraInfo 
   link(rel='stylesheet', href='/stylesheets/build/builds.css')
+  link(rel='stylesheet', href='/stylesheets/build/build-card.css')
 
 block content
   //- Header
   header.pg_header= title 
 
-  div 
-    aside 
-      //- Filters:
-      //-   - price slider (like on PC Parts picker site)
-      //-   - CPU checkbox
-      //-   - GPU checkbox
+  //- List of completed builds
+  div.grid.builds-container 
+    each buildInfo in buildList
+      +build_card(buildInfo)
   

@@ -18,7 +18,7 @@ exports.productDetailGet = async (req, res, next) => {
 
     if (!result) {
       // TODO: Handle by throwing different error page
-      return next(new Error("No Product Found"));
+      throw new Error("No Product Found");
     }
     console.log(result);
 

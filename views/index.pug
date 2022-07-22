@@ -1,4 +1,5 @@
 extends layout
+include ./builds/build_card.pug
 
 block extraInfo 
   link(rel='stylesheet', href='/stylesheets/home.css')
@@ -20,25 +21,8 @@ block content
 
   //- Limited list of completed builds
   div.grid.builds-container 
-    each build in completedBuilds
-      a(href=`/builds/${build._id}`).build-card
-        //- Card Header
-        div.flex.card-header 
-          img(src="/images/logo.png")
-          span= build.author_name
-        //- Card Preview
-        img(src=build.thumbnail_url).thumbnail
-        //- Card Content
-        div.build-info
-          div.build-summary 
-            p.build-name= build.build_name 
-            div 
-              if build.components.get("CPU")
-                p= build.components.get("CPU").short_name
-              if build.components.get("Video Card")
-                p= build.components.get("Video Card").short_name
-          div.price
-            p= build.price
+    each buildInfo in completedBuilds
+      +build_card(buildInfo)
 
     a(href="/builds").btn.flex.ign_a_hov.builds_btn
       object(type="image/svg+xml" data="/images/ui/pc_case.svg")

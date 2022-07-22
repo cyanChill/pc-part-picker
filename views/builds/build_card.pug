@@ -1,0 +1,20 @@
+mixin build_card(buildInfo)
+  a(href=`/builds/${buildInfo._id}`).ign_a_hov.build-card
+    //- Card Header
+    div.flex.card-header 
+      img(src="/images/logo.png")
+      span= buildInfo.author_name
+    //- Card Preview
+    img(src=buildInfo.thumbnail_url).thumbnail
+    //- Card Content
+    div.build-info
+      div.build-summary 
+        p.build-name= buildInfo.build_name 
+        div 
+          if buildInfo.components.get("CPU")
+            p= buildInfo.components.get("CPU").short_name
+          if buildInfo.components.get("Video Card")
+            p= buildInfo.components.get("Video Card").short_name
+      div.price
+        p= buildInfo.price
+
