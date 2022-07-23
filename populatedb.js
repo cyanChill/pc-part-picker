@@ -8,9 +8,16 @@ console.log(
   "This script populates some test brands, categories, and products to your database. Specified database as argument - e.g.: populatedb mongodb+srv://cooluser:coolpassword@cluster0.a9azn.mongodb.net/local_library?retryWrites=true"
 );
 
+/* 
+  You should edit this value for giving the sample data a different save
+  password.
+*/
+const LIST_SAVE_PASSWORD = "password";
+
 // Get arguments passed on command line
 const userArgs = process.argv.slice(2);
 
+const hashHelper = require("./helpers/hashHelper");
 const sampleData = require("./sampleData");
 const Brand = require("./models/brand");
 const Category = require("./models/category");
@@ -71,7 +78,11 @@ const productCreate = async (productInfo) => {
 
 const listCreate = async (listInfo) => {
   try {
-    const result = await List.create(listInfo);
+    const hashedPassword = await hashHelper.hashPassword(LIST_SAVE_PASSWORD);
+    const result = await List.create({
+      ...listInfo,
+      hashedSavePass: hashedPassword,
+    });
     finalLists.push(result._doc);
   } catch (err) {
     console.log(`There was an error creating the List '${listInfo.name}'`, err);
