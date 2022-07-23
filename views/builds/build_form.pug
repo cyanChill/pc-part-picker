@@ -10,12 +10,12 @@ block content
   //- Header
   header.pg_header.cstm_clr= title
 
-  button(onclick="hideSubmissionProcess();").btn.bld_form_cstm_btn#editComp_btn(class=(formError ? '' : 'hide'))
+  button(onclick="hideSubmissionProcess();").btn.gold.bld_form_cstm_btn#editComp_btn(class=(formError ? '' : 'hide'))
     | Edit Build Configuration
 
   +build_info_table(categories, comp_list, true, true)#bd_comp_tb(class=(formError ? "bld_tb_no_edit" : ""))
 
-  button(onclick="showSubmissionProcess();").btn.bld_form_cstm_btn#prepSub_btn(class=(formError ? 'hide' : ''))
+  button(onclick="showSubmissionProcess();").btn.gold.bld_form_cstm_btn#prepSub_btn(class=(formError ? 'hide' : ''))
     | Finalize Submission
 
   form(method="POST").flex#bldSub_form(class=(formError ? '' : 'hide'))
@@ -34,5 +34,5 @@ block content
       b Note: 
       | The password is for when you want to edit this build list in the future.
 
-    button(type="submit").btn.bld_form_cstm_btn.bld_form_sbt_btn Submit New PC Build
+    button(type="submit").btn.green.bld_form_cstm_btn.bld_form_sbt_btn Submit New PC Build
 

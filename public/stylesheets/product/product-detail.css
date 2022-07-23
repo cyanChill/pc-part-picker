@@ -30,11 +30,6 @@
   padding: 0.5rem 1rem;
   font-weight: 600;
   font-size: 0.9rem;
-  background-color: var(--green);
-}
-
-.buy_btn:hover {
-  background-color: var(--dark-green);
 }
 
 .buy_btn > * {

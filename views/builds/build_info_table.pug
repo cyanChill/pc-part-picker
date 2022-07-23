@@ -26,7 +26,7 @@ mixin build_info_table(categories, componentList, showSel, showRmv)
             | $#{componentList[ctgy.name].price}
 
           div.flex.bld_tb_prod_actions
-            a(href=componentList[ctgy.name].buy_link target="_blank").btn.flex.bld_tb_buy_btn
+            a(href=componentList[ctgy.name].buy_link target="_blank").btn.green.flex.bld_tb_buy_btn
               span.show_mob Buy
               object(type="image/svg+xml" data="/images/products/amazon.svg")
 

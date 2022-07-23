@@ -122,15 +122,19 @@ object {
 
 /* Custom Button (Works with links) */
 .btn {
+  --btn-text-clr: white;
+  --btn-clr: var(--blue);
+  --btn-hover-clr: var(--cyan);
+
   height: max-content;
   cursor: pointer;
   padding: 0.75rem;
 
-  color: white;
+  color: var(--btn-text-clr);
   font-size: 1rem;
   font-weight: 600;
 
-  background-color: var(--blue);
+  background-color: var(--btn-clr);
   border-radius: 0.5rem;
   border: 0;
   transition: background-color 200ms ease-in-out;
@@ -142,12 +146,23 @@ object {
 }
 
 .btn:hover {
-  background-color: var(--cyan);
+  text-decoration: none;
+  background-color: var(--btn-hover-clr);
 }
 
 .btn object {
   width: 1.5rem;
   aspect-ratio: 1;
+}
+
+.btn.green {
+  --btn-clr: var(--green);
+  --btn-hover-clr: var(--dark-green);
+}
+
+.btn.gold {
+  --btn-clr: var(--yellow);
+  --btn-hover-clr: var(--orange);
 }
 
 /* Show Mobile Tag */

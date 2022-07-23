@@ -80,12 +80,8 @@
 .buy_btn {
   --gap: 0.25rem;
   grid-column: span 1;
-  background-color: var(--green);
 }
 
-.buy_btn:hover {
-  background-color: var(--dark-green);
-}
 
 .buy_btn > * {
   height: 1rem;

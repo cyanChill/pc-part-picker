@@ -8,19 +8,6 @@
   padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
   font-weight: 600;
-  background-color: var(--yellow);
-}
-
-.bld_form_cstm_btn:hover {
-  background-color: var(--orange);
-}
-
-.bld_form_sbt_btn {
-  background-color: var(--green);
-}
-
-.bld_form_sbt_btn:hover {
-  background-color: var(--dark-green);
 }
 
 #editComp_btn {
