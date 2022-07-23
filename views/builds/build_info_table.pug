@@ -1,5 +1,6 @@
 mixin build_info_table(categories, componentList, showSel, showRmv)
-  section.bld_tb_cont 
+  //- Pass attributes passed to mixin
+  section&attributes(attributes).bld_tb_cont
     div.bld_tb_header
       p Component
       p Selection
@@ -30,8 +31,8 @@ mixin build_info_table(categories, componentList, showSel, showRmv)
               object(type="image/svg+xml" data="/images/products/amazon.svg")
 
             if showRmv 
-              form(method="POST" action="/builds/create/deleteComponent")
-                input(type='text' name='ctgyId' value=ctgy._id).hidden
+              form(method="POST" action="/builds/create/deleteComponent").bld_tb_rmv_form
+                input(type='text' name='ctgyId' value=ctgy._id).hide
                 button.btn.flex.bld_tb_rmv_btn
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
                   span.show_mob Remove
@@ -41,5 +42,6 @@ mixin build_info_table(categories, componentList, showSel, showRmv)
           if showSel 
             a(href=`/category/${ctgy._id}`).btn.ign_a_hov.bld_tb_sel_btn
               | + Choose a #{ctgy.name}
+            span.bld_tb_no_edit_rpl —
           else
-            span -
+            span.bld_tb_no_sel —

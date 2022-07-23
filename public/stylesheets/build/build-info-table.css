@@ -1,3 +1,20 @@
+/* Remove Editing Features */
+.bld_tb_no_edit .bld_tb_sel_btn {
+  display: none !important;
+}
+
+.bld_tb_no_edit_rpl {
+  display: none;
+}
+
+.bld_tb_no_edit .bld_tb_no_edit_rpl {
+  display: block !important;
+}
+
+.bld_tb_no_edit .bld_tb_rmv_form {
+  display: none !important;
+}
+
 /* Styling Each Row of "Table" */
 .bld_tb_cont > div {
   padding-block: 0.5rem;
@@ -151,6 +168,11 @@
 .bld_tb_sel_btn {
   width: max-content;
   padding: 0.5rem;
+}
+
+.bld_tb_no_sel,
+.bld_tb_no_edit_rpl {
+  padding: 0.5rem 1rem;
 }
 
 @media (min-width: 768px) {

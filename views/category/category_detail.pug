@@ -44,7 +44,7 @@ block content
           object(type="image/svg+xml" data="/images/products/amazon.svg")
 
         form(method="POST" action=`/products/${prod._id}/add`).add_action
-          input(type='text' name='prodId' value=prod._id).hidden
-          input(type='text' name='ctgyId' value=category._id).hidden
+          input(type='text' name='prodId' value=prod._id).hide
+          input(type='text' name='ctgyId' value=category._id).hide
           button.btn.flex.add_btn
             span Add

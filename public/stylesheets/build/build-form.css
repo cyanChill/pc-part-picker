@@ -3,9 +3,34 @@
   --header-clr: var(--lilac);
 }
 
+.bld_form_cstm_btn {
+  margin-block: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background-color: var(--yellow);
+}
+
+.bld_form_cstm_btn:hover {
+  background-color: var(--orange);
+}
+
+.bld_form_sbt_btn {
+  background-color: var(--green);
+}
+
+.bld_form_sbt_btn:hover {
+  background-color: var(--dark-green);
+}
+
+#editComp_btn {
+  align-self: flex-start;
+}
+
 #prepSub_btn {
 }
 
+/* Form Styling */
 #bldSub_form {
   --gap: 0.5rem;
   width: 100%;

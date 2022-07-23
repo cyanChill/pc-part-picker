@@ -11,8 +11,8 @@ block content
 
     div.flex
       form(method="POST" action=`/products/${prodInfo._id}/add`)
-        input(type='text' name='prodId' value=prodInfo._id).hidden
-        input(type='text' name='ctgyId' value=prodInfo.category._id).hidden
+        input(type='text' name='prodId' value=prodInfo._id).hide
+        input(type='text' name='ctgyId' value=prodInfo.category._id).hide
         button(type="submit").btn.addProduct Add
 
       a(href=prodInfo.buy_link target="_blank").btn.flex.ign_a_hov.buy_btn

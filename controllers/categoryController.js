@@ -34,7 +34,6 @@ exports.categoryDetailGet = async (req, res, next) => {
       // TODO: Handle by throwing different error page
       throw new Error("Category Not Found");
     }
-    console.log(ctgyProducts);
 
     res.render("category/category_detail", {
       title: `${ctgyInfo.name} Products`,

@@ -61,8 +61,8 @@ body {
   padding-block-end: 1rem;
 }
 
-.hidden {
-  display: none;
+.hide {
+  display: none !important;
 }
 
 /* Hover Effect to indicate link*/
@@ -165,8 +165,4 @@ span.show_mob {
   .show_mob {
     display: none;
   }
-}
-
-.hide {
-  display: none;
 }

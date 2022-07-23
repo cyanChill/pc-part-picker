@@ -10,11 +10,11 @@ exports.buildGet = async (req, res, next) => {
   const results = await List.find({}).populate("components.$*");
   const builds = results ? results : [];
 
-  const informizedBuilds = builds.map((build) =>
-    buildsHelper.addBuildPriceField(build)
-  );
-
   try {
+    const informizedBuilds = builds.map((build) =>
+      buildsHelper.addBuildPriceField(build)
+    );
+
     res.render("builds/builds", {
       title: "Completed Builds",
       buildList: informizedBuilds,
@@ -73,10 +73,23 @@ exports.buildCreatePost = [
 
   async (req, res, next) => {
     const errors = validationResult(req);
-    const currBuild = await buildsHelper.getBuildInfo(req, "curr");
+    const { categories, selectedProducts } = await buildsHelper.getBuildInfo(
+      req,
+      "curr"
+    );
+
+    if (Object.keys(selectedProducts).length === 0) {
+      errors.errors.push({
+        value: "",
+        msg: "Build must contain at least one component.",
+        param: "component",
+        location: "cookie",
+      });
+    }
+
     const currBuildMap = new Map();
-    for (const compName in currBuild.selectedProducts) {
-      currBuildMap.set(compName, currBuild.selectedProducts[compName]._id);
+    for (const compName in selectedProducts) {
+      currBuildMap.set(compName, selectedProducts[compName]._id);
     }
 
     const hashedPass = await hashHelper.hashPassword(req.body.save_pass);
@@ -93,8 +106,8 @@ exports.buildCreatePost = [
     if (!errors.isEmpty()) {
       res.render("builds/build_form", {
         title: "PC Builder",
-        categories: currBuild.categories,
-        comp_list: currBuild.selectedProducts,
+        categories: categories,
+        comp_list: selectedProducts,
         prevData: newList,
         prevPass: req.body.save_pass,
         formError: true,

@@ -20,7 +20,6 @@ exports.productDetailGet = async (req, res, next) => {
       // TODO: Handle by throwing different error page
       throw new Error("No Product Found");
     }
-    console.log(result);
 
     res.render("products/product_detail", {
       title: result.name,
