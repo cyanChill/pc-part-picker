@@ -5,9 +5,9 @@
 
 /* Push the main content into the container */
 @media (max-width: 768px) {
-  .sel_prod,
-  .prod_price,
-  .prod_actions {
+  .bld_tb_sel_prod,
+  .bld_tb_prod_price,
+  .bld_tb_prod_actions {
     padding-inline: 1rem;
   }
 }
@@ -39,7 +39,7 @@
 }
 
 /* Category Name Section */
-.ctgy_name {
+.bld_tb_ctgy_name {
   flex-shrink: 0;
   color: var(--blue);
   font-size: 1.5rem;
@@ -53,26 +53,26 @@
 }
 
 /* Product Preview Section */
-.sel_prod {
+.bld_tb_sel_prod {
   grid-column: span 2;
 
   align-items: center;
 }
 
-.sel_prod img {
+.bld_tb_sel_prod img {
   object-fit: contain;
   max-width: 3rem;
   aspect-ratio: 1;
 }
 
-.sel_prod > :last-child {
+.bld_tb_sel_prod > :last-child {
   color: black;
   font-size: 1.15rem;
   font-weight: 500;
 }
 
 /* Product Price Styling */
-.prod_price {
+.bld_tb_prod_price {
   grid-column: span 2;
   color: var(--green);
   font-size: 1.05rem;
@@ -80,41 +80,41 @@
 }
 
 /* Action Buttons */
-.prod_actions {
+.bld_tb_prod_actions {
   grid-column: span 2;
 }
 
-.prod_actions > * {
+.bld_tb_prod_actions > * {
   flex: 1;
 }
 
 /* Buy Button Section */
-.buy_btn {
+.bld_tb_buy_btn {
   align-items: center;
   padding: 0.5rem;
   background-color: var(--green);
 }
 
-.buy_btn:hover {
+.bld_tb_buy_btn:hover {
   background-color: var(--dark-green);
 }
 
-.buy_btn span {
+.bld_tb_buy_btn span {
   color: white;
 }
 
-.buy_btn object {
+.bld_tb_buy_btn object {
   width: 1.25rem;
 }
 
-.buy_btn span,
-.remove_btn span {
+.bld_tb_buy_btn span,
+.bld_tb_rmv_btn span {
   font-size: 1.05rem;
   font-weight: 600;
 }
 
 /* Remove Component Section */
-.remove_btn {
+.bld_tb_rmv_btn {
   width: 100%;
   align-items: center;
   padding: calc(0.5rem - 2px);
@@ -125,30 +125,30 @@
     border-color 250ms ease-in-out, fill 250ms ease-in-out;
 }
 
-.remove_btn svg {
+.bld_tb_rmv_btn svg {
   width: 1.25rem;
   fill: var(--dark-grey);
 }
 
-.remove_btn span {
+.bld_tb_rmv_btn span {
   color: var(--dark-grey);
 }
 
-.remove_btn:hover {
+.bld_tb_rmv_btn:hover {
   border-color: var(--dark-grey);
   background-color: var(--dark-grey);
 }
 
-.remove_btn:hover svg {
+.bld_tb_rmv_btn:hover svg {
   fill: white;
 }
 
-.remove_btn:hover span {
+.bld_tb_rmv_btn:hover span {
   color: white;
 }
 
 /* Selection Button Styling */
-.selection_btn {
+.bld_tb_sel_btn {
   width: max-content;
   padding: 0.5rem;
 }
@@ -164,48 +164,48 @@
   }
 
   .bld_tb_row_lbl,
-  .sel_prod,
-  .prod_price,
-  .prod_actions {
+  .bld_tb_sel_prod,
+  .bld_tb_prod_price,
+  .bld_tb_prod_actions {
     grid-column: span 1;
   }
 
-  .ctgy_name {
+  .bld_tb_ctgy_name {
     font-size: 1.05rem;
     font-weight: 500;
   }
 
-  .sel_prod {
+  .bld_tb_sel_prod {
     padding: 0.5rem;
   }
 
-  .sel_prod > :last-child {
+  .bld_tb_sel_prod > :last-child {
     font-size: 1.05rem;
   }
 
-  .sel_prod img {
+  .bld_tb_sel_prod img {
     max-width: 2rem;
   }
 
-  .prod_price {
+  .bld_tb_prod_price {
     align-self: center;
   }
 
-  .prod_actions {
+  .bld_tb_prod_actions {
     align-self: center;
   }
 
-  .remove_btn {
+  .bld_tb_rmv_btn {
     padding: 0.5rem;
     border: 0;
   }
 
-  .remove_btn:hover {
+  .bld_tb_rmv_btn:hover {
     border-color: transparent;
     background-color: transparent;
   }
 
-  .remove_btn:hover svg {
+  .bld_tb_rmv_btn:hover svg {
     fill: var(--error);
   }
 }
