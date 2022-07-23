@@ -166,3 +166,7 @@ span.show_mob {
     display: none;
   }
 }
+
+.hide {
+  display: none;
+}

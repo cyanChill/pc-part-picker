@@ -50,3 +50,16 @@ exports.addBuildPriceField = (buildInfo) => {
 
   return buildInfo;
 };
+
+exports.clearBuildCookies = (req, res, listType) => {
+  const browserCookies = req.cookies ? req.cookies : {};
+  const regex = new RegExp(`.*\-${listType}`);
+  // Get list of cookies for listType
+  const cookieNames = [];
+  for (let keyId in browserCookies) {
+    if (regex.test(keyId)) cookieNames.push(keyId);
+  }
+  // Delete each of the cookies
+  cookieNames.forEach((ckie) => res.clearCookie(ckie));
+  return;
+};

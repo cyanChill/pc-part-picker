@@ -8,11 +8,12 @@ const ListSchema = new Schema(
     author_name: { type: String, required: true, maxLength: 30 },
     build_name: { type: String, required: true, maxLength: 30 },
     description: { type: String, required: true, maxLength: 200 },
-    thumbnail_url: { type: String },
+    thumbnail_url: { type: String, required: true },
     components: {
       type: Map,
       of: { type: Schema.Types.ObjectId, ref: "Product" },
     },
+    hashedSavePass: { type: String, required: true },
   },
   schemaOpt
 );
