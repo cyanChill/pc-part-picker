@@ -15,7 +15,7 @@ block content
     p.pg_header_subHead= author
     p.pg_header_subText= description
 
-  img(src=thumbnail_url).thumbnail_img
+  img(src=thumbnail_url onerror="this.src = '/images/fallback_pc_build.jpg';").thumbnail_img
 
   +build_info_table(categories, comp_list, false, false)
 

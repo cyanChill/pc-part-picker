@@ -1,4 +1,6 @@
 .build-card {
+  --gap: 0;
+  flex-direction: column;
   color: black;
   background-color: white;
 }
@@ -35,16 +37,15 @@
 
 /* Build Info */
 .build-info {
+  --gap: 0;
+  flex: 1;
+  flex-direction: column;
   outline: 1px solid var(--off-white);
   font-size: 0.8rem;
 }
 
 .build-info > * {
   padding: 0.75rem;
-}
-
-.build-summary {
-  border-bottom: 1px solid var(--off-white);
 }
 
 .build-name {
@@ -55,4 +56,9 @@
 .price {
   font-size: 0.9rem;
   font-weight: 500;
+}
+
+.price {
+  border-top: 1px solid var(--off-white);
+  margin-top: auto;
 }

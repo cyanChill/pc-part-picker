@@ -61,7 +61,7 @@
 }
 
 #menu-ctrl:checked::after {
-  background-image: url("/images/ui/ui/icon-close.svg");
+  background-image: url("/images/ui/icon-close.svg");
 }
 
 /* Navigation Items */
