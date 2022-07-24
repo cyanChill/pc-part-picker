@@ -41,6 +41,6 @@ exports.categoryDetailGet = async (req, res, next) => {
       products: ctgyProducts,
     });
   } catch (err) {
-    return next(new Error(err));
+    return next(err);
   }
 };
