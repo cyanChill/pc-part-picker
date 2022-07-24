@@ -26,6 +26,11 @@ router.use("/:buildId/update", cstmMiddleware.validateBuildSavePass);
 router.get("/:buildId/update", buildsController.buildDetailUpdateGet);
 router.post("/:buildId/update", buildsController.buildDetailUpdatePost);
 
+router.get(
+  "/:buildId/update/cancel",
+  buildsController.buildDetailCancelUpdateGet
+);
+
 /* POST Validate Build Save Password */
 router.post(
   "/:buildId/validateSavePass",

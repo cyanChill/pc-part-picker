@@ -10,8 +10,22 @@ block content
   //- Header
   header.pg_header.cstm_clr= title
 
-  button(onclick="hideSubmissionProcess();" class=(formError ? '' : 'hide')).btn.gold.bld_form_cstm_btn#editComp_btn
-    | Edit Build Configuration
+  div(style="align-self: flex-start; margin-block: 0.25rem;").flex 
+    if updating 
+      a(href=`/builds/${prevData._id}/update/cancel`).btn.red.bld_form_cstm_btn
+        | Cancel Update
+      
+    button(onclick="hideSubmissionProcess();" class=(formError ? '' : 'hide')).btn.gold.bld_form_cstm_btn#editComp_btn
+      | < Edit Build Configuration
+
+  if updating 
+    div(style="align-self: flex-start; margin-block: 0.25rem;")
+      p.notice 
+        b Note: 
+        | You may edit your local PC build once you either cancel editing this
+        | current build or finish submitting the new build.
+        | If you edit a different build while still editing this current build,
+        | the changes made to this current build will not be saved.
 
   +build_info_table(categories, comp_list, true, true)#bd_comp_tb(class=(formError ? "bld_tb_no_edit" : ""))
 
@@ -34,6 +48,14 @@ block content
       p.notice 
         b Note: 
         | The password is for when you want to edit this build list in the future.
+
+    if errs 
+      div
+        b.notice.underline Errors were found with your submission:
+        ul.bld_form_err_cont.notice
+          each err in errs 
+            li= err.msg
+
 
     button(type="submit").btn.green.bld_form_cstm_btn.bld_form_sbt_btn Submit New PC Build
 

@@ -11,6 +11,7 @@
   --brown: #b18c5a;
   --yellow: #eda920;
   --orange: #e26723;
+  --error-light: #e6635a;
   --error: #ed4337;
 
   --off-white: #eaeaea;
@@ -63,6 +64,7 @@ body {
 
 .hide {
   display: none !important;
+  visibility: hidden !important;
 }
 
 /* Hover Effect to indicate link*/
@@ -165,6 +167,11 @@ object {
   --btn-hover-clr: var(--orange);
 }
 
+.btn.red {
+  --btn-clr: var(--error-light);
+  --btn-hover-clr: var(--error);
+}
+
 /* Show Mobile Tag */
 .show_mob {
   display: block;
@@ -180,4 +187,8 @@ span.show_mob {
   .show_mob {
     display: none;
   }
+}
+
+.underline {
+  text-decoration: underline;
 }

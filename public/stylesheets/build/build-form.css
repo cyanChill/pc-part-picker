@@ -4,17 +4,9 @@
 }
 
 .bld_form_cstm_btn {
-  margin-block: 0.25rem;
   padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
   font-weight: 600;
-}
-
-#editComp_btn {
-  align-self: flex-start;
-}
-
-#prepSub_btn {
 }
 
 /* Form Styling */
@@ -47,6 +39,10 @@
 .notice {
   color: var(--error);
   font-size: 0.9rem;
+}
+
+.bld_form_err_cont {
+  padding-inline-start: 1.5rem;
 }
 
 @media (min-width: 568px) {

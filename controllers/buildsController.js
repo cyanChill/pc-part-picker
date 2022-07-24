@@ -105,7 +105,7 @@ exports.buildCreatePost = [
         prevData: newList,
         prevPass: req.body.save_pass,
         formError: true,
-        errs: errors,
+        errs: errors.errors,
       });
     }
 
@@ -185,7 +185,7 @@ exports.buildDetailUpdatePost = [
       currBuildMap.set(compName, selectedProducts[compName]._id);
     }
 
-    const updatedContents = {
+    let updatedContents = {
       author_name: req.body.author_name,
       build_name: req.body.build_name,
       description: req.body.description,
@@ -194,6 +194,7 @@ exports.buildDetailUpdatePost = [
     };
 
     if (!errors.isEmpty()) {
+      updatedContents._id = req.params.buildId;
       return res.render("builds/build_form", {
         title: "PC Builder",
         categories: categories,
@@ -201,7 +202,7 @@ exports.buildDetailUpdatePost = [
         prevData: updatedContents,
         updating: true,
         formError: true,
-        errs: errors,
+        errs: errors.errors,
       });
     }
 
@@ -213,7 +214,7 @@ exports.buildDetailUpdatePost = [
         if (err) return next(err);
         // Clear saved build related cookies
         res.clearCookie("currList");
-        res.clearCookie(`${updatedBuild._id}-save-pass`);
+        res.clearCookie(`${updatedBuild._id}-saved-pass`);
         buildsHelper.clearBuildCookies(req, res, "saved");
         // Successful - redirect to build detail page
         res.redirect(updatedBuild.url_route);
@@ -221,6 +222,14 @@ exports.buildDetailUpdatePost = [
     );
   },
 ];
+
+exports.buildDetailCancelUpdateGet = async (req, res, next) => {
+  // Clear saved build related cookies
+  res.clearCookie("currList");
+  res.clearCookie(`${req.params.buildId}-saved-pass`);
+  buildsHelper.clearBuildCookies(req, res, "saved");
+  res.redirect("/");
+};
 
 exports.buildValidateSavePassPost = [
   body("save_pass", "Password must be atleast 6 characters long.")
@@ -251,7 +260,7 @@ exports.buildValidateSavePassPost = [
     }
 
     // Save/refresh valid save password as cookie (for 1h)
-    res.cookie(`${buildId}-save-pass`, req.body.save_pass, {
+    res.cookie(`${buildId}-saved-pass`, req.body.save_pass, {
       maxAge: 3600000,
       httpOnly: true,
     });

@@ -17,7 +17,7 @@ exports.validateBuildId = async (req, res, next) => {
 exports.validateBuildSavePass = async (req, res, next) => {
   const { buildId } = req.params;
   // Check for save cookie if we previously wrote the save password for the build
-  const prevSavePass = req.cookies[`${buildId}-save-pass`] || "";
+  const prevSavePass = req.cookies[`${buildId}-saved-pass`] || "";
   // Check to see if save password is valid
   const isValid = await buildsHelper.validateBuildSavePassword(
     buildId,
@@ -26,6 +26,7 @@ exports.validateBuildSavePass = async (req, res, next) => {
 
   if (!isValid && prevSavePass !== process.env.ADMIN_PASSWORD) {
     // Remove currList cookie if invalid password
+    res.clearCookie(`${req.cookies.currList}-saved-pass`);
     res.clearCookie("currList");
     // Redirect to pass_validation route to obtain save password
     res.render("pass_validation", {
@@ -38,7 +39,7 @@ exports.validateBuildSavePass = async (req, res, next) => {
 
   // Otherwise, refresh cookies (for 1h)
   res.cookie(`currList`, buildId, { maxAge: 3600000, httpOnly: true });
-  res.cookie(`${buildId}-save-pass`, prevSavePass, {
+  res.cookie(`${buildId}-saved-pass`, prevSavePass, {
     maxAge: 3600000,
     httpOnly: true,
   });
