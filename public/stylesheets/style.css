@@ -172,6 +172,41 @@ object {
   --btn-hover-clr: var(--error);
 }
 
+/* Form Element Styles */
+label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap, 0.5rem);
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+input {
+  flex: 1;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--grey);
+  border-radius: 0.25rem;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--dark-grey);
+}
+
+@media (min-width: 568px) {
+  label {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.15rem;
+  }
+
+  input {
+    font-size: 1rem;
+  }
+}
+
 /* Show Mobile Tag */
 .show_mob {
   display: block;

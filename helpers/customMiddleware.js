@@ -2,12 +2,27 @@ const { body } = require("express-validator");
 
 const buildsHelper = require("../helpers/buildsHelper");
 
+const Category = require("../models/category");
 const List = require("../models/list");
 
 exports.validateBuildId = async (req, res, next) => {
   try {
-    const buildExists = await List.findById(req.params.buildId);
+    const buildExists = await List.findById(req.params.buildId).populate(
+      "components.$*"
+    );
     if (!buildExists) throw new Error("Build does not exist.");
+    req.body.buildData = buildExists;
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.validateCategoryId = async (req, res, next) => {
+  try {
+    const categoryExists = await Category.findById(req.params.categoryId);
+    if (!categoryExists) throw new Error("Category does not exist.");
+    req.body.categoryData = categoryExists;
     return next();
   } catch (err) {
     return next(err);
@@ -60,4 +75,16 @@ exports.validateBuildListInputs = [
     .isLength({ min: 1, max: 200 })
     .escape(),
   body("thumbnail_url", "Thumbnail URL must be a valid URL.").trim().isURL(),
+];
+
+exports.validateCategoryInputs = [
+  body("name", "Category Name must be >1 but <=30 characters long.")
+    .trim()
+    .isLength({ min: 1, max: 30 })
+    .escape(),
+  body("description", "Description must be >1 but <=200 characters long.")
+    .trim()
+    .isLength({ min: 1, max: 200 })
+    .escape(),
+  body("img").trim(),
 ];

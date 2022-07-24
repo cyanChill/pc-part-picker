@@ -1,0 +1,37 @@
+extends ../layout
+
+block extraInfo 
+  link(rel='stylesheet', href='/stylesheets/category/category-delete.css')
+
+block content
+  header.pg_header.cstm_clr= title
+
+  if ctgyProducts.length > 0 
+    //- If we still have products in the category
+    div.ctgy_dlt_err 
+      h2
+        span.underline Error:
+        |  Please delete the following products before deleting this category.
+
+      ul
+        each prod in ctgyProducts 
+          li 
+            a(href=prod.url_route)= prod.short_name
+
+  else 
+    //- If we don't have any products in the category
+    div.flex.ctgy_delete_cont
+      b Confirm Deletion of Category
+
+      form(method="POST").flex.ctgy_delete_form
+        label.flex Admin Password:
+          input(type="text" name="pass" value=(undefined===pass ? "" : pass) minlength="6" required) 
+
+        if error
+          b.underline Errors were found with deletion:
+            ul
+              li Admin password is incorrect.
+        
+        div.flex 
+          a(href=currCtgy.url_route style="display: block; text-align:center").btn.green.cstm_btn Cancel
+          button(type="submit").btn.red.cstm_btn Confirm 

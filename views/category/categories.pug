@@ -6,8 +6,10 @@ block extraInfo
 block content
   header.pg_header.cstm_clr= title
 
+  a(href="/category/create").ctgy_create_new Create a New Category
+
   div.grid.ctgy_container
     each ctgy in categories 
-      a(href=`/category/${ctgy._id}`).btn.ign_a_hov.ctgy_btn
+      a(href=ctgy.url_route).btn.ign_a_hov.ctgy_btn
         img(src=ctgy.previewImg).ctgy_img
         | #{ctgy.name}

@@ -3,6 +3,13 @@
   --header-clr: var(--jean-blue);
 }
 
+.ctgy_edits {
+  display: inline-block;
+  padding: 0.5rem;
+  color: var(--blue);
+  text-decoration: underline;
+}
+
 .prod_container {
   width: 100%;
   padding: 0.5rem;
@@ -81,7 +88,6 @@
   --gap: 0.25rem;
   grid-column: span 1;
 }
-
 
 .buy_btn > * {
   height: 1rem;

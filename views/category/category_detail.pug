@@ -8,6 +8,10 @@ block content
     p= title
     p.pg_header_subText= category.description
   
+  div 
+    a(href=`${category.url_route}/update`).ctgy_edits Update
+    a(href=`${category.url_route}/delete`).ctgy_edits Delete
+
   section.prod_container 
     div.table_header
       p Product Name 
@@ -20,9 +24,9 @@ block content
     each prod in products
       div.prod_entry
         div.flex.sel_prod 
-          a(href=`/products/${prod._id}`)
+          a(href=prod.url_route)
             img(src=prod.image_url)
-          a(href=`/products/${prod._id}`)
+          a(href=prod.url_route)
             | #{prod.name}
 
         p.prod_manufac
@@ -43,7 +47,7 @@ block content
           span Buy
           object(type="image/svg+xml" data="/images/products/amazon.svg")
 
-        form(method="POST" action=`/products/${prod._id}/add`).add_action
+        form(method="POST" action=`${prod.url_route}/add`).add_action
           input(type='text' name='prodId' value=prod._id).hide
           input(type='text' name='ctgyId' value=category._id).hide
           button.btn.flex.add_btn

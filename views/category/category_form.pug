@@ -1,0 +1,26 @@
+extends ../layout
+
+block extraInfo 
+  link(rel='stylesheet', href='/stylesheets/category/category-form.css')
+
+block content
+  header.pg_header.cstm_clr= title
+
+  form(method="POST").flex.ctgy_valid_form
+    label.flex Category Name:
+      input(type="text" name="name" value=(undefined===prevVal ? "" : prevVal.name) maxLength="30" required) 
+    label.flex Category Description:
+      input(type="text" name="description" value=(undefined===prevVal ? "" : prevVal.description) maxLength="200" required) 
+    label.flex Category Image:
+      input(type="text" name="img" value=(undefined===prevVal ? "" : prevVal.previewImg) required) 
+    label.flex Admin Password:
+      input(type="text" name="pass" value=(undefined===pass ? "" : pass) minlength="6" required) 
+
+    if errs 
+      div.err_cont
+        b.underline Errors were found with your submission:
+        ul
+          each err in errs 
+            li= err.msg
+
+    button(type="submit").btn.green.cstm_btn Submit Category 

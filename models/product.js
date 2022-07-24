@@ -26,5 +26,9 @@ ProductSchema.virtual("buy_link").get(function () {
   return `https://www.amazon.com/s?k=${encodeURIComponent(this.name)}`;
 });
 
+ProductSchema.virtual("url_route").get(function () {
+  return `/products/${this._id}`;
+});
+
 // Export Model
 module.exports = mongoose.model("Product", ProductSchema);

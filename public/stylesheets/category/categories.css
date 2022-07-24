@@ -2,12 +2,18 @@
   --header-clr: var(--dark-lilac);
 }
 
+.ctgy_create_new {
+  padding: 0.5rem;
+  color: var(--blue);
+  text-decoration: underline;
+}
+
 .ctgy_container {
   width: 100%;
   grid-template-columns: 1fr;
   gap: 0.5rem;
 
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 /* Category Button Styling */
