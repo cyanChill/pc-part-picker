@@ -45,13 +45,10 @@ exports.buildCreateGet = async (req, res, next) => {
 
 exports.buildComponentDelete = async (req, res, next) => {
   try {
-    const { ctgyId } = req.body;
-    // If we're updating a build, redirect to that page
     const currList = req.cookies.currList; // Get buildId if exists
-
     await productHelper.removeItemFromList(
       res,
-      ctgyId,
+      req.body.ctgyId,
       currList ? "saved" : "curr"
     );
     res.redirect("/builds/create");
@@ -124,10 +121,8 @@ exports.buildCreatePost = [
 exports.buildDetailGet = async (req, res, next) => {
   try {
     const { buildId } = req.params;
-    const [ctgy, buildInfo] = await Promise.all([
-      Category.find({}).sort({ name: 1 }),
-      List.findById(buildId).populate("components.$*"),
-    ]);
+    const buildInfo = req.body.buildData;
+    const ctgy = await Category.find({}).sort({ name: 1 });
 
     res.render("builds/build_detail", {
       title: buildInfo.build_name,
@@ -145,12 +140,12 @@ exports.buildDetailGet = async (req, res, next) => {
 
 exports.buildDetailUpdateGet = async (req, res, next) => {
   const { buildId } = req.params;
-
+  const oldListData = req.body.buildData;
   // Get build data + list from cookies of the saved list we want to update
-  const [oldListData, { categories, selectedProducts }] = await Promise.all([
-    List.findById(buildId),
-    buildsHelper.getBuildInfo(req, "saved"),
-  ]);
+  const { categories, selectedProducts } = await buildsHelper.getBuildInfo(
+    req,
+    "saved"
+  );
 
   res.render("builds/build_form", {
     title: "Updating Build",

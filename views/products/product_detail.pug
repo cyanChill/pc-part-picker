@@ -10,7 +10,7 @@ block content
     img(src=prodInfo.image_url).prod_img
 
     div.flex
-      form(method="POST" action=`/products/${prodInfo._id}/add`)
+      form(method="POST" action=`${prodInfo.url_route}/add`)
         input(type='text' name='prodId' value=prodInfo._id).hide
         input(type='text' name='ctgyId' value=prodInfo.category._id).hide
         button(type="submit").btn.addProduct Add
@@ -23,10 +23,10 @@ block content
       aside.prod_info
         div
           p Category 
-          a(href=`/category/${prodInfo.category._id}`)= prodInfo.category.name
+          a(href=prodInfo.category.url_route)= prodInfo.category.name
         div
           p Manufacturer 
-          a(href=`/brands/${prodInfo.brand._id}`)= prodInfo.brand.name
+          a(href=prodInfo.brand.url_route)= prodInfo.brand.name
         div
           p Price 
           p $#{prodInfo.price}

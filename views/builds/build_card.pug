@@ -1,5 +1,5 @@
 mixin build_card(buildInfo)
-  a(href=`/builds/${buildInfo._id}`).flex.ign_a_hov.bld_cd
+  a(href=buildInfo.url_route).flex.ign_a_hov.bld_cd
     //- Card Header
     div.flex.bld_cd_hdr
       img(src="/images/logo.png")
