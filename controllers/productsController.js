@@ -33,8 +33,13 @@ exports.productDetailGet = async (req, res, next) => {
 exports.productAddListPost = async (req, res, next) => {
   try {
     const { prodId, ctgyId } = req.body;
-    await productHelper.addProdToList(res, prodId, ctgyId, "curr");
-    await productHelper.addProdToList(res, prodId, ctgyId, "saved");
+    const isUpdatedSavedBuild = req.cookies.currList;
+    await productHelper.addProdToList(
+      res,
+      prodId,
+      ctgyId,
+      isUpdatedSavedBuild ? "saved" : "curr"
+    );
 
     res.redirect("/builds/create");
   } catch (err) {

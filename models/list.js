@@ -13,29 +13,19 @@ const ListSchema = new Schema(
       type: Map,
       of: { type: Schema.Types.ObjectId, ref: "Product" },
     },
-    hashedSavePass: { type: String, required: true },
+    hashedSavePass: {
+      type: String,
+      minLength: 6,
+      required: true,
+      select: false,
+    },
   },
   schemaOpt
 );
 
-/* 
-  TODO: Create a "total_price" virtual and figure out how we can populate
-  a referenced ObjectId within a virtual and then aggregate on that virtual
-  (with the populated values)
-    - Need sample data in order to do so
-*/
-
-/*
-ListSchema.virtual("populatedComponents", {
-  ref: "Product",
-  localField: "components",
-  foreignField: "_id",
+ListSchema.virtual("url_route").get(function () {
+  return `/builds/${this._id}`;
 });
-
-ProductSchema.virtual("total_price").get(function () {
-  const components = this.populatedComponents;
-});
-*/
 
 // Export Model
 module.exports = mongoose.model("List", ListSchema);

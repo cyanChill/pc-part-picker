@@ -1,0 +1,12 @@
+extends ./layout
+
+block extraInfo 
+  link(rel='stylesheet', href='/stylesheets/pass-validation.css')
+
+block content
+  form(method="POST" action=submitURL)
+    //- Expected to be used for various password-validation areas (ie:
+    //- "Save" password, "Admin" password)
+    label #{passType} Password
+      input(type="text" name="save_pass" value=(prevAttempt ? prevAttempt : "") minlength="6" required) 
+    button(type="submit") Submit Password 

@@ -10,15 +10,15 @@ block content
   //- Header
   header.pg_header.cstm_clr= title
 
-  button(onclick="hideSubmissionProcess();").btn.gold.bld_form_cstm_btn#editComp_btn(class=(formError ? '' : 'hide'))
+  button(onclick="hideSubmissionProcess();" class=(formError ? '' : 'hide')).btn.gold.bld_form_cstm_btn#editComp_btn
     | Edit Build Configuration
 
   +build_info_table(categories, comp_list, true, true)#bd_comp_tb(class=(formError ? "bld_tb_no_edit" : ""))
 
-  button(onclick="showSubmissionProcess();").btn.gold.bld_form_cstm_btn#prepSub_btn(class=(formError ? 'hide' : ''))
+  button(onclick="showSubmissionProcess();" class=(formError ? 'hide' : '')).btn.gold.bld_form_cstm_btn#prepSub_btn
     | Finalize Submission
 
-  form(method="POST").flex#bldSub_form(class=(formError ? '' : 'hide'))
+  form(method="POST" class=(formError ? '' : 'hide')).flex#bldSub_form
     label Author Name
       input(type="text" name="author_name" value=(undefined===prevData ? "" : prevData.author_name) maxlength="30" required) 
     label Build Name
@@ -27,12 +27,13 @@ block content
       input(type="text" name="description" value=(undefined===prevData ? "" : prevData.description) maxlength="200" required) 
     label Thumbnail Image URL
       input(type="url" name="thumbnail_url" value=(undefined===prevData ? "" : prevData.thumbnail_url) required) 
-    //- TODO: Hide field when we're updating the build
-    label Save Password
-      input(type="text" name="save_pass" value=(undefined===prevPass ? "" : prevPass) minlength="6" required) 
-    p.notice 
-      b Note: 
-      | The password is for when you want to edit this build list in the future.
+    
+    if !updating
+      label Save Password
+        input(type="text" name="save_pass" value=(undefined===prevPass ? "" : prevPass) minlength="6" required) 
+      p.notice 
+        b Note: 
+        | The password is for when you want to edit this build list in the future.
 
     button(type="submit").btn.green.bld_form_cstm_btn.bld_form_sbt_btn Submit New PC Build
 

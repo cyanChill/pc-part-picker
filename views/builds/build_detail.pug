@@ -6,9 +6,6 @@ block extraInfo
   link(rel='stylesheet', href='/stylesheets/build/build-info-table.css')
 
 block content
-  //- Where we view a list (unmodifiable); have buttons to edit
-  //- Edit form is where we can delete and update the list
-
   //- Header
   header.pg_header.cstm_clr
     p= title 
@@ -19,7 +16,7 @@ block content
 
   +build_info_table(categories, comp_list, false, false)
 
-  //- TODO: Add fucntionality to these buttons
   div.flex
-    a.btn Update Build
-    a.btn Delete Build
+    a(href=`/builds/${buildId}/update`).btn Update Build
+    a(href=`/builds/${buildId}/delete`).btn Delete Build
+
