@@ -1,0 +1,15 @@
+extends ../layout
+
+block extraInfo 
+  link(rel='stylesheet', href='/stylesheets/build/build-delete.css')
+
+block content
+  div.flex.bld_dlt_cont
+    p.bld_dlt_confirm_msg 
+      | Confirm Deletion of Build
+
+    div.flex
+      a(href=`/builds/${buildId}/cancel`).btn.green.cstm_btn Cancel
+
+      form(method="POST")
+        button(type="submit").btn.red.cstm_btn Confirm 

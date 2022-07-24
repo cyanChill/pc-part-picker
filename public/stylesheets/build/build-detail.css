@@ -9,6 +9,7 @@
 
 @media (min-width: 568px) {
   .thumbnail_img {
-    max-width: 20rem;
+    max-height: 30rem;
+    max-width: max-content;
   }
 }

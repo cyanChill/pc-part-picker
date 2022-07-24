@@ -26,10 +26,11 @@ router.use("/:buildId/update", cstmMiddleware.validateBuildSavePass);
 router.get("/:buildId/update", buildsController.buildDetailUpdateGet);
 router.post("/:buildId/update", buildsController.buildDetailUpdatePost);
 
-router.get(
-  "/:buildId/update/cancel",
-  buildsController.buildDetailCancelUpdateGet
-);
+/* Cancel Route */
+router.get("/:buildId/cancel", [
+  cstmMiddleware.validateBuildId,
+  buildsController.buildDetailCancelGet,
+]);
 
 /* POST Validate Build Save Password */
 router.post(
@@ -37,6 +38,8 @@ router.post(
   buildsController.buildValidateSavePassPost
 );
 
+// Validate save-pass for build
+router.use("/:buildId/delete", cstmMiddleware.validateBuildSavePass);
 /* GET & POST build detail delete page */
 router.get("/:buildId/delete", buildsController.buildDetailDeleteGet);
 router.post("/:buildId/delete", buildsController.buildDetailDeletePost);

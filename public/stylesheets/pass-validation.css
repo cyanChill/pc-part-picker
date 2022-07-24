@@ -1,0 +1,44 @@
+.pass_valid_form {
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.pass_valid_form label {
+  --gap: 0.5rem;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+
+.pass_valid_form input {
+  flex: 1;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--grey);
+  border-radius: 0.25rem;
+  outline: none;
+}
+
+.pass_valid_form input:focus {
+  border-color: var(--dark-grey);
+}
+
+.cstm_btn {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@media (min-width: 568px) {
+  .pass_valid_form label {
+    --gap: 1rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.15rem;
+  }
+
+  .pass_valid_form input {
+    font-size: 1rem;
+  }
+}

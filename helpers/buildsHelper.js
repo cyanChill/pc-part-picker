@@ -83,3 +83,9 @@ exports.addSavedBuildInfoToCookies = async (res, buildId) => {
     if (compVal) res.cookie(`${cat._id}-saved`, compVal);
   });
 };
+
+exports.cleanUpSaveBuildCookies = (req, res, buildId) => {
+  res.clearCookie("currList");
+  res.clearCookie(`${buildId}-saved-pass`);
+  this.clearBuildCookies(req, res, "saved");
+};

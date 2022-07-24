@@ -213,9 +213,7 @@ exports.buildDetailUpdatePost = [
       function (err, updatedBuild) {
         if (err) return next(err);
         // Clear saved build related cookies
-        res.clearCookie("currList");
-        res.clearCookie(`${updatedBuild._id}-saved-pass`);
-        buildsHelper.clearBuildCookies(req, res, "saved");
+        buildsHelper.cleanUpSaveBuildCookies(req, res, updatedBuild._id);
         // Successful - redirect to build detail page
         res.redirect(updatedBuild.url_route);
       }
@@ -223,11 +221,9 @@ exports.buildDetailUpdatePost = [
   },
 ];
 
-exports.buildDetailCancelUpdateGet = async (req, res, next) => {
+exports.buildDetailCancelGet = async (req, res, next) => {
   // Clear saved build related cookies
-  res.clearCookie("currList");
-  res.clearCookie(`${req.params.buildId}-saved-pass`);
-  buildsHelper.clearBuildCookies(req, res, "saved");
+  buildsHelper.cleanUpSaveBuildCookies(req, res, req.params.buildId);
   res.redirect("/");
 };
 
@@ -253,7 +249,6 @@ exports.buildValidateSavePassPost = [
       return res.render("pass_validation", {
         title: "Build Save Password",
         passType: "Build Save",
-        submitURL: `/builds/${buildId}/validateSavePass`,
         prevAttempt: req.body.save_pass,
         error: "Invalid Password.",
       });
@@ -271,14 +266,26 @@ exports.buildValidateSavePassPost = [
       await buildsHelper.addSavedBuildInfoToCookies(res, buildId);
     }
 
-    res.redirect(`/builds/${buildId}/update`);
+    res.redirect(req.body.redirect_route);
   },
 ];
 
 exports.buildDetailDeleteGet = async (req, res, next) => {
-  res.send("Did not implement build detail delete logic (GET).");
+  const { buildId } = req.params;
+
+  res.render("builds/build_delete", {
+    title: "Delete Build?",
+    buildId: buildId,
+  });
 };
 
 exports.buildDetailDeletePost = async (req, res, next) => {
-  res.send("Did not implement build detail delete logic (POST).");
+  try {
+    await List.findByIdAndDelete(req.params.buildId);
+    // Clear saved build related cookies
+    buildsHelper.cleanUpSaveBuildCookies(req, res, req.params.buildId);
+    res.redirect("/");
+  } catch (err) {
+    return next(err);
+  }
 };

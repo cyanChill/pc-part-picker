@@ -12,7 +12,7 @@ block content
 
   div(style="align-self: flex-start; margin-block: 0.25rem;").flex 
     if updating 
-      a(href=`/builds/${prevData._id}/update/cancel`).btn.red.bld_form_cstm_btn
+      a(href=`/builds/${prevData._id}/cancel`).btn.red.bld_form_cstm_btn
         | Cancel Update
       
     button(onclick="hideSubmissionProcess();" class=(formError ? '' : 'hide')).btn.gold.bld_form_cstm_btn#editComp_btn
@@ -24,7 +24,7 @@ block content
         b Note: 
         | You may edit your local PC build once you either cancel editing this
         | current build or finish submitting the new build.
-        | If you edit a different build while still editing this current build,
+        | Modifying a different build while still editing this current build,
         | the changes made to this current build will not be saved.
 
   +build_info_table(categories, comp_list, true, true)#bd_comp_tb(class=(formError ? "bld_tb_no_edit" : ""))
@@ -33,17 +33,17 @@ block content
     | Finalize Submission
 
   form(method="POST" class=(formError ? '' : 'hide')).flex#bldSub_form
-    label Author Name
+    label Author Name:
       input(type="text" name="author_name" value=(undefined===prevData ? "" : prevData.author_name) maxlength="30" required) 
-    label Build Name
+    label Build Name:
       input(type="text" name="build_name" value=(undefined===prevData ? "" : prevData.build_name) maxlength="30" required) 
-    label Build Description
+    label Build Description:
       input(type="text" name="description" value=(undefined===prevData ? "" : prevData.description) maxlength="200" required) 
-    label Thumbnail Image URL
+    label Thumbnail Image URL:
       input(type="url" name="thumbnail_url" value=(undefined===prevData ? "" : prevData.thumbnail_url) required) 
     
     if !updating
-      label Save Password
+      label Save Password:
         input(type="text" name="save_pass" value=(undefined===prevPass ? "" : prevPass) minlength="6" required) 
       p.notice 
         b Note: 
