@@ -51,9 +51,17 @@ exports.brandCreatePost = [
 exports.brandDetailGet = async (req, res, next) => {
   const { brandId } = req.params;
   const currBrand = req.body.brandData;
-  const brandProducts = await Product.find({ brand: brandId })
-    .populate("category")
-    .sort({ name: 1, "category.name": 1 });
+  const unsortedBrandProducts = await Product.find({ brand: brandId }).populate(
+    "category"
+  );
+
+  const brandProducts = unsortedBrandProducts.sort((a, b) => {
+    if (a.category.name === b.category.name) {
+      // Product name is important if categories are the same
+      return a.name > b.name ? 1 : -1;
+    }
+    return a.category.name > b.category.name ? 1 : -1;
+  });
 
   res.render("brands/brand_detail", {
     title: `${currBrand.name}'s Products`,

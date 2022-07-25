@@ -5,7 +5,7 @@
 /* If we have still have products in this category/brand */
 .grp_dlt_err {
   width: 100%;
-  max-width: 50rem;
+  max-width: var(--max-form-width);
   padding: 0.5rem;
 }
 
@@ -26,7 +26,7 @@
 .grp_delete_cont {
   --gap: 0.5rem;
   width: 100%;
-  max-width: 50rem;
+  max-width: var(--max-form-width);
   flex-direction: column;
   padding: 0.5rem;
 }
@@ -38,11 +38,4 @@
 
 .grp_delete_form {
   flex-direction: column;
-}
-
-.cstm_btn {
-  flex: 1;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.9rem;
-  font-weight: 600;
 }

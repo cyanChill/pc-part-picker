@@ -9,6 +9,6 @@ block content
     input(type="url" name="redirect_route").hide#pass_valid_redirectInput
     //- Expected to be used for various password-validation areas (ie:
     //- "Save" password, "Admin" password)
-    label.flex #{passType} Password:
+    label #{passType} Password:
       input(type="text" name="save_pass" value=(prevAttempt ? prevAttempt : "") minlength="6" required) 
-    button(type="submit").btn.green.cstm_btn Submit Password 
+    button(type="submit").btn.green.compressed Submit Password 

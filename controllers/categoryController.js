@@ -161,7 +161,7 @@ exports.categoryDeletePost = async (req, res, next) => {
 
   // No products left in category
   try {
-    await Category.findByIdAndDelete(categoryId);
+    await Category.findByIdAndDelete(req.params.categoryId);
     res.redirect("/");
   } catch (err) {
     return next(err);

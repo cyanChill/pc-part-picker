@@ -25,7 +25,7 @@ block content
       b Confirm Deletion of #{groupType}
 
       form(method="POST").flex.grp_delete_form
-        label.flex Admin Password:
+        label Admin Password:
           input(type="text" name="pass" minlength="6" required) 
 
         if error
@@ -35,5 +35,5 @@ block content
               li Admin password is incorrect.
         
         div.flex 
-          a(href=currGroup.url_route style="display: block; text-align:center").btn.green.cstm_btn Cancel
-          button(type="submit").btn.red.cstm_btn Confirm 
+          a(href=currGroup.url_route style="display: block; text-align:center").btn.green.compressed Cancel
+          button(type="submit").btn.red.compressed Confirm 

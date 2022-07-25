@@ -9,7 +9,7 @@
 
 .brands_cont {
   width: 100%;
-  max-width: 50rem;
+  max-width: var(--max-form-width);
   padding: 0.5rem;
   font-size: 1.5rem;
   list-style: none;

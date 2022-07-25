@@ -5,15 +5,9 @@
 .ctgy_valid_form {
   --gap: 0.5rem;
   width: 100%;
-  max-width: 50rem;
+  max-width: var(--max-form-width);
   flex-direction: column;
   padding: 0.5rem;
-}
-
-.cstm_btn {
-  padding: 0.5rem 0.75rem;
-  font-size: 0.9rem;
-  font-weight: 600;
 }
 
 .err_cont {

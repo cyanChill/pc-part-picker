@@ -121,7 +121,7 @@ exports.buildCreatePost = [
 exports.buildDetailGet = async (req, res, next) => {
   try {
     const { buildId } = req.params;
-    const buildInfo = req.body.buildData;
+    const buildInfo = buildsHelper.addBuildPriceField(req.body.buildData);
     const ctgy = await Category.find({}).sort({ name: 1 });
 
     res.render("builds/build_detail", {
@@ -132,6 +132,7 @@ exports.buildDetailGet = async (req, res, next) => {
       buildId: buildId,
       categories: ctgy,
       comp_list: Object.fromEntries(buildInfo.components),
+      totalPrice: buildInfo.price,
     });
   } catch (err) {
     return next(err);
@@ -139,7 +140,6 @@ exports.buildDetailGet = async (req, res, next) => {
 };
 
 exports.buildDetailUpdateGet = async (req, res, next) => {
-  const { buildId } = req.params;
   const oldListData = req.body.buildData;
   // Get build data + list from cookies of the saved list we want to update
   const { categories, selectedProducts } = await buildsHelper.getBuildInfo(

@@ -16,6 +16,10 @@ block content
 
   +build_info_table(categories, comp_list, false, false)
 
+  p(style="align-self: flex-end; padding: 0.25rem;")
+    b Total Price: 
+    | #{totalPrice}
+
   div.flex
     a(href=`/builds/${buildId}/update`).btn Update Build
     a(href=`/builds/${buildId}/delete`).btn Delete Build
