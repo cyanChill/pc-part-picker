@@ -26,11 +26,12 @@ block content
 
       form(method="POST").flex.grp_delete_form
         label.flex Admin Password:
-          input(type="text" name="pass" value=(undefined===pass ? "" : pass) minlength="6" required) 
+          input(type="text" name="pass" minlength="6" required) 
 
         if error
-          b.underline Errors were found with deletion:
-            ul
+          div(style="color: var(--error);")
+            b.underline Errors were found with deletion:
+            ul(style="padding-inline-start: 1.5rem;")
               li Admin password is incorrect.
         
         div.flex 

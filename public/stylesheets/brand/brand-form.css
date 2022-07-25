@@ -1,0 +1,26 @@
+.cstm_clr {
+  --header-clr: var(--cyan);
+}
+
+.brand_valid_form {
+  --gap: 0.5rem;
+  width: 100%;
+  max-width: 50rem;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+.cstm_btn {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.err_cont {
+  color: var(--error);
+  font-size: 0.9rem;
+}
+
+.err_cont ul {
+  padding-inline-start: 1.5rem;
+}

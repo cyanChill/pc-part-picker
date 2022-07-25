@@ -1,0 +1,20 @@
+extends ../layout
+
+block extraInfo 
+  link(rel='stylesheet', href='/stylesheets/brand/brand-form.css')
+
+block content
+  header.pg_header.cstm_clr= title
+
+  form(method="POST").flex.brand_valid_form
+    label.flex Brand Name:
+      input(type="text" name="name" value=(undefined===prevVal ? "" : prevVal.name) maxLength="30" required) 
+
+    if errs 
+      div.err_cont
+        b.underline Errors were found with your submission:
+        ul
+          each err in errs 
+            li= err.msg
+
+    button(type="submit").btn.green.cstm_btn Submit Brand 

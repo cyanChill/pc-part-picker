@@ -11,6 +11,7 @@ const logger = require("morgan");
 // Application Routes Imports
 const indexRouter = require("./routes/index");
 const buildsRouter = require("./routes/builds");
+const brandsRouter = require("./routes/brands");
 const categoryRouter = require("./routes/category");
 const productsRouter = require("./routes/products");
 
@@ -41,6 +42,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
+app.use("/brands", brandsRouter);
 app.use("/builds", buildsRouter);
 app.use("/category", categoryRouter);
 app.use("/products", productsRouter);

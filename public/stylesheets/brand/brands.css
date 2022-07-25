@@ -1,0 +1,23 @@
+.cstm_clr {
+  --header-clr: var(--dark-green);
+}
+
+.brands_add_man {
+  padding: 0.5rem;
+  color: var(--blue);
+}
+
+.brands_cont {
+  width: 100%;
+  max-width: 50rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  list-style: none;
+}
+
+.brands_cont a {
+  display: block;
+  width: max-content;
+  padding: 0.5rem;
+  color: black;
+}

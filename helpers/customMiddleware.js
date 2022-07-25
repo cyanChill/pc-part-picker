@@ -2,6 +2,7 @@ const { body } = require("express-validator");
 
 const buildsHelper = require("../helpers/buildsHelper");
 
+const Brand = require("../models/brand");
 const Category = require("../models/category");
 const List = require("../models/list");
 
@@ -23,6 +24,17 @@ exports.validateCategoryId = async (req, res, next) => {
     const categoryExists = await Category.findById(req.params.categoryId);
     if (!categoryExists) throw new Error("Category does not exist.");
     req.body.categoryData = categoryExists;
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.validateBrandId = async (req, res, next) => {
+  try {
+    const brandExists = await Brand.findById(req.params.brandId);
+    if (!brandExists) throw new Error("Brand does not exist.");
+    req.body.brandData = brandExists;
     return next();
   } catch (err) {
     return next(err);
