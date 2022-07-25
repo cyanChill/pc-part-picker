@@ -1,0 +1,47 @@
+mixin products_table(products, col2Type)
+  section&attributes(attributes).prod_tb_cont 
+    div.prod_tb_hdr
+      p Product Name 
+      p= col2Type 
+      p Stock 
+      p Price 
+      p Buy
+      p 
+
+    each prod in products
+      div.prod_tb_entry
+        div.flex.prod_tb_sel_prod 
+          a(href=prod.url_route)
+            img(src=prod.image_url)
+          a(href=prod.url_route)
+            | #{prod.name}
+
+        p.prod_tb_col2
+          if col2Type === "Manufacturer"
+            span.show_mob Manufacturer
+            a(href=(prod.brand.url_route))
+              | #{prod.brand.name}
+          else if col2Type === "Category"
+            span.show_mob Category
+            a(href=prod.category.url_route)
+              | #{prod.category.name}
+          else 
+            | ""
+
+        p.prod_tb_stock
+          span.show_mob Stock 
+          | #{prod.stock}
+
+        p.prod_tb_price 
+          span.show_mob Price
+          | $#{prod.price}
+
+        a(href=prod.buy_link target="_blank").btn.green.flex.ign_a_hov.prod_tb_buy_btn
+          span Buy
+          object(type="image/svg+xml" data="/images/products/amazon.svg")
+
+        form(method="POST" action=`${prod.url_route}/add`).prod_tb_add_action
+          input(type='text' name='prodId' value=prod._id).hide
+          input(type='text' name='ctgyId' value=prod.category._id).hide
+          button.btn.flex.prod_tb_add_btn
+            span Add

@@ -1,7 +1,9 @@
 extends ../layout
+include ../products/products_table
 
 block extraInfo 
   link(rel='stylesheet', href='/stylesheets/category/category-detail.css')
+  link(rel='stylesheet', href='/stylesheets/product/products-table.css')
 
 block content
   header.pg_header.cstm_clr
@@ -12,43 +14,4 @@ block content
     a(href=`${category.url_route}/update`).ctgy_edits Update
     a(href=`${category.url_route}/delete`).ctgy_edits Delete
 
-  section.prod_container 
-    div.table_header
-      p Product Name 
-      p Manufacturer 
-      p Stock 
-      p Price 
-      p Buy
-      p 
-
-    each prod in products
-      div.prod_entry
-        div.flex.sel_prod 
-          a(href=prod.url_route)
-            img(src=prod.image_url)
-          a(href=prod.url_route)
-            | #{prod.name}
-
-        p.prod_manufac
-          span.show_mob Manufacturer
-          //- TODO: Create routes for manufacturer
-          a(href="/")
-            | #{prod.brand.name}
-
-        p.prod_stock
-          span.show_mob Stock 
-          | #{prod.stock}
-
-        p.prod_price 
-          span.show_mob Price
-          | $#{prod.price}
-
-        a(href=prod.buy_link target="_blank").btn.green.flex.ign_a_hov.buy_btn
-          span Buy
-          object(type="image/svg+xml" data="/images/products/amazon.svg")
-
-        form(method="POST" action=`${prod.url_route}/add`).add_action
-          input(type='text' name='prodId' value=prod._id).hide
-          input(type='text' name='ctgyId' value=category._id).hide
-          button.btn.flex.add_btn
-            span Add
+  +products_table(products, "Manufacturer")

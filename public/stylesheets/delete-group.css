@@ -2,37 +2,28 @@
   --header-clr: var(--error);
 }
 
-/* If we have still have products in the category */
-.ctgy_dlt_err {
+/* If we have still have products in this category/brand */
+.grp_dlt_err {
   width: 100%;
   max-width: 50rem;
   padding: 0.5rem;
 }
 
-.ctgy_dlt_err h2 {
+.grp_dlt_err h2 {
   color: var(--error);
   font-size: 1.15rem;
 }
 
-.ctgy_dlt_err ul {
+.grp_dlt_err ul {
   padding-inline-start: 1.5rem;
 }
 
-.ctgy_dlt_err a {
+.grp_dlt_err a {
   color: var(--blue);
 }
 
-.err_cont {
-  color: var(--error);
-  font-size: 0.9rem;
-}
-
-.err_cont ul {
-  padding-inline-start: 1.5rem;
-}
-
-/* If we have no products in the category */
-.ctgy_delete_cont {
+/* If we have no products in the category/brand */
+.grp_delete_cont {
   --gap: 0.5rem;
   width: 100%;
   max-width: 50rem;
@@ -40,12 +31,12 @@
   padding: 0.5rem;
 }
 
-.ctgy_delete_cont > b {
+.grp_delete_cont > b {
   font-size: 1.15rem;
   color: var(--error);
 }
 
-.ctgy_delete_form {
+.grp_delete_form {
   flex-direction: column;
 }
 

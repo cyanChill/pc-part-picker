@@ -1,29 +1,30 @@
-extends ../layout
+extends ./layout
 
 block extraInfo 
-  link(rel='stylesheet', href='/stylesheets/category/category-delete.css')
+  link(rel='stylesheet', href='/stylesheets/delete-group.css')
 
+//- Used for deleting either a category or brand
 block content
   header.pg_header.cstm_clr= title
 
-  if ctgyProducts.length > 0 
-    //- If we still have products in the category
-    div.ctgy_dlt_err 
+  if groupProducts.length > 0 
+    //- If we still have items left in this "group"
+    div.grp_dlt_err 
       h2
         span.underline Error:
-        |  Please delete the following products before deleting this category.
+        |  Please delete the following items before deleting this #{groupType}.
 
       ul
-        each prod in ctgyProducts 
+        each prod in groupProducts 
           li 
             a(href=prod.url_route)= prod.short_name
 
   else 
     //- If we don't have any products in the category
-    div.flex.ctgy_delete_cont
-      b Confirm Deletion of Category
+    div.flex.grp_delete_cont
+      b Confirm Deletion of #{groupType}
 
-      form(method="POST").flex.ctgy_delete_form
+      form(method="POST").flex.grp_delete_form
         label.flex Admin Password:
           input(type="text" name="pass" value=(undefined===pass ? "" : pass) minlength="6" required) 
 
@@ -33,5 +34,5 @@ block content
               li Admin password is incorrect.
         
         div.flex 
-          a(href=currCtgy.url_route style="display: block; text-align:center").btn.green.cstm_btn Cancel
+          a(href=currGroup.url_route style="display: block; text-align:center").btn.green.cstm_btn Cancel
           button(type="submit").btn.red.cstm_btn Confirm 

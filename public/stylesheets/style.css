@@ -220,7 +220,7 @@ span.show_mob {
 
 @media (min-width: 768px) {
   .show_mob {
-    display: none;
+    display: none !important;
   }
 }
 

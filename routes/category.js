@@ -17,10 +17,10 @@ router.use("/:categoryId", cstmMiddleware.validateCategoryId);
 /* GET category detail page */
 router.get("/:categoryId", categoryController.categoryDetailGet);
 
-/* */
+/* Update category routes */
 router.get("/:categoryId/update", categoryController.categoryUpdateGet);
 router.post("/:categoryId/update", categoryController.categoryUpdatePost);
-
+/* Delete categroy routes */
 router.get("/:categoryId/delete", categoryController.categoryDeleteGet);
 router.post("/:categoryId/delete", categoryController.categoryDeletePost);
 

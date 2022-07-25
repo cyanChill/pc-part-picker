@@ -68,7 +68,8 @@ exports.categoryDetailGet = async (req, res, next) => {
     // Get Category Products
     const ctgyProducts = await Product.find({ category: categoryId })
       .sort({ name: 1 })
-      .populate("brand");
+      .populate("brand")
+      .populate("category");
 
     res.render("category/category_detail", {
       title: `${ctgyInfo.name} Products`,
@@ -130,30 +131,30 @@ exports.categoryUpdatePost = [
 ];
 
 exports.categoryDeleteGet = async (req, res, next) => {
-  const { categoryId } = req.params;
-  const ctgyProducts = await Product.find({ category: categoryId }).sort({
-    short_name: 1,
-  });
+  const ctgyProducts = await Product.find({
+    category: req.params.categoryId,
+  }).sort({ short_name: 1 });
 
-  res.render("category/category_delete", {
+  res.render("delete_group", {
     title: "Delete Category",
-    ctgyProducts: ctgyProducts,
-    currCtgy: req.body.categoryData,
+    groupType: "Category",
+    groupProducts: ctgyProducts,
+    currGroup: req.body.categoryData,
   });
 };
 
 exports.categoryDeletePost = async (req, res, next) => {
-  const { categoryId } = req.params;
-  const ctgyProducts = await Product.find({ category: categoryId }).sort({
-    short_name: 1,
-  });
+  const ctgyProducts = await Product.find({
+    category: req.params.categoryId,
+  }).sort({ short_name: 1 });
 
   // If we still have products or admin password is incorrect
   if (ctgyProducts || req.body.pass !== process.env.ADMIN_PASSWORD) {
-    return res.render("category/category_delete", {
+    return res.render("delete_group", {
       title: "Delete Category",
-      ctgyProducts: ctgyProducts,
-      currCtgy: req.body.categoryData,
+      groupType: "Category",
+      groupProducts: ctgyProducts,
+      currGroup: req.body.categoryData,
       error: true,
     });
   }

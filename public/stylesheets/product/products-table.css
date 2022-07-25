@@ -1,0 +1,129 @@
+.prod_tb_cont {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.prod_tb_hdr {
+  display: none;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+/* Main Styling of Product Row */
+@media (max-width: 768px) {
+  .prod_tb_entry {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem;
+    padding-block: 0.25rem;
+    border-bottom: 1px solid var(--grey);
+  }
+}
+
+/* Product Preview Section */
+.prod_tb_sel_prod {
+  grid-column: span 2;
+
+  align-items: center;
+}
+
+.prod_tb_sel_prod img {
+  object-fit: contain;
+  max-width: 3rem;
+  aspect-ratio: 1;
+}
+
+.prod_tb_sel_prod > :last-child {
+  color: black;
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+/* 2nd Column Styling */
+.prod_tb_col2 a {
+  color: black;
+}
+
+.prod_tb_col2,
+.prod_tb_stock,
+.prod_tb_price {
+  grid-column: span 1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.prod_tb_col2 > *,
+.prod_tb_stock > *,
+.prod_tb_price > * {
+  display: block;
+}
+
+.prod_tb_col2 :first-child,
+.prod_tb_stock :first-child,
+.prod_tb_price :first-child {
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+/* Product Price Styling */
+.prod_tb_price {
+  grid-column: span 2;
+  color: var(--green);
+}
+
+/* Buy Button Section */
+.prod_tb_buy_btn {
+  --gap: 0.25rem;
+  grid-column: span 1;
+}
+
+.prod_tb_buy_btn > * {
+  height: 1rem;
+}
+
+.prod_tb_buy_btn,
+.prod_tb_add_btn {
+  width: 100%;
+  align-items: center;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Add Button Section */
+.prod_tb_add_action {
+  grid-column: span 1;
+}
+
+@media (min-width: 768px) {
+  /* Styling Each Row of "Table" */
+  .prod_tb_cont > div {
+    display: grid;
+    grid-template-columns: 1fr 7rem repeat(4, 4rem);
+    align-items: center;
+    gap: 1rem 0.5rem;
+
+    padding-block: 0.25rem;
+    border-bottom: 1px solid var(--grey);
+  }
+
+  .prod_tb_sel_prod,
+  .prod_tb_col2,
+  .prod_tb_stock,
+  .prod_tb_price,
+  .prod_tb_buy_btn,
+  .prod_tb_add_action {
+    grid-column: span 1;
+  }
+
+  .prod_tb_sel_prod {
+    padding: 0.5rem;
+  }
+
+  .prod_tb_sel_prod > :last-child {
+    font-size: 1.05rem;
+  }
+
+  .prod_tb_sel_prod img {
+    max-width: 2rem;
+  }
+}
