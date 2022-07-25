@@ -16,7 +16,7 @@ exports.categoryGet = async (req, res, next) => {
 
 exports.categoryCreateGet = async (req, res, next) => {
   res.render("category/category_form", {
-    title: "Create a New Category",
+    title: "Add a New Category",
   });
 };
 
@@ -43,7 +43,7 @@ exports.categoryCreatePost = [
 
     if (!errors.isEmpty()) {
       return res.render("category/category_form", {
-        title: "Create a New Category",
+        title: "Add a New Category",
         prevVal: newCtgyTemp,
         pass: req.body.pass,
         errs: errors.errors,
@@ -149,7 +149,7 @@ exports.categoryDeletePost = async (req, res, next) => {
   }).sort({ short_name: 1 });
 
   // If we still have products or admin password is incorrect
-  if (ctgyProducts || req.body.pass !== process.env.ADMIN_PASSWORD) {
+  if (ctgyProducts.length > 0 || req.body.pass !== process.env.ADMIN_PASSWORD) {
     return res.render("delete_group", {
       title: "Delete Category",
       groupType: "Category",
