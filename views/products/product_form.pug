@@ -1,0 +1,57 @@
+extends ../layout
+
+block extraInfo 
+  link(rel='stylesheet', href='/stylesheets/product/product-form.css')
+  script(src="/javascripts/product/product_form.js" defer) 
+
+block content
+  header.pg_header.cstm_clr= title
+
+  form(method="POST").flex.prod_form
+    label Product Name:
+      input(type="text" name="name" value=(undefined===prevVal ? "" : prevVal.name) maxLength="100" required) 
+    label Product Short Name:
+      input(type="text" name="short_name" value=(undefined===prevVal ? "" : prevVal.short_name) maxLength="50" required) 
+
+    //- Drop down selection menu
+    label Category:
+      select(name="category" required)
+        for ctgy in (categories || []) 
+          option(value=ctgy._id selected=(undefined===prevVal ? false : prevVal.category == ctgy._id))= ctgy.name
+    label Brand:
+      select(name="brand" required)
+        for brd in (brands || [])
+          option(value=brd._id selected=(undefined===prevVal ? false : prevVal.brand == brd._id))= brd.name
+
+    label Price:
+      input(type="number" step="0.25" name="price" value=(undefined===prevVal ? "" : prevVal.price) min="0" required) 
+    label Stock:
+      input(type="number" name="stock" value=(undefined===prevVal ? "" : prevVal.stock) min="0" required) 
+
+    label Product Image:
+      input(type="url" name="img" value=(undefined===prevVal ? "" : prevVal.image_url) required) 
+
+    //- Component to generate inputs for "features"
+    div.prd_form_features_cont
+      for feat in (features || [])
+        div.flex.prd_form_feature_entry
+          div.flex.prd_form_feature_entry_inputs
+            input(type="text" name="feat_name" placeholder="Feature Name" value=(feat.feature) maxLength="50" required) 
+            input(type="text" name="feat_des" placeholder="Feature Description" value=(feat.description) maxLength="30" required) 
+          button(type="button" onclick="removeFeatureInput(this)")
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+
+    button(type="button" onclick="addFeatureInput();").btn.gold.compressed Add Another Feature
+
+    if isUpdating
+      label Admin Password:
+        input(type="text" name="pass" value=(undefined===pass ? "" : pass) minlength="6" required) 
+
+    if errs 
+      div.err_cont
+        b.underline Errors were found with your submission:
+        ul
+          each err in errs 
+            li= err.msg
+
+    button(type="submit").btn.green.compressed Submit Product 

@@ -5,6 +5,33 @@ const buildsHelper = require("../helpers/buildsHelper");
 const Brand = require("../models/brand");
 const Category = require("../models/category");
 const List = require("../models/list");
+const Product = require("../models/product");
+
+/* Custom validator */
+const cstmFeatureCheck = (val, maxLength) => {
+  if (Array.isArray(val)) {
+    // Value is an array
+    return val.every(
+      (entry) => entry.trim().length !== 0 && entry.trim().length <= maxLength
+    );
+  } else {
+    // Value is a string
+    if (val.trim().length === 0 || val.trim().length > maxLength) return false;
+    return true;
+  }
+};
+
+/* Custom Middleware */
+exports.validateBrandId = async (req, res, next) => {
+  try {
+    const brandExists = await Brand.findById(req.params.brandId);
+    if (!brandExists) throw new Error("Brand does not exist.");
+    req.body.brandData = brandExists;
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+};
 
 exports.validateBuildId = async (req, res, next) => {
   try {
@@ -30,11 +57,13 @@ exports.validateCategoryId = async (req, res, next) => {
   }
 };
 
-exports.validateBrandId = async (req, res, next) => {
+exports.validateProductId = async (req, res, next) => {
   try {
-    const brandExists = await Brand.findById(req.params.brandId);
-    if (!brandExists) throw new Error("Brand does not exist.");
-    req.body.brandData = brandExists;
+    const productExists = await Product.findById(req.params.productId)
+      .populate("category")
+      .populate("brand");
+    if (!productExists) throw new Error("Product does not exist.");
+    req.body.productData = productExists;
     return next();
   } catch (err) {
     return next(err);
@@ -99,4 +128,41 @@ exports.validateCategoryInputs = [
     .isLength({ min: 1, max: 200 })
     .escape(),
   body("img").trim(),
+];
+
+exports.validateProductInputs = [
+  body("name", "Product Name must be >1 but <=100 characters long.")
+    .trim()
+    .isLength({ min: 1, max: 100 })
+    .escape(),
+  body("short_name", "Product Short Name must be >1 but <=50 characters long.")
+    .trim()
+    .isLength({ min: 1, max: 30 })
+    .escape(),
+
+  body("category", "The Category selected was invalid").custom((val) => {
+    return Category.findById(val)
+      .then((result) => {
+        if (!result) return Promise.reject();
+      })
+      .catch((err) => Promise.reject());
+  }),
+  body("brand", "The Brand selected was invalid").custom((val) => {
+    return Brand.findById(val)
+      .then((result) => {
+        if (!result) return Promise.reject();
+      })
+      .catch((err) => Promise.reject());
+  }),
+
+  body("price", "Price must be >=$0.").isInt({ min: 0 }),
+  body("stock", "Stock must be an integer >=0.").isInt({ min: 0 }),
+  body("img", "Product Image must be a valid URL.").trim().isURL(),
+  // W/ Custom Validator Functions
+  body("feat_name", "Feature Name must be >1 but <=50 characters long.")
+    .optional({ checkFalsy: true })
+    .custom((val) => cstmFeatureCheck(val, 50)),
+  body("feat_des", "Feature Description must be >1 but <=30 characters long.")
+    .optional({ checkFalsy: true })
+    .custom((val) => cstmFeatureCheck(val, 30)),
 ];

@@ -6,15 +6,15 @@ const schemaOpt = { toJSON: { virtuals: true } };
 const ProductSchema = new Schema(
   {
     category: { type: Schema.Types.ObjectId, ref: "Category", required: true },
-    name: { type: String, required: true },
-    short_name: { type: String, required: true },
+    name: { type: String, required: true, maxLength: 100 },
+    short_name: { type: String, required: true, maxLength: 50 },
     brand: { type: Schema.Types.ObjectId, ref: "Brand", required: true },
     price: { type: Number, required: true, min: 0 },
-    image_url: { type: String },
+    image_url: { type: String, required: true },
     features: [
       {
-        feature: { type: String, required: true },
-        description: { type: String, required: true },
+        feature: { type: String, required: true, maxLength: 50 },
+        description: { type: String, required: true, maxLength: 30 },
       },
     ],
     stock: { type: Number, required: true, min: 0 },

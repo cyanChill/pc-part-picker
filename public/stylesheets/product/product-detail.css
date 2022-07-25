@@ -3,6 +3,13 @@
   --header-clr: var(--jean-blue);
 }
 
+.prod_edits {
+  display: inline-block;
+  padding: 0.5rem;
+  color: var(--blue);
+  text-decoration: underline;
+}
+
 .prod_detail_pg {
   width: 100%;
   max-width: 40rem;

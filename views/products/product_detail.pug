@@ -5,7 +5,11 @@ block extraInfo
 
 block content
   header.pg_header.cstm_clr= title 
-  
+
+  div
+    a(href=`${prodInfo.url_route}/update`).prod_edits Update
+    a(href=`${prodInfo.url_route}/delete`).prod_edits Delete
+
   main.flex.prod_detail_pg 
     img(src=prodInfo.image_url).prod_img
 
@@ -38,8 +42,3 @@ block content
         h2 Features
         for feat in prodInfo.features
           p.feature #{feat.feature}: #{feat.description}
-
-    //- TODO: Add fucntionality to these buttons
-    div.flex.prod_actions
-      a.btn Update Product
-      a.btn Delete Product

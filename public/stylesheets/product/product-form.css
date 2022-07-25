@@ -1,0 +1,64 @@
+.prod_form {
+  --gap: 0.5rem;
+  width: 100%;
+  max-width: var(--max-form-width);
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+.prd_form_feature_entry {
+  align-items: center;
+}
+
+/* Contains the 2 fields that makes up a feature */
+.prd_form_feature_entry_inputs {
+  --gap: 0.25rem;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* For the remove feature button */
+.prd_form_feature_entry > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  padding: 0.5rem;
+}
+
+.prd_form_feature_entry > button > svg {
+  pointer-events: none;
+  width: 1.5rem;
+  aspect-ratio: 1;
+}
+
+.prd_form_feature_entry > button:hover > svg {
+  fill: var(--error);
+}
+
+.err_cont {
+  color: var(--error);
+  font-size: 0.9rem;
+}
+
+.err_cont ul {
+  padding-inline-start: 1.5rem;
+}
+
+@media (min-width: 568px) {
+  .prod_form {
+    --gap: 1rem;
+  }
+
+  .prd_form_feature_entry_inputs {
+    --gap: 1rem;
+    flex-direction: row;
+  }
+
+  .prd_form_feature_entry > button > svg {
+    width: 1rem;
+  }
+}
