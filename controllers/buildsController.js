@@ -32,7 +32,8 @@ exports.buildCreateGet = async (req, res, next) => {
 
   // Getting current (local) build list
   try {
-    const results = await buildsHelper.getBuildInfo(req, "curr");
+    const results = await buildsHelper.getBuildInfo(req, res, "curr");
+
     res.render("builds/build_form", {
       title: "PC Builder",
       categories: results.categories,
@@ -67,6 +68,7 @@ exports.buildCreatePost = [
     const errors = validationResult(req);
     const { categories, selectedProducts } = await buildsHelper.getBuildInfo(
       req,
+      res,
       "curr"
     );
 
@@ -144,6 +146,7 @@ exports.buildDetailUpdateGet = async (req, res, next) => {
   // Get build data + list from cookies of the saved list we want to update
   const { categories, selectedProducts } = await buildsHelper.getBuildInfo(
     req,
+    res,
     "saved"
   );
 
@@ -163,6 +166,7 @@ exports.buildDetailUpdatePost = [
     const errors = validationResult(req);
     const { categories, selectedProducts } = await buildsHelper.getBuildInfo(
       req,
+      res,
       "saved"
     );
 
@@ -241,12 +245,7 @@ exports.buildValidateSavePassPost = [
       (!isValid && req.body.save_pass !== process.env.ADMIN_PASSWORD)
     ) {
       // Redisplay pass_validation page
-      return res.render("pass_validation", {
-        title: "Build Save Password",
-        passType: "Build Save",
-        prevAttempt: req.body.save_pass,
-        error: "Invalid Password.",
-      });
+      return res.redirect(`/builds/${buildId}/update`);
     }
 
     // Save/refresh valid save password as cookie (for 1h)

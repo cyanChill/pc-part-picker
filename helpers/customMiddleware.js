@@ -103,14 +103,20 @@ exports.validateBuildSavePass = async (req, res, next) => {
 };
 
 exports.validateBuildListInputs = [
-  body("author_name", "Author Name must be >1 but <=30 characters long.")
+  body("author_name")
     .trim()
     .isLength({ min: 1, max: 30 })
-    .escape(),
-  body("build_name", "Build Name must be >1 but <=30 characters long.")
+    .escape()
+    .withMessage("Author Name must be >1 but <=30 characters long.")
+    .isAlphanumeric()
+    .withMessage("Author Name has non-alphanumeric characters."),
+  body("build_name")
     .trim()
     .isLength({ min: 1, max: 30 })
-    .escape(),
+    .escape()
+    .withMessage("Build Name must be >1 but <=30 characters long.")
+    .isAlphanumeric()
+    .withMessage("Build Name has non-alphanumeric characters."),
   body("description", "Description must be >1 but <=200 characters long.")
     .trim()
     .isLength({ min: 1, max: 200 })
@@ -119,10 +125,13 @@ exports.validateBuildListInputs = [
 ];
 
 exports.validateCategoryInputs = [
-  body("name", "Category Name must be >1 but <=30 characters long.")
+  body("name")
     .trim()
     .isLength({ min: 1, max: 30 })
-    .escape(),
+    .escape()
+    .withMessage("Category Name must be >1 but <=30 characters long.")
+    .isAlphanumeric()
+    .withMessage("Category Name has non-alphanumeric characters."),
   body("description", "Description must be >1 but <=200 characters long.")
     .trim()
     .isLength({ min: 1, max: 200 })
@@ -137,7 +146,7 @@ exports.validateProductInputs = [
     .escape(),
   body("short_name", "Product Short Name must be >1 but <=50 characters long.")
     .trim()
-    .isLength({ min: 1, max: 30 })
+    .isLength({ min: 1, max: 50 })
     .escape(),
 
   body("category", "The Category selected was invalid").custom((val) => {
@@ -155,8 +164,14 @@ exports.validateProductInputs = [
       .catch((err) => Promise.reject());
   }),
 
-  body("price", "Price must be >=$0.").isInt({ min: 0 }),
-  body("stock", "Stock must be an integer >=0.").isInt({ min: 0 }),
+  body("price", "Price must be >=$0 but <=$99999.99.").isFloat({
+    min: 0,
+    max: 99999.99,
+  }),
+  body("stock", "Stock must be an integer >=0 but <=999999999.").isInt({
+    min: 0,
+    max: 999999999,
+  }),
   body("img", "Product Image must be a valid URL.").trim().isURL(),
   // W/ Custom Validator Functions
   body("feat_name", "Feature Name must be >1 but <=50 characters long.")

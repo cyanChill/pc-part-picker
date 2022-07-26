@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const numHelpers = require("../helpers/numbersHelper");
+const simpHelpers = require("../helpers/simplifyHelper");
 
 const Schema = mongoose.Schema;
 const schemaOpt = { toJSON: { virtuals: true } };
@@ -33,11 +33,11 @@ ProductSchema.virtual("url_route").get(function () {
 });
 
 ProductSchema.virtual("simplifiedPrice").get(function () {
-  return numHelpers.simplifyFloatNum(this.price);
+  return simpHelpers.simplifyFloatNum(this.price);
 });
 
 ProductSchema.virtual("simplifiedStock").get(function () {
-  return numHelpers.simplifyIntNum(this.stock);
+  return simpHelpers.simplifyIntNum(this.stock);
 });
 
 // Export Model

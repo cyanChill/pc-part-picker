@@ -3,7 +3,7 @@ const Category = require("../models/category");
 const Product = require("../models/product");
 const List = require("../models/list");
 
-exports.getBuildInfo = async (req, listType) => {
+exports.getBuildInfo = async (req, res, listType) => {
   if (!req) throw new Error("Did not provide Request object.");
   if (!listType) throw new Error("Did not provide list type/name.");
   // Get Category Names
@@ -15,18 +15,26 @@ exports.getBuildInfo = async (req, listType) => {
   for (let keyId in browserCookies) {
     if (categoryIds.includes(keyId)) prevItems.push(browserCookies[keyId]);
   }
-  // Fetch product info (we handle the error externally)
-  const prodsInfo = await Promise.all(
+
+  const prodsInfo = await Promise.allSettled(
     prevItems.map((prodId) =>
-      Product.findById(
-        prodId,
-        "category name short_name price image_url"
-      ).populate("category")
+      Product.findById(prodId, "category name short_name price image_url")
+        .populate("category")
+        .catch((e) => {
+          console.log(e);
+          return e;
+        })
     )
   );
+  // Keep the products w/ successful promise & returned a value (handles
+  // error case for we add a nonexistent product and prevents MongoDB
+  // invalid ObjectID Ref error)
+  const validResults = prodsInfo
+    .filter((result) => result.status === "fulfilled" && !!result.value)
+    .map((prod) => prod.value);
   // Get final return object by mapping over each product & extracting necessary info
   let selectedProducts = {};
-  prodsInfo.forEach((prod) => {
+  validResults.forEach((prod) => {
     selectedProducts[prod.category.name] = {
       _id: prod._id,
       short_name: prod.short_name,
