@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const numHelpers = require("../helpers/numbersHelper");
+
 const Schema = mongoose.Schema;
 const schemaOpt = { toJSON: { virtuals: true } };
 
@@ -9,7 +11,7 @@ const ProductSchema = new Schema(
     name: { type: String, required: true, maxLength: 100 },
     short_name: { type: String, required: true, maxLength: 50 },
     brand: { type: Schema.Types.ObjectId, ref: "Brand", required: true },
-    price: { type: Number, required: true, min: 0 },
+    price: { type: Number, required: true, min: 0, max: 99999.99 },
     image_url: { type: String, required: true },
     features: [
       {
@@ -17,7 +19,7 @@ const ProductSchema = new Schema(
         description: { type: String, required: true, maxLength: 30 },
       },
     ],
-    stock: { type: Number, required: true, min: 0 },
+    stock: { type: Number, required: true, min: 0, max: 999999999 },
   },
   schemaOpt
 );
@@ -28,6 +30,14 @@ ProductSchema.virtual("buy_link").get(function () {
 
 ProductSchema.virtual("url_route").get(function () {
   return `/products/${this._id}`;
+});
+
+ProductSchema.virtual("simplifiedPrice").get(function () {
+  return numHelpers.simplifyFloatNum(this.price);
+});
+
+ProductSchema.virtual("simplifiedStock").get(function () {
+  return numHelpers.simplifyIntNum(this.stock);
 });
 
 // Export Model

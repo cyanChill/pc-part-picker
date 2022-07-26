@@ -30,11 +30,11 @@ mixin products_table(products, col2Type)
 
         p.prod_tb_stock
           span.show_mob Stock 
-          | #{prod.stock}
+          | #{prod.simplifiedStock}
 
         p.prod_tb_price 
           span.show_mob Price
-          | $#{prod.price}
+          | $#{prod.simplifiedPrice}
 
         a(href=prod.buy_link target="_blank").btn.green.flex.ign_a_hov.prod_tb_buy_btn
           span Buy

@@ -1,26 +1,24 @@
 /* Holds list of builds cards */
 .builds-container {
-  row-gap: 1rem;
+  grid-template-columns: 100%;
+  gap: 1rem;
   padding-block: 1rem;
 }
 
 @media (min-width: 568px) {
   .builds-container {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 1rem;
+    grid-template-columns: repeat(2, calc((100% - 1rem) / 2));
   }
 }
 
 @media (min-width: 768px) {
   .builds-container {
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 1rem;
+    grid-template-columns: repeat(3, calc((100% - 2rem) / 3));
   }
 }
 
 @media (min-width: 1000px) {
   .builds-container {
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 1rem;
+    grid-template-columns: repeat(4, calc((100% - 3rem) / 4));
   }
 }

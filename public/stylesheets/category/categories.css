@@ -10,7 +10,7 @@
 
 .ctgy_container {
   width: 100%;
-  grid-template-columns: 1fr;
+  grid-template-columns: 100%;
   gap: 0.5rem;
 
   padding: 0.5rem;
@@ -18,8 +18,9 @@
 
 /* Category Button Styling */
 .ctgy_btn {
-  grid-column: span 1;
+  height: 100%;
   width: 100%;
+  grid-column: span 1;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -28,15 +29,22 @@
 
 .ctgy_img {
   object-fit: contain;
-  width: 100%;
+  max-width: 100%;
   flex-shrink: 0;
   max-width: 4rem;
   aspect-ratio: 1;
 }
 
+.ctgy_btn > span {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 @media (min-width: 568px) {
   .ctgy_container {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 33.33%);
   }
 
   .ctgy_btn {
@@ -50,6 +58,6 @@
 
 @media (min-width: 768px) {
   .ctgy_container {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 25%);
   }
 }

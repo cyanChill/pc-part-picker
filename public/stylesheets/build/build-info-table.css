@@ -1,3 +1,15 @@
+/*
+  Adding word wrap where necessary (product name & category name)
+*/
+.bld_tb_ctgy_name,
+.bld_tb_sel_prod > :last-child,
+.bld_tb_sel_btn {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 /* Remove Editing Features */
 .bld_tb_no_edit .bld_tb_sel_btn {
   display: none !important;
@@ -161,7 +173,8 @@
 
 /* Selection Button Styling */
 .bld_tb_sel_btn {
-  width: max-content;
+  grid-column: span 2;
+  max-width: max-content;
   padding: 0.5rem;
 }
 
@@ -174,7 +187,7 @@
   /* Styling Each Row of "Table" */
   .bld_tb_cont > div {
     display: grid;
-    grid-template-columns: 7.5rem 1fr 5rem 5rem;
+    grid-template-columns: 7.5rem calc(100% - 19rem) 5rem 5rem;
     gap: 1rem 0.5rem;
 
     border-bottom: 1px solid var(--grey);

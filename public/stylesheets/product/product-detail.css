@@ -46,7 +46,7 @@
 /* Extra Information on the product */
 .info_container {
   width: 100%;
-  grid-template-columns: 1fr;
+  grid-template-columns: 100%;
   row-gap: 1rem;
   padding-inline: 0.5rem;
 }
@@ -65,6 +65,8 @@
 
 /* Value of Info Category */
 .prod_info > div :last-child {
+  width: 100%;
+  word-wrap: break-word;
   color: black;
   font-weight: 500;
   font-size: 0.95rem;

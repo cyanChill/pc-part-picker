@@ -1,3 +1,14 @@
+/*
+  Adding word wrap where necessary (author & build name)
+*/
+.bld_cd_hdr > span,
+.bld_cd_bld_nm,
+.bld_cd_bld_sum > div > p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .bld_cd {
   --gap: 0;
   flex-direction: column;

@@ -1,3 +1,14 @@
+/*
+  Adding word wrap where necessary (product name & manufacturer name)
+*/
+.prod_tb_sel_prod > :last-child,
+.prod_tb_col2 > a {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Table Container */
 .prod_tb_cont {
   width: 100%;
   padding: 0.5rem;
@@ -13,7 +24,7 @@
 @media (max-width: 768px) {
   .prod_tb_entry {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 50%);
     gap: 0.25rem;
     padding-block: 0.25rem;
     border-bottom: 1px solid var(--grey);
@@ -34,6 +45,7 @@
 }
 
 .prod_tb_sel_prod > :last-child {
+  max-width: calc(100% - 3.5rem);
   color: black;
   font-size: 1.15rem;
   font-weight: 500;
@@ -98,7 +110,7 @@
   /* Styling Each Row of "Table" */
   .prod_tb_cont > div {
     display: grid;
-    grid-template-columns: 1fr 7rem repeat(4, 4rem);
+    grid-template-columns: calc(100% - 28.5rem) 7rem repeat(4, 4.75rem);
     align-items: center;
     gap: 1rem 0.5rem;
 
@@ -120,6 +132,7 @@
   }
 
   .prod_tb_sel_prod > :last-child {
+    max-width: calc(100% - 3rem);
     font-size: 1.05rem;
   }
 
