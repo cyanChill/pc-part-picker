@@ -21,7 +21,7 @@ const cstmFeatureCheck = (val, maxLength) => {
   }
 };
 
-/* Custom Middleware */
+/* Middleware To Validate the Dynamic URL Fields */
 exports.validateBrandId = async (req, res, next) => {
   try {
     const brandExists = await Brand.findById(req.params.brandId);
@@ -70,6 +70,10 @@ exports.validateProductId = async (req, res, next) => {
   }
 };
 
+/*
+  Middleware to validate whether we previously have a build save-password
+  cookie for when we try to update or delete a build
+*/
 exports.validateBuildSavePass = async (req, res, next) => {
   const { buildId } = req.params;
   // Check for save cookie if we previously wrote the save password for the build
@@ -102,6 +106,9 @@ exports.validateBuildSavePass = async (req, res, next) => {
   next();
 };
 
+/* 
+  Custom req body validation middleware
+*/
 exports.validateBuildListInputs = [
   body("author_name")
     .trim()

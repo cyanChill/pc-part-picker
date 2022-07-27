@@ -4,24 +4,26 @@ const router = express.Router();
 const cstmMiddleware = require("../helpers/customMiddleware");
 const brandsController = require("../controllers/brandsController");
 
-/* GET brands page. */
+/* Route to get a list of ALL brands. */
 router.get("/", brandsController.brandsGet);
 
-/* GET brand create page. */
+/* Routes to handle creating a brand. */
 router.get("/create", brandsController.brandCreateGet);
-/* POST brand create page */
 router.post("/create", brandsController.brandCreatePost);
 
-// Validate that brandId is valid
+/*
+  Using Middleware for specific route to validate the ":brandId" dynamic
+  value is valid (is an _id to an actual "Brand" schema object).
+*/
 router.use("/:brandId", cstmMiddleware.validateBrandId);
-/* GET brand detail page */
+
+/* Route to get a list of all products by the current brand. */
 router.get("/:brandId", brandsController.brandDetailGet);
 
-// No need for update routes really
+/* No UPDATE route since brands don't change their names frequently. */
 
-/* GET brand delete page. */
+/* Routes to handle deleting a brand. */
 router.get("/:brandId/delete", brandsController.brandDeleteGet);
-/* POST brand delete page */
 router.post("/:brandId/delete", brandsController.brandDeletePost);
 
 module.exports = router;

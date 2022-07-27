@@ -9,10 +9,10 @@ block content
   //- Header
   header.pg_header.cstm_clr
     p= title 
-    p.pg_header_subHead= author
-    p.pg_header_subText= description
+    p.pg_header_subHead By #{buildInfo.author}
+    p.pg_header_subText= buildInfo.description
 
-  img(src=thumbnail_url onerror="this.src = '/images/fallback_pc_build.jpg';").thumbnail_img
+  img(src=buildInfo.thumbnail_url onerror="this.src = '/images/fallback_pc_build.jpg';").thumbnail_img
 
   +build_info_table(categories, comp_list, false, false)
 
@@ -21,6 +21,6 @@ block content
     | #{totalPrice}
 
   div.flex
-    a(href=`/builds/${buildId}/update`).btn Update Build
-    a(href=`/builds/${buildId}/delete`).btn Delete Build
+    a(href=`${buildInfo.url_route}/update`).btn Update Build
+    a(href=`${buildInfo.url_route}/delete`).btn Delete Build
 

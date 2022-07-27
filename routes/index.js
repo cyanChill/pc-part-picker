@@ -3,7 +3,7 @@ const router = express.Router();
 
 const indexController = require("../controllers/indexController");
 
-/* GET home page. */
+/* Route to get the homepage. */
 router.get("/", indexController.homeGet);
 
 module.exports = router;

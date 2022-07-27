@@ -41,7 +41,4 @@ mixin products_table(products, col2Type)
           object(type="image/svg+xml" data="/images/products/amazon.svg")
 
         form(method="POST" action=`${prod.url_route}/add`).prod_tb_add_action
-          input(type='text' name='prodId' value=prod._id).hide
-          input(type='text' name='ctgyId' value=prod.category._id).hide
-          button.btn.flex.prod_tb_add_btn
-            span Add
+          button(type="submit").btn.flex.prod_tb_add_btn  Add

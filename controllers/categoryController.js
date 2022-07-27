@@ -5,8 +5,8 @@ const cstmMiddleware = require("../helpers/customMiddleware");
 const Category = require("../models/category");
 const Product = require("../models/product");
 
+/* Function to handle getting a list of all categories. */
 exports.categoryGet = async (req, res, next) => {
-  // Get all categories
   const results = await Category.find({}).sort({ name: 1 });
   res.render("category/categories", {
     title: "Product Categories",
@@ -14,12 +14,14 @@ exports.categoryGet = async (req, res, next) => {
   });
 };
 
+/* Function to render the form for creating a category. */
 exports.categoryCreateGet = async (req, res, next) => {
   res.render("category/category_form", {
     title: "Add a New Category",
   });
 };
 
+/* Function to handle the form submission of creating a category. */
 exports.categoryCreatePost = [
   ...cstmMiddleware.validateCategoryInputs,
 
@@ -50,30 +52,27 @@ exports.categoryCreatePost = [
       });
     }
 
-    // Success
     try {
+      // Success!
       const newCategory = await Category.create(newCtgyTemp);
-      // Goto new category page
-      res.redirect(newCategory.url_route);
+      res.redirect(newCategory.url_route); // Goto new category page
     } catch (err) {
       return next(err);
     }
   },
 ];
 
+/*  Function to render the page containing all the products in the category. */
 exports.categoryDetailGet = async (req, res, next) => {
   try {
-    const { categoryId } = req.params;
-    const ctgyInfo = req.body.categoryData;
     // Get Category Products
-    const ctgyProducts = await Product.find({ category: categoryId })
+    const ctgyProducts = await Product.find({ category: req.params.categoryId })
       .sort({ name: 1 })
       .populate("brand")
       .populate("category");
-
     res.render("category/category_detail", {
-      title: `${ctgyInfo.name} Products`,
-      category: ctgyInfo,
+      title: `${req.body.categoryData.name} Products`,
+      category: req.body.categoryData,
       products: ctgyProducts,
     });
   } catch (err) {
@@ -81,6 +80,7 @@ exports.categoryDetailGet = async (req, res, next) => {
   }
 };
 
+/* Function to render the form for updating a category. */
 exports.categoryUpdateGet = async (req, res, next) => {
   res.render("category/category_form", {
     title: "Update Category",
@@ -88,11 +88,13 @@ exports.categoryUpdateGet = async (req, res, next) => {
   });
 };
 
+/* Function to handle the form submission of updating a category. */
 exports.categoryUpdatePost = [
   ...cstmMiddleware.validateCategoryInputs,
 
   async (req, res, next) => {
     const errors = validationResult(req);
+
     const updatedContents = {
       name: req.body.name,
       previewImg: req.body.img,
@@ -123,17 +125,21 @@ exports.categoryUpdatePost = [
       updatedContents,
       function (err, updatedCtgy) {
         if (err) return next(err);
-        // Successful - redirect to category detail page
-        res.redirect(updatedCtgy.url_route);
+        res.redirect(updatedCtgy.url_route); // Goto category detail page
       }
     );
   },
 ];
 
+/*
+  Function to render the form for deleting a category.
+    ⭐ SHOULD NOT DELETE A CATEGORY IF IT STILL HAS PRODUCTS ASSOCIATE WITH IT.
+*/
 exports.categoryDeleteGet = async (req, res, next) => {
-  const ctgyProducts = await Product.find({
-    category: req.params.categoryId,
-  }).sort({ short_name: 1 });
+  const ctgyProducts = await Product.find(
+    { category: req.params.categoryId },
+    "short_name"
+  ).sort({ short_name: 1 });
 
   res.render("delete_group", {
     title: "Delete Category",
@@ -143,10 +149,15 @@ exports.categoryDeleteGet = async (req, res, next) => {
   });
 };
 
+/*
+  Function to handle the form submission of deleting a category.
+    ⭐ SHOULD NOT DELETE A CATEGORY IF IT STILL HAS PRODUCTS ASSOCIATE WITH IT.
+*/
 exports.categoryDeletePost = async (req, res, next) => {
-  const ctgyProducts = await Product.find({
-    category: req.params.categoryId,
-  }).sort({ short_name: 1 });
+  const ctgyProducts = await Product.find(
+    { category: req.params.categoryId },
+    "short_name"
+  ).sort({ short_name: 1 });
 
   // If we still have products or admin password is incorrect
   if (ctgyProducts.length > 0 || req.body.pass !== process.env.ADMIN_PASSWORD) {
@@ -159,8 +170,8 @@ exports.categoryDeletePost = async (req, res, next) => {
     });
   }
 
-  // No products left in category
   try {
+    // Success! No products left in category
     await Category.findByIdAndDelete(req.params.categoryId);
     res.redirect("/");
   } catch (err) {

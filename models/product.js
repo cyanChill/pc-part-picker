@@ -40,5 +40,4 @@ ProductSchema.virtual("simplifiedStock").get(function () {
   return simpHelpers.simplifyIntNum(this.stock);
 });
 
-// Export Model
 module.exports = mongoose.model("Product", ProductSchema);

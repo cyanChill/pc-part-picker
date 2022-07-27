@@ -8,6 +8,7 @@ const hashHelper = require("../helpers/hashHelper.js");
 const Category = require("../models/category");
 const List = require("../models/list");
 
+/* Function to handle getting a list of all completed builds. */
 exports.buildGet = async (req, res, next) => {
   const results = await List.find({}).populate("components.$*");
   const builds = results ? results : [];
@@ -25,6 +26,7 @@ exports.buildGet = async (req, res, next) => {
   }
 };
 
+/* Function to render the form for creating a build. */
 exports.buildCreateGet = async (req, res, next) => {
   // If we're updating a build, redirect to that page
   const currList = req.cookies.currList; // Get buildId if exists
@@ -32,32 +34,18 @@ exports.buildCreateGet = async (req, res, next) => {
 
   // Getting current (local) build list
   try {
-    const results = await buildsHelper.getBuildInfo(req, res, "curr");
-
+    const { ctgies, selProds } = await buildsHelper.getBuildInfo(req, "curr");
     res.render("builds/build_form", {
       title: "PC Builder",
-      categories: results.categories,
-      comp_list: results.selectedProducts,
+      categories: ctgies,
+      comp_list: selProds,
     });
   } catch (err) {
     return next(err);
   }
 };
 
-exports.buildComponentDelete = async (req, res, next) => {
-  try {
-    const currList = req.cookies.currList; // Get buildId if exists
-    await productHelper.removeItemFromList(
-      res,
-      req.body.ctgyId,
-      currList ? "saved" : "curr"
-    );
-    res.redirect("/builds/create");
-  } catch (err) {
-    return next(err);
-  }
-};
-
+/* Function to handle the form submission of creating a build. */
 exports.buildCreatePost = [
   ...cstmMiddleware.validateBuildListInputs,
   body("save_pass", "Password must be atleast 6 characters long.")
@@ -66,13 +54,9 @@ exports.buildCreatePost = [
 
   async (req, res, next) => {
     const errors = validationResult(req);
-    const { categories, selectedProducts } = await buildsHelper.getBuildInfo(
-      req,
-      res,
-      "curr"
-    );
+    const { ctgies, selProds } = await buildsHelper.getBuildInfo(req, "curr");
 
-    if (Object.keys(selectedProducts).length === 0) {
+    if (Object.keys(selProds).length === 0) {
       errors.errors.push({
         value: "",
         msg: "Build must contain at least one component.",
@@ -80,13 +64,14 @@ exports.buildCreatePost = [
         location: "cookie",
       });
     }
-
-    const currBuildMap = new Map();
-    for (const compName in selectedProducts) {
-      currBuildMap.set(compName, selectedProducts[compName]._id);
-    }
-
+    // Hash the save password
     const hashedPass = await hashHelper.hashPassword(req.body.save_pass);
+    // Create a map for the components (as part of our build "List" schema)
+    const currBuildMap = new Map();
+    for (const compName in selProds) {
+      currBuildMap.set(compName, selProds[compName]._id);
+    }
+    // The object that will potentially be a new build list
     const newList = {
       author_name: req.body.author_name,
       build_name: req.body.build_name,
@@ -99,8 +84,8 @@ exports.buildCreatePost = [
     if (!errors.isEmpty()) {
       return res.render("builds/build_form", {
         title: "PC Builder",
-        categories: categories,
-        comp_list: selectedProducts,
+        categories: ctgies,
+        comp_list: selProds,
         prevData: newList,
         prevPass: req.body.save_pass,
         formError: true,
@@ -109,68 +94,128 @@ exports.buildCreatePost = [
     }
 
     try {
+      // Success!
       const newBuildList = await List.create(newList);
-      // Clean Cookies
+      // Clean Cookies used for creating the build list
       buildsHelper.clearBuildCookies(req, res, "curr");
-      // Goto new build page
-      res.redirect(newBuildList.url_route);
+      res.redirect(newBuildList.url_route); // Goto new build page
     } catch (err) {
       return next(err);
     }
   },
 ];
 
+/*
+  Function to handle when we want to remove a component from the current
+  build list (new or previously existing one) — involves deleting the
+  cookie for that component type.
+*/
+exports.buildComponentDelete = async (req, res, next) => {
+  try {
+    // See if we're updating a build or not
+    const currList = req.cookies.currList;
+    await productHelper.removeItemFromList(
+      res,
+      req.body.ctgyId,
+      currList ? "saved" : "curr"
+    );
+    res.redirect("/builds/create");
+  } catch (err) {
+    return next(err);
+  }
+};
+
+/*  Function to render the page describing the current build. */
 exports.buildDetailGet = async (req, res, next) => {
   try {
-    const { buildId } = req.params;
     const buildInfo = buildsHelper.addBuildPriceField(req.body.buildData);
     const ctgy = await Category.find({}).sort({ name: 1 });
-
     res.render("builds/build_detail", {
       title: buildInfo.build_name,
-      author: `By ${buildInfo.author_name}`,
-      description: buildInfo.description,
-      thumbnail_url: buildInfo.thumbnail_url,
-      buildId: buildId,
+      buildInfo: buildInfo,
+      totalPrice: buildInfo.price,
       categories: ctgy,
       comp_list: Object.fromEntries(buildInfo.components),
-      totalPrice: buildInfo.price,
     });
   } catch (err) {
     return next(err);
   }
 };
 
+/*
+  Function to check to see whether the user entered a valid save password
+  for the current build.
+*/
+exports.buildValidateSavePassPost = [
+  body("save_pass", "Password must be atleast 6 characters long.")
+    .trim()
+    .isLength({ min: 6 }),
+
+  async (req, res, next) => {
+    const { buildId } = req.params;
+    const errors = validationResult(req);
+    // See if the save-password is valid
+    const isValid = await buildsHelper.validateBuildSavePassword(
+      buildId,
+      req.body.save_pass
+    );
+
+    if (
+      !errors.isEmpty() ||
+      (!isValid && req.body.save_pass !== process.env.ADMIN_PASSWORD)
+    ) {
+      // Redisplay pass_validation page since we have errors
+      return res.redirect(`/builds/${buildId}/update`);
+    }
+
+    // Save/refresh valid save password as cookie (for 1h)
+    res.cookie(`${buildId}-saved-pass`, req.body.save_pass, {
+      maxAge: 3600000,
+      httpOnly: true,
+    });
+    // If we update a different build (or time expires)
+    if (!req.cookies.currList || req.cookies.currList !== buildId) {
+      // Clear prev saved list cookies & load saved list components to cookies
+      await buildsHelper.addSavedBuildInfoToCookies(res, buildId);
+    }
+    res.redirect(req.body.redirect_route);
+  },
+];
+
+/*
+  Function to handle when the user wants to cancel updating/deleting the 
+  current build.
+*/
+exports.buildDetailCancelGet = async (req, res, next) => {
+  // Clear saved build related cookies
+  buildsHelper.cleanUpSaveBuildCookies(req, res, req.params.buildId);
+  res.redirect(`/builds/${req.params.buildId}`);
+};
+
+/* Function to render the form for updating a build. */
 exports.buildDetailUpdateGet = async (req, res, next) => {
+  // For the content in the "finalize data part of teh form"
   const oldListData = req.body.buildData;
   // Get build data + list from cookies of the saved list we want to update
-  const { categories, selectedProducts } = await buildsHelper.getBuildInfo(
-    req,
-    res,
-    "saved"
-  );
-
+  const { ctgies, selProds } = await buildsHelper.getBuildInfo(req, "saved");
   res.render("builds/build_form", {
     title: "Updating Build",
-    categories: categories,
-    comp_list: selectedProducts,
+    categories: ctgies,
+    comp_list: selProds,
     prevData: oldListData,
     updating: true,
   });
 };
 
+/* Function to handle the form submission of updating a build. */
 exports.buildDetailUpdatePost = [
   ...cstmMiddleware.validateBuildListInputs,
 
   async (req, res, next) => {
     const errors = validationResult(req);
-    const { categories, selectedProducts } = await buildsHelper.getBuildInfo(
-      req,
-      res,
-      "saved"
-    );
+    const { ctgies, selProds } = await buildsHelper.getBuildInfo(req, "saved");
 
-    if (Object.keys(selectedProducts).length === 0) {
+    if (Object.keys(selProds).length === 0) {
       errors.errors.push({
         value: "",
         msg: "Build must contain at least one component.",
@@ -180,8 +225,8 @@ exports.buildDetailUpdatePost = [
     }
 
     const currBuildMap = new Map();
-    for (const compName in selectedProducts) {
-      currBuildMap.set(compName, selectedProducts[compName]._id);
+    for (const compName in selProds) {
+      currBuildMap.set(compName, selProds[compName]._id);
     }
 
     let updatedContents = {
@@ -193,11 +238,10 @@ exports.buildDetailUpdatePost = [
     };
 
     if (!errors.isEmpty()) {
-      updatedContents._id = req.params.buildId;
       return res.render("builds/build_form", {
         title: "PC Builder",
-        categories: categories,
-        comp_list: selectedProducts,
+        categories: ctgies,
+        comp_list: selProds,
         prevData: updatedContents,
         updating: true,
         formError: true,
@@ -213,66 +257,27 @@ exports.buildDetailUpdatePost = [
         if (err) return next(err);
         // Clear saved build related cookies
         buildsHelper.cleanUpSaveBuildCookies(req, res, updatedBuild._id);
-        // Successful - redirect to build detail page
-        res.redirect(updatedBuild.url_route);
+        res.redirect(updatedBuild.url_route); // Goto build detail page
       }
     );
   },
 ];
 
-exports.buildDetailCancelGet = async (req, res, next) => {
-  // Clear saved build related cookies
-  buildsHelper.cleanUpSaveBuildCookies(req, res, req.params.buildId);
-  res.redirect("/");
-};
-
-exports.buildValidateSavePassPost = [
-  body("save_pass", "Password must be atleast 6 characters long.")
-    .trim()
-    .isLength({ min: 6 }),
-
-  async (req, res, next) => {
-    const { buildId } = req.params;
-    const errors = validationResult(req);
-
-    const isValid = await buildsHelper.validateBuildSavePassword(
-      buildId,
-      req.body.save_pass
-    );
-
-    if (
-      !errors.isEmpty() ||
-      (!isValid && req.body.save_pass !== process.env.ADMIN_PASSWORD)
-    ) {
-      // Redisplay pass_validation page
-      return res.redirect(`/builds/${buildId}/update`);
-    }
-
-    // Save/refresh valid save password as cookie (for 1h)
-    res.cookie(`${buildId}-saved-pass`, req.body.save_pass, {
-      maxAge: 3600000,
-      httpOnly: true,
-    });
-
-    // If we update a different build (or time expires)
-    if (!req.cookies.currList || req.cookies.currList !== buildId) {
-      // Clear prev saved list cookies & load saved list components to cookies
-      await buildsHelper.addSavedBuildInfoToCookies(res, buildId);
-    }
-
-    res.redirect(req.body.redirect_route);
-  },
-];
-
+/*
+  Function to render the form for deleting a build list.
+    ⭐ Don't need any other checks as nothing is dependent on a build.
+*/
 exports.buildDetailDeleteGet = async (req, res, next) => {
-  const { buildId } = req.params;
-
   res.render("builds/build_delete", {
     title: "Delete Build?",
-    buildId: buildId,
+    buildId: req.params.buildId,
   });
 };
 
+/*
+  Function to handle the form submission of deleting a build list.
+    ⭐ Don't need any other checks as nothing is dependent on a build.
+*/
 exports.buildDetailDeletePost = async (req, res, next) => {
   try {
     await List.findByIdAndDelete(req.params.buildId);

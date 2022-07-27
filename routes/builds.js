@@ -4,43 +4,51 @@ const router = express.Router();
 const cstmMiddleware = require("../helpers/customMiddleware");
 const buildsController = require("../controllers/buildsController");
 
-/* GET list of completed builds page. */
+/* Route to get a list of all completed builds. */
 router.get("/", buildsController.buildGet);
 
-/* GET build create page. */
+/* Routes to handle creating a build list. */
 router.get("/create", buildsController.buildCreateGet);
-/* POST build page */
 router.post("/create", buildsController.buildCreatePost);
 
-/* DELETE component in build list. */
+/*
+  Route for handling when we want to remove a component from the build 
+  list (when creating or editing).
+*/
 router.post("/create/deleteComponent", buildsController.buildComponentDelete);
 
-// Valdiate if buildId URL parameter is valid
+/*
+  Using Middleware for specific route to validate the ":buildId" dynamic
+  value is valid (is an _id to an actual "Build" schema object).
+*/
 router.use("/:buildId", cstmMiddleware.validateBuildId);
-/* GET build detail page */
+
+/* Route to display a page describing the current build. */
 router.get("/:buildId", buildsController.buildDetailGet);
 
-// Validate save-pass for build
+/* 
+  Middleware to validate that the user knows the build's save password
+  before attempting to update or delete the build.
+*/
 router.use("/:buildId/update", cstmMiddleware.validateBuildSavePass);
-/* GET & POST build detail update page */
-router.get("/:buildId/update", buildsController.buildDetailUpdateGet);
-router.post("/:buildId/update", buildsController.buildDetailUpdatePost);
-
-/* Cancel Route */
-router.get("/:buildId/cancel", [
-  cstmMiddleware.validateBuildId,
-  buildsController.buildDetailCancelGet,
-]);
-
-/* POST Validate Build Save Password */
+router.use("/:buildId/delete", cstmMiddleware.validateBuildSavePass);
+/*
+  Route for checking whether the user inputted a valid save password for 
+  the build (for updating or deleting).
+*/
 router.post(
   "/:buildId/validateSavePass",
   buildsController.buildValidateSavePassPost
 );
 
-// Validate save-pass for build
-router.use("/:buildId/delete", cstmMiddleware.validateBuildSavePass);
-/* GET & POST build detail delete page */
+/* Route for canceling updating or deleting a build. */
+router.get("/:buildId/cancel", buildsController.buildDetailCancelGet);
+
+/* Routes to handle updating a build. */
+router.get("/:buildId/update", buildsController.buildDetailUpdateGet);
+router.post("/:buildId/update", buildsController.buildDetailUpdatePost);
+
+/* Routes to handle deleting a build. */
 router.get("/:buildId/delete", buildsController.buildDetailDeleteGet);
 router.post("/:buildId/delete", buildsController.buildDetailDeletePost);
 

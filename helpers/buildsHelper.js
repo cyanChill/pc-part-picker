@@ -3,7 +3,8 @@ const Category = require("../models/category");
 const Product = require("../models/product");
 const List = require("../models/list");
 
-exports.getBuildInfo = async (req, res, listType) => {
+/* Fetch the build we have stored in cookies */
+exports.getBuildInfo = async (req, listType) => {
   if (!req) throw new Error("Did not provide Request object.");
   if (!listType) throw new Error("Did not provide list type/name.");
   // Get Category Names
@@ -15,7 +16,7 @@ exports.getBuildInfo = async (req, res, listType) => {
   for (let keyId in browserCookies) {
     if (categoryIds.includes(keyId)) prevItems.push(browserCookies[keyId]);
   }
-
+  // Wait until all promises have finished (regardless of resolve or reject)
   const prodsInfo = await Promise.allSettled(
     prevItems.map((prodId) =>
       Product.findById(prodId, "category name short_name price image_url")
@@ -44,17 +45,20 @@ exports.getBuildInfo = async (req, res, listType) => {
     };
   });
 
-  return { categories: categories, selectedProducts: selectedProducts };
+  return { ctgies: categories, selProds: selectedProducts };
 };
 
+/* Add a "price" (totalPrice) field to a Mongoose "List" schema object */
 exports.addBuildPriceField = (buildInfo) => {
   let price = 0;
-  buildInfo.components.forEach((val, key) => (price += val.price));
-  buildInfo.price = `$${price}`;
+  buildInfo.components.forEach((val) => (price += val.price));
+  // Round total price to 2 decimal places
+  buildInfo.price = `$${price.toFixed(2)}`;
 
   return buildInfo;
 };
 
+/* Remove the cookies related to the build when creating or updating */
 exports.clearBuildCookies = (req, res, listType) => {
   const browserCookies = req.cookies ? req.cookies : {};
   const regex = new RegExp(`.*\-${listType}`);
@@ -67,6 +71,7 @@ exports.clearBuildCookies = (req, res, listType) => {
   cookieNames.forEach((ckie) => res.clearCookie(ckie));
 };
 
+/* Simple function to help validate a build's save password the user inputted */
 exports.validateBuildSavePassword = async (buildId, savePassword) => {
   const existingBuild = await List.findById(buildId, "hashedSavePass");
   const isValid = await hashHelper.verifyPassword(
@@ -77,6 +82,10 @@ exports.validateBuildSavePassword = async (buildId, savePassword) => {
   return isValid;
 };
 
+/*
+  Gets the components in a Mongoose "List" schema object and save them
+  into cookies
+*/
 exports.addSavedBuildInfoToCookies = async (res, buildId) => {
   const [ctgy, buildList] = await Promise.all([
     Category.find({}).sort({ name: 1 }),
@@ -92,6 +101,10 @@ exports.addSavedBuildInfoToCookies = async (res, buildId) => {
   });
 };
 
+/*
+  Clean up the cookies in our browser for after we successfully or
+  cancel an update to a build list
+*/
 exports.cleanUpSaveBuildCookies = (req, res, buildId) => {
   res.clearCookie("currList");
   res.clearCookie(`${buildId}-saved-pass`);

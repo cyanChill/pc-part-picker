@@ -27,5 +27,4 @@ ListSchema.virtual("url_route").get(function () {
   return `/builds/${this._id}`;
 });
 
-// Export Model
 module.exports = mongoose.model("List", ListSchema);

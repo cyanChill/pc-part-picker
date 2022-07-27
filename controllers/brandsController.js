@@ -3,21 +3,23 @@ const { body, validationResult } = require("express-validator");
 const Brand = require("../models/brand");
 const Product = require("../models/product.js");
 
+/* Function to handle getting a list of all brands. */
 exports.brandsGet = async (req, res, next) => {
   const brands = await Brand.find({}).sort({ name: 1 });
-
   res.render("brands/brands", {
     title: "Manufacturers",
     brands: brands,
   });
 };
 
+/* Function to render the form for creating a brand. */
 exports.brandCreateGet = async (req, res, next) => {
   res.render("brands/brand_form", {
     title: "Add a Manufacturer",
   });
 };
 
+/* Function to handle the form submission of creating a brand. */
 exports.brandCreatePost = [
   body("name", "Manufacturer Name must be >1 but <=30 characters long.")
     .trim()
@@ -26,35 +28,30 @@ exports.brandCreatePost = [
 
   async (req, res, next) => {
     const errors = validationResult(req);
-
-    const newBrandTemp = { name: req.body.name };
-
     if (!errors.isEmpty()) {
       return res.render("brands/brand_form", {
         title: "Add a New Manufacturer",
-        prevVal: newBrandTemp,
+        prevVal: { name: req.body.name },
         errs: errors.errors,
       });
     }
 
-    // Success
     try {
-      const newBrand = await Brand.create(newBrandTemp);
-      // Goto new brand page
-      res.redirect(newBrand.url_route);
+      // Success!
+      const newBrand = await Brand.create({ name: req.body.name });
+      res.redirect(newBrand.url_route); // Goto new brand page
     } catch (err) {
       return next(err);
     }
   },
 ];
 
+/*  Function to render the page with all the brand's products. */
 exports.brandDetailGet = async (req, res, next) => {
-  const { brandId } = req.params;
-  const currBrand = req.body.brandData;
-  const unsortedBrandProducts = await Product.find({ brand: brandId }).populate(
-    "category"
-  );
-
+  const unsortedBrandProducts = await Product.find({
+    brand: req.params.brandId,
+  }).populate("category");
+  // Sort brand products by category name then product name
   const brandProducts = unsortedBrandProducts.sort((a, b) => {
     if (a.category.name === b.category.name) {
       // Product name is important if categories are the same
@@ -64,16 +61,22 @@ exports.brandDetailGet = async (req, res, next) => {
   });
 
   res.render("brands/brand_detail", {
-    title: `${currBrand.name}'s Products`,
-    currBrand: currBrand,
+    title: `${req.body.brandData.name}'s Products`,
+    currBrand: req.body.brandData,
     products: brandProducts,
   });
 };
 
+/*
+  Function to render the form for deleting a brand.
+    ⭐ SHOULD NOT DELETE A BRAND IF IT STILL HAS PRODUCTS ASSOCIATE WITH IT.
+*/
 exports.brandDeleteGet = async (req, res, next) => {
-  const brandProducts = await Product.find({ brand: req.params.brandId }).sort({
-    short_name: 1,
-  });
+  // Get all the products for the brand
+  const brandProducts = await Product.find(
+    { brand: req.params.brandId },
+    "short_name"
+  ).sort({ short_name: 1 });
 
   res.render("delete_group", {
     title: "Delete Manufacturer",
@@ -83,12 +86,17 @@ exports.brandDeleteGet = async (req, res, next) => {
   });
 };
 
+/*
+  Function to handle the form submission of deleting a brand.
+    ⭐ SHOULD NOT DELETE A BRAND IF IT STILL HAS PRODUCTS ASSOCIATE WITH IT.
+*/
 exports.brandDeletePost = async (req, res, next) => {
-  const brandProducts = await Product.find({ brand: req.params.brandId }).sort({
-    short_name: 1,
-  });
+  const brandProducts = await Product.find(
+    { brand: req.params.brandId },
+    "short_name"
+  ).sort({ short_name: 1 });
 
-  // If we still have products or admin password is incorrect
+  // If the brand still have products or admin password is incorrect
   if (
     brandProducts.length > 0 ||
     req.body.pass !== process.env.ADMIN_PASSWORD
@@ -102,8 +110,8 @@ exports.brandDeletePost = async (req, res, next) => {
     });
   }
 
-  // No products left in brand
   try {
+    // Success! No products left in brand
     await Brand.findByIdAndDelete(req.params.brandId);
     res.redirect("/");
   } catch (err) {

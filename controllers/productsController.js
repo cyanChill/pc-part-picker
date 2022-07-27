@@ -8,12 +8,12 @@ const Category = require("../models/category");
 const List = require("../models/list");
 const Product = require("../models/product");
 
+/* Function to render the form for creating a product. */
 exports.productCreateGet = async (req, res, next) => {
   const [brands, categories] = await Promise.all([
     Brand.find({}, "name").sort({ name: 1 }),
     Category.find({}, "name").sort({ name: 1 }),
   ]);
-
   res.render("products/product_form", {
     title: "Add a New Product",
     brands: brands,
@@ -22,20 +22,22 @@ exports.productCreateGet = async (req, res, next) => {
   });
 };
 
+/* Function to handle the form submission of creating a product. */
 exports.productCreatePost = [
   ...cstmMiddleware.validateProductInputs,
 
   async (req, res, next) => {
     const errors = validationResult(req);
-
     const [brands, categories] = await Promise.all([
       Brand.find({}, "name").sort({ name: 1 }),
       Category.find({}, "name").sort({ name: 1 }),
     ]);
-
+    // Convert the feature name & description input fields into an array
+    // of objects
     const prodFeatures = [];
     if (req.body.feat_name) {
       if (Array.isArray(req.body.feat_name)) {
+        // If 2+ input field, data is returned as array
         req.body.feat_name.forEach((_, idx) => {
           prodFeatures.push({
             feature: req.body.feat_name[idx],
@@ -43,6 +45,7 @@ exports.productCreatePost = [
           });
         });
       } else {
+        // If only 1 input field, data is returned as string
         prodFeatures.push({
           feature: req.body.feat_name,
           description: req.body.feat_des,
@@ -72,29 +75,23 @@ exports.productCreatePost = [
       });
     }
 
-    // Success
     try {
+      // Success!
       const newProduct = await Product.create(newProdTemp);
-      // Goto new product page
-      res.redirect(newProduct.url_route);
+      res.redirect(newProduct.url_route); // Goto new product page
     } catch (err) {
       return next(err);
     }
   },
 ];
 
+/* Function to render the page containing information on the product. */
 exports.productDetailGet = async (req, res, next) => {
   try {
     const { productId } = req.params;
     const result = await Product.findById(productId)
       .populate("category")
       .populate("brand");
-
-    if (!result) {
-      // TODO: Handle by throwing different error page
-      throw new Error("No Product Found");
-    }
-
     res.render("products/product_detail", {
       title: result.name,
       prodInfo: result,
@@ -104,29 +101,31 @@ exports.productDetailGet = async (req, res, next) => {
   }
 };
 
+/*
+  Function to add a product to the current list (a new list or list we're
+  currently updating.
+*/
 exports.productAddListPost = async (req, res, next) => {
   try {
-    const { prodId, ctgyId } = req.body;
-    const isUpdatedSavedBuild = req.cookies.currList;
     await productHelper.addProdToList(
       res,
-      prodId,
-      ctgyId,
-      isUpdatedSavedBuild ? "saved" : "curr"
+      req.params.productId,
+      req.body.productData.category._id,
+      req.cookies.currList ? "saved" : "curr"
     );
-
     res.redirect("/builds/create");
   } catch (err) {
     next(err);
   }
 };
 
+/* Function to render the form for updating a product. */
 exports.productUpdateGet = async (req, res, next) => {
   const [brands, categories] = await Promise.all([
     Brand.find({}, "name").sort({ name: 1 }),
     Category.find({}, "name").sort({ name: 1 }),
   ]);
-
+  // Stringifying the _id fields for easier comparison in HTML template
   const productData = {
     ...req.body.productData._doc,
     category: req.body.productData.category._id.toString(),
@@ -143,12 +142,12 @@ exports.productUpdateGet = async (req, res, next) => {
   });
 };
 
+/* Function to handle the form submission of updating a product. */
 exports.productUpdatePost = [
   ...cstmMiddleware.validateProductInputs,
 
   async (req, res, next) => {
     const errors = validationResult(req);
-
     const [brands, categories] = await Promise.all([
       Brand.find({}, "name").sort({ name: 1 }),
       Category.find({}, "name").sort({ name: 1 }),
@@ -209,21 +208,24 @@ exports.productUpdatePost = [
       updatedContents,
       function (err, updatedProd) {
         if (err) return next(err);
-        // Successful - redirect to product detail page
-        res.redirect(updatedProd.url_route);
+        res.redirect(updatedProd.url_route); // Goto product detail page
       }
     );
   },
 ];
 
+/*
+  Function to render the form for deleting a product.
+    ⭐ SHOULD NOT DELETE A PRODUCT IF IT ASSOCIATE WITH A BUILD LIST.
+*/
 exports.productDeleteGet = async (req, res, next) => {
   const productCtgy = req.body.productData.category.name;
-  const listsWProduct = await List.find({
-    [`components.${productCtgy}`]: req.params.productId,
-  }).sort({ build_name: 1 });
-
+  const listsWProduct = await List.find(
+    { [`components.${productCtgy}`]: req.params.productId },
+    "build_name"
+  ).sort({ build_name: 1 });
+  // Reformatting data for use with delete_group template
   const items = listsWProduct.map((item) => ({
-    ...item._doc,
     short_name: item.build_name,
     url_route: item.url_route,
   }));
@@ -236,14 +238,18 @@ exports.productDeleteGet = async (req, res, next) => {
   });
 };
 
+/*
+  Function to handle the form submission of deleting a category.
+    ⭐ SHOULD NOT DELETE A PRODUCT IF IT ASSOCIATE WITH A BUILD LIST.
+*/
 exports.productDeletePost = async (req, res, next) => {
   const productCtgy = req.body.productData.category.name;
-  const listsWProduct = await List.find({
-    [`components.${productCtgy}`]: req.params.productId,
-  }).sort({ build_name: 1 });
+  const listsWProduct = await List.find(
+    { [`components.${productCtgy}`]: req.params.productId },
+    "build_name"
+  ).sort({ build_name: 1 });
 
   const items = listsWProduct.map((item) => ({
-    ...item._doc,
     short_name: item.build_name,
     url_route: item.url_route,
   }));
@@ -259,8 +265,8 @@ exports.productDeletePost = async (req, res, next) => {
     });
   }
 
-  // No products left in product
   try {
+    // Success! No lists with product
     await Product.findByIdAndDelete(req.params.productId);
     res.redirect("/");
   } catch (err) {

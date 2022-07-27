@@ -4,23 +4,27 @@ const router = express.Router();
 const cstmMiddleware = require("../helpers/customMiddleware");
 const productsController = require("../controllers/productsController");
 
-/* GET product create page. */
+/* Routes to handle creating a product. */
 router.get("/create", productsController.productCreateGet);
-/* POST product page */
 router.post("/create", productsController.productCreatePost);
 
-// Validate that productId is valid
+/*
+  Using Middleware for specific route to validate the ":productId" dynamic
+  value is valid (is an _id to an actual "Product" schema object).
+*/
 router.use("/:productId", cstmMiddleware.validateProductId);
-/* GET product detail page */
+
+/* Route to display information on the current product. */
 router.get("/:productId", productsController.productDetailGet);
 
-/* POST add product to products list */
+/* Route to add a product to the current build list. */
 router.post("/:productId/add", productsController.productAddListPost);
 
-/* Update product routes */
+/* Routes to handle updating a product. */
 router.get("/:productId/update", productsController.productUpdateGet);
 router.post("/:productId/update", productsController.productUpdatePost);
-/* Delete categroy routes */
+
+/* Routes to handle deleting a product. */
 router.get("/:productId/delete", productsController.productDeleteGet);
 router.post("/:productId/delete", productsController.productDeletePost);
 
