@@ -11,7 +11,7 @@ block content
     a(href=`${prodInfo.url_route}/delete`).prod_edits Delete
 
   main.flex.prod_detail_pg 
-    img(src=prodInfo.image_url).prod_img
+    img(src=prodInfo.image_url onerror="this.src = '/images/fallback_product.png';").prod_img
 
     div.flex
       form(method="POST" action=`${prodInfo.url_route}/add`)

@@ -17,7 +17,7 @@ mixin build_info_table(categories, componentList, showSel, showRmv)
         if componentList[ctgy.name]
           div.flex.bld_tb_sel_prod 
             a(href=`/products/${componentList[ctgy.name]._id}`)
-              img(src=componentList[ctgy.name].image_url)
+              img(src=componentList[ctgy.name].image_url onerror="this.src = '/images/fallback_product.png';")
             a(href=`/products/${componentList[ctgy.name]._id}`)
               | #{componentList[ctgy.name].short_name}
 
