@@ -39,16 +39,7 @@ exports.categoryCreatePost = [
     };
 
     /* File & Admin Password Validation */
-    if (!req.file) {
-      errors.errors.push({ msg: "User must submit an image." });
-    } else {
-      if (!filesHelper.isImg(req.file)) {
-        errors.errors.push({ msg: "Uploaded file is not an image." });
-      }
-      if (!filesHelper.fileSizeIsLEQ(req.file, 0.5)) {
-        errors.errors.push({ msg: "Uploaded file is not <= 500KB in size." });
-      }
-    }
+    filesHelper.validateImg(req.file, errors.errors);
 
     if (req.body.pass !== process.env.ADMIN_PASSWORD) {
       errors.errors.push({ msg: "Admin password is incorrect" });

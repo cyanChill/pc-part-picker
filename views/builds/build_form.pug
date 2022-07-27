@@ -11,14 +11,14 @@ block content
   header.pg_header.cstm_clr= title
 
   div(style="align-self: flex-start; margin-block: 0.25rem;").flex 
-    if updating 
+    if isUpdating 
       a(href=`${prevData.url_route}/cancel`).btn.red.bld_form_cstm_btn
         | Cancel Update
       
     button(onclick="hideSubmissionProcess();" class=(formError ? '' : 'hide')).btn.gold.bld_form_cstm_btn#editComp_btn
       | < Edit Build Configuration
 
-  if updating 
+  if isUpdating 
     div(style="align-self: flex-start; margin-block: 0.25rem;")
       p.notice 
         b Note: 
@@ -32,17 +32,18 @@ block content
   button(onclick="showSubmissionProcess();" class=(formError ? 'hide' : '')).btn.gold.bld_form_cstm_btn#prepSub_btn
     | Finalize Submission
 
-  form(method="POST" class=(formError ? '' : 'hide')).flex#bldSub_form
+  form(method="POST" enctype="multipart/form-data" class=(formError ? '' : 'hide')).flex#bldSub_form
     label Author Name:
       input(type="text" name="author_name" value=(undefined===prevData ? "" : prevData.author_name) maxlength="30" required) 
     label Build Name:
       input(type="text" name="build_name" value=(undefined===prevData ? "" : prevData.build_name) maxlength="30" required) 
     label Build Description:
       input(type="text" name="description" value=(undefined===prevData ? "" : prevData.description) maxlength="200" required) 
-    label Thumbnail Image URL:
-      input(type="url" name="thumbnail_url" value=(undefined===prevData ? "" : prevData.thumbnail_url) required) 
     
-    if !updating
+    if !isUpdating
+      label Build Image:
+        input(type="file" name="img" accept="image/*" required) 
+
       label Save Password:
         input(type="text" name="save_pass" value=(undefined===prevPass ? "" : prevPass) minlength="6" required) 
       p.notice 
@@ -57,5 +58,9 @@ block content
             li= err.msg
 
 
-    button(type="submit").btn.green.bld_form_cstm_btn.bld_form_sbt_btn Submit New PC Build
+    button(type="submit").btn.green.bld_form_cstm_btn.bld_form_sbt_btn
+      if isUpdating 
+        | Update PC Build
+      else 
+        | Add New PC Build
 

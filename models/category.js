@@ -13,7 +13,7 @@ CategorySchema.virtual("url_route").get(function () {
 });
 
 CategorySchema.virtual("public_imgPath").get(function () {
-  return this.imgPath ? this.imgPath.slice(7) : "";
+  return this.imgPath ? this.imgPath.slice(6) : "";
 });
 
 module.exports = mongoose.model("Category", CategorySchema);

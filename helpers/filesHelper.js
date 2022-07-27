@@ -23,6 +23,20 @@ exports.fileSizeIsLEQ = (fileObj, sizeMB) => {
   return fileObj.size <= sizeMB * 1000000;
 };
 
+/* Quick Validation Handler For Our Use */
+exports.validateImg = (fileObj, errArr) => {
+  if (!fileObj) {
+    errArr.push({ msg: "User must submit an image." });
+  } else {
+    if (!this.isImg(fileObj)) {
+      errArr.push({ msg: "Uploaded file is not an image." });
+    }
+    if (!this.fileSizeIsLEQ(fileObj, 0.5)) {
+      errArr.push({ msg: "Uploaded file is not <= 500KB in size." });
+    }
+  }
+};
+
 /* To remove a file uploaded by multer */
 exports.deleteFileByPath = async (filePath) => {
   try {

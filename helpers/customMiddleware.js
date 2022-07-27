@@ -122,7 +122,6 @@ exports.validateBuildListInputs = [
     .trim()
     .isLength({ min: 1, max: 200 })
     .escape(),
-  body("thumbnail_url", "Thumbnail URL must be a valid URL.").trim().isURL(),
 ];
 
 exports.validateCategoryInputs = [

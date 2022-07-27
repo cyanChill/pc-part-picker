@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const { upload } = require("../helpers/filesHelper");
 const cstmMiddleware = require("../helpers/customMiddleware");
 const buildsController = require("../controllers/buildsController");
 
@@ -9,7 +10,7 @@ router.get("/", buildsController.buildGet);
 
 /* Routes to handle creating a build list. */
 router.get("/create", buildsController.buildCreateGet);
-router.post("/create", buildsController.buildCreatePost);
+router.post("/create", upload.single("img"), buildsController.buildCreatePost);
 
 /*
   Route for handling when we want to remove a component from the build 
@@ -46,7 +47,11 @@ router.get("/:buildId/cancel", buildsController.buildDetailCancelGet);
 
 /* Routes to handle updating a build. */
 router.get("/:buildId/update", buildsController.buildDetailUpdateGet);
-router.post("/:buildId/update", buildsController.buildDetailUpdatePost);
+router.post(
+  "/:buildId/update",
+  upload.none(),
+  buildsController.buildDetailUpdatePost
+);
 
 /* Routes to handle deleting a build. */
 router.get("/:buildId/delete", buildsController.buildDetailDeleteGet);
