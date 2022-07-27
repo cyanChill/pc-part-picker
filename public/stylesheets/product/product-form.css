@@ -36,11 +36,11 @@
 }
 
 .prd_form_feature_entry > button:hover > svg {
-  fill: var(--error);
+  fill: var(--error-500);
 }
 
 .err_cont {
-  color: var(--error);
+  color: var(--error-500);
   font-size: 0.9rem;
 }
 

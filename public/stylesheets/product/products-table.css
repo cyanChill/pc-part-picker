@@ -26,8 +26,8 @@
     display: grid;
     grid-template-columns: repeat(2, 50%);
     gap: 0.25rem;
-    padding-block: 0.25rem;
-    border-bottom: 1px solid var(--grey);
+    padding-block: 0.5rem;
+    border-bottom: 2px solid var(--tb-label-line-clr);
   }
 }
 
@@ -46,14 +46,14 @@
 
 .prod_tb_sel_prod > :last-child {
   max-width: calc(100% - 3.5rem);
-  color: black;
+  color: var(--primary-txt-clr);
   font-size: 1.15rem;
   font-weight: 500;
 }
 
 /* 2nd Column Styling */
 .prod_tb_col2 a {
-  color: black;
+  color: var(--primary-txt-clr);
 }
 
 .prod_tb_col2,
@@ -80,7 +80,7 @@
 /* Product Price Styling */
 .prod_tb_price {
   grid-column: span 2;
-  color: var(--green);
+  color: var(--tb-price-clr);
 }
 
 /* Buy Button Section */
@@ -115,7 +115,7 @@
     gap: 1rem 0.5rem;
 
     padding-block: 0.25rem;
-    border-bottom: 1px solid var(--grey);
+    border-bottom: 1px solid var(--tb-label-line-clr);
   }
 
   .prod_tb_sel_prod,

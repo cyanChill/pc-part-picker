@@ -1,3 +1,19 @@
+:root {
+  --bld-cd-bkg-clr: white;
+  --bld-cd-txt-clr: black;
+  --bld-cd-highlight-clr: var(--yellow);
+  --bld-cd-hdr-bkg-clr: var(--navy-800);
+  --bld-cd-hdr-txt-clr: var(--grey-25);
+  --bld-cd-outline-clr: var(--grey-25);
+}
+
+body.dark {
+  --bld-cd-bkg-clr: var(--lilac-600);
+  --bld-cd-txt-clr: var(--grey-25);
+  --bld-cd-hdr-bkg-clr: var(--navy-1000);
+  --bld-cd-outline-clr: var(--lilac-900);
+}
+
 /*
   Adding word wrap where necessary (author & build name)
 */
@@ -12,12 +28,12 @@
 .bld_cd {
   --gap: 0;
   flex-direction: column;
-  color: black;
-  background-color: white;
+  color: var(--bld-cd-txt-clr);
+  background-color: var(--bld-cd-bkg-clr);
 }
 
 .bld_cd:hover {
-  outline: 2px solid var(--yellow);
+  outline: 2px solid var(--bld-cd-highlight-clr);
 }
 
 /* Card Header */
@@ -25,7 +41,7 @@
   --gap: 0.5rem;
   align-items: center;
   padding: 0.5rem;
-  background-color: var(--light-navy);
+  background-color: var(--bld-cd-hdr-bkg-clr);
 }
 
 .bld_cd_hdr > img {
@@ -34,7 +50,7 @@
 }
 
 .bld_cd_hdr > span {
-  color: var(--off-white);
+  color: var(--bld-cd-hdr-txt-clr);
   font-weight: 500;
 }
 
@@ -51,7 +67,7 @@
   --gap: 0;
   flex: 1;
   flex-direction: column;
-  outline: 1px solid var(--off-white);
+  outline: 1px solid var(--bld-cd-outline-clr);
   font-size: 0.8rem;
 }
 
@@ -70,6 +86,6 @@
 }
 
 .bld_cd_price {
-  border-top: 1px solid var(--off-white);
+  border-top: 1px solid var(--bld-cd-outline-clr);
   margin-top: auto;
 }

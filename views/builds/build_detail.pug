@@ -9,7 +9,7 @@ block content
   //- Header
   header.pg_header.cstm_clr
     p= title 
-    p.pg_header_subHead By #{buildInfo.author}
+    p.pg_header_subHead By #{buildInfo.author_name}
     p.pg_header_subText= buildInfo.description
 
   img(src=buildInfo.thumbnail_url onerror="this.src = '/images/fallback_pc_build.jpg';").thumbnail_img

@@ -1,11 +1,10 @@
 /* Page Header Customization */
 .cstm_clr {
-  --header-clr: var(--jean-blue);
+  --header-clr: var(--steel-blue);
 }
 
 .ctgy_edits {
   display: inline-block;
   padding: 0.5rem;
-  color: var(--blue);
   text-decoration: underline;
 }

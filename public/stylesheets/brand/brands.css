@@ -1,10 +1,9 @@
 .cstm_clr {
-  --header-clr: var(--dark-green);
+  --header-clr: var(--green-600);
 }
 
 .brands_add_man {
   padding: 0.5rem;
-  color: var(--blue);
 }
 
 .brands_cont {
@@ -19,5 +18,5 @@
   display: block;
   width: max-content;
   padding: 0.5rem;
-  color: black;
+  color: var(--primary-txt-clr);
 }

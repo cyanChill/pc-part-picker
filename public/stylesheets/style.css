@@ -1,29 +1,41 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 :root {
-  --blue: #2c87c3;
-  --jean-blue: #505fa1;
-  --cyan: #1e5c85;
-  --lighter-navy: #26293b;
-  --light-navy: #191b2a;
-  --navy: #11121d;
+  --error-300: #e6635a;
+  --error-500: #ed4337;
 
-  --brown: #b18c5a;
   --yellow: #eda920;
   --orange: #e26723;
-  --error-light: #e6635a;
-  --error: #ed4337;
 
-  --off-white: #eaeaea;
-  --light-grey: #f4f4f3;
-  --grey: #dddcdb;
-  --dark-grey: #535559;
+  --green-300: #00b16a;
+  --green-600: #00653c;
 
-  --lilac: #545578;
-  --dark-lilac: #323548;
+  --blue-300: #2c87c3;
+  --blue-600: #1e5c85;
 
-  --green: #00b16a;
-  --dark-green: #00653c;
+  --steel-blue: #505fa1;
+
+  --lilac-25: #68687a;
+  --lilac-500: #545578;
+  --lilac-600: #46465c;
+  --lilac-700: #37374d;
+  --lilac-800: #323548;
+  --lilac-900: #282838;
+
+  --navy-700: #26293b;
+  --navy-800: #191b2a;
+  --navy-850: #181827;
+  --navy-900: #11121d;
+  --navy-950: #0d0d14;
+  --navy-1000: #010102;
+
+  --grey-25: #eaeaea;
+  --grey-100: #f4f4f3;
+  --grey-150: #dddcdb;
+  --grey-400: #bbb3b3;
+  --grey-500: #8a8a8a;
+  --grey-550: #707175;
+  --grey-600: #535559;
 
   --font-family: "Roboto", sans-serif;
 
@@ -31,6 +43,26 @@
   --max-width: 90rem;
   --max-form-width: 40rem;
   --main-inline-padding: clamp(0.75rem, 3vw, 3rem);
+
+  --body-bkg-clr: var(--grey-100);
+  --primary-txt-clr: black;
+  --link-clr: var(--blue-600);
+
+  /* Table Colors */
+  --tb-label-line-clr: var(--grey-600);
+  --tb-price-clr: var(--green-300);
+  --tb-btn-txt-clr: white;
+  --tb-rmv-btn-bdr-clr: var(--grey-150);
+  --tb-rmv-btn-svg-clr: var(--grey-600);
+  --tb-rmv-btn-svg-hvr-clr: var(--error-500);
+
+  /* Minor Text Header*/
+  --minor-txt-hdr-clr: var(--grey-600);
+
+  /* Form Colors */
+  --input-bkg-clr: white;
+  --input-bdr-clr: var(--grey-150);
+  --input-bdr-focus-clr: var(--grey-600);
 }
 
 *,
@@ -50,7 +82,27 @@ body {
 
   overflow-x: hidden;
   font-family: var(--font-family);
-  background-color: var(--light-grey);
+  color: var(--primary-txt-clr);
+  background-color: var(--body-bkg-clr);
+}
+
+/* Handling Dark Mode */
+body.dark {
+  --body-bkg-clr: var(--lilac-900);
+  --primary-txt-clr: var(--grey-25);
+  --link-clr: var(--blue-300);
+
+  /* Table Colors*/
+  --tb-label-line-clr: var(--lilac-700);
+  --tb-rmv-btn-bdr-clr: var(--lilac-25);
+  --tb-rmv-btn-svg-clr: var(--lilac-25);
+
+  /* Minor Text Header*/
+  --minor-txt-hdr-clr: var(--grey-500);
+
+  /* Form Colors */
+  --input-bkg-clr: var(--grey-25);
+  --input-bdr-focus-clr: var(--yellow);
 }
 
 #main-content-wrapper {
@@ -70,6 +122,7 @@ body {
 
 /* Hover Effect to indicate link*/
 a {
+  color: var(--link-clr);
   text-decoration: none;
 }
 
@@ -119,7 +172,7 @@ object {
 
 .pg_header_subText {
   max-width: var(--max-width-min);
-  color: var(--light-grey);
+  color: var(--grey-100);
   font-size: 0.9rem;
   font-weight: 300;
   padding-block-start: 0.25rem;
@@ -128,8 +181,8 @@ object {
 /* Custom Button (Works with links) */
 .btn {
   --btn-text-clr: white;
-  --btn-clr: var(--blue);
-  --btn-hover-clr: var(--cyan);
+  --btn-clr: var(--blue-300);
+  --btn-hover-clr: var(--blue-600);
 
   height: max-content;
   cursor: pointer;
@@ -168,8 +221,8 @@ object {
 }
 
 .btn.green {
-  --btn-clr: var(--green);
-  --btn-hover-clr: var(--dark-green);
+  --btn-clr: var(--green-300);
+  --btn-hover-clr: var(--green-600);
 }
 
 .btn.gold {
@@ -178,8 +231,8 @@ object {
 }
 
 .btn.red {
-  --btn-clr: var(--error-light);
-  --btn-hover-clr: var(--error);
+  --btn-clr: var(--error-300);
+  --btn-hover-clr: var(--error-500);
 }
 
 /* Form Element Styles */
@@ -196,13 +249,14 @@ select {
   flex: 1;
   padding: 0.25rem 0.5rem;
   font-size: 1rem;
-  border: 1px solid var(--grey);
+  border: 1px solid var(--input-bdr-clr);
+  background-color: var(--input-bkg-clr);
   border-radius: 0.25rem;
   outline: none;
 }
 
 input:focus {
-  border-color: var(--dark-grey);
+  border-color: var(--input-bdr-focus-clr);
 }
 
 @media (min-width: 568px) {
@@ -220,7 +274,7 @@ input:focus {
 }
 
 span.show_mob {
-  color: var(--dark-grey);
+  color: var(--minor-txt-hdr-clr);
   font-size: 0.8rem;
   font-weight: initial;
 }

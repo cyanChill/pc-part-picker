@@ -1,12 +1,20 @@
+:root {
+  --prod-detail-ftr-bdr-clr: var(--grey-150);
+  --prod-detail-ftr-txt-clr: var(--grey-600);
+}
+
+body.dark {
+  --prod-detail-ftr-txt-clr: var(--grey-400);
+}
+
 /* Page Header Customization */
 .cstm_clr {
-  --header-clr: var(--jean-blue);
+  --header-clr: var(--steel-blue);
 }
 
 .prod_edits {
   display: inline-block;
   padding: 0.5rem;
-  color: var(--blue);
   text-decoration: underline;
 }
 
@@ -53,12 +61,12 @@
 
 .prod_info > div {
   padding-block: 0.25rem;
-  border-bottom: 1px solid var(--grey);
+  border-bottom: 1px solid var(--prod-detail-ftr-bdr-clr);
 }
 
 /* Name of Info Category */
 .prod_info > div :first-child {
-  color: var(--dark-grey);
+  color: var(--minor-txt-hdr-clr);
   font-weight: 400;
   font-size: 0.75rem;
 }
@@ -67,7 +75,7 @@
 .prod_info > div :last-child {
   width: 100%;
   word-wrap: break-word;
-  color: black;
+  color: var(--primary-txt-clr);
   font-weight: 500;
   font-size: 0.95rem;
 }
@@ -81,17 +89,14 @@
 .feature {
   padding-block: 0.25rem;
   padding-inline-start: 0.5rem;
-  color: var(--dark-grey);
+  color: var(--prod-detail-ftr-txt-clr);
 }
 
 .feature:not(:last-child) {
-  border-bottom: 1px solid var(--grey);
+  border-bottom: 1px solid var(--prod-detail-ftr-bdr-clr);
 }
 
 /* General settings for admin */
-.prod_actions {
-}
-
 .prod_actions > .btn {
   display: inline-block;
 }

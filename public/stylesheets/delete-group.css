@@ -1,5 +1,5 @@
 .cstm_clr {
-  --header-clr: var(--error);
+  --header-clr: var(--error-500);
 }
 
 /* If we have still have products in this category/brand */
@@ -10,16 +10,12 @@
 }
 
 .grp_dlt_err h2 {
-  color: var(--error);
+  color: var(--error-500);
   font-size: 1.15rem;
 }
 
 .grp_dlt_err ul {
   padding-inline-start: 1.5rem;
-}
-
-.grp_dlt_err a {
-  color: var(--blue);
 }
 
 /* If we have no products in the category/brand */
@@ -33,7 +29,7 @@
 
 .grp_delete_cont > b {
   font-size: 1.15rem;
-  color: var(--error);
+  color: var(--error-500);
 }
 
 .grp_delete_form {

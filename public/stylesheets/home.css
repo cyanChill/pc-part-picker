@@ -1,3 +1,18 @@
+:root {
+  --hm-hero-grad-end-clr: var(--grey-600);
+  --hm-hero-grad-center-clr: var(--grey-550);
+  --hm-hero-main-txt-clr: white;
+  --hm-hero-sub-txt-clr: var(--grey-150);
+  --hm-sub-hdr-border-clr: var(--grey-600);
+}
+
+body.dark {
+  --hm-hero-grad-end-clr: var(--navy-950);
+  --hm-hero-grad-center-clr: var(--navy-850);
+  --hm-hero-main-txt-clr: var(--grey-25);
+  --hm-sub-hdr-border-clr: var(--grey-25);
+}
+
 /* Page Hero */
 .hero {
   z-index: 1;
@@ -8,11 +23,11 @@
 
   background: linear-gradient(
     90deg,
-    var(--dark-grey) 0%,
-    rgba(112, 113, 117, 1) 50%,
-    var(--dark-grey) 100%
+    var(--hm-hero-grad-end-clr) 0%,
+    var(--hm-hero-grad-center-clr) 50%,
+    var(--hm-hero-grad-end-clr) 100%
   );
-  box-shadow: 0 0 0 100vmax var(--dark-grey);
+  box-shadow: 0 0 0 100vmax var(--hm-hero-grad-end-clr);
   clip-path: inset(0 -100vmax);
 }
 
@@ -27,13 +42,13 @@
 }
 
 .hero-content h1 {
-  color: white;
+  color: var(--hm-hero-main-txt-clr);
   font-weight: 500;
 }
 
 .hero-content p {
   font-size: 0.85rem;
-  color: var(--grey);
+  color: var(--hm-hero-sub-txt-clr);
 }
 
 .hero_btn {
@@ -54,7 +69,7 @@
   font-weight: 500;
   padding-block: 0.5rem;
   margin-block-end: 1rem;
-  border-bottom: 1px solid var(--dark-grey);
+  border-bottom: 1px solid var(--hm-sub-hdr-border-clr);
 }
 
 /* Holds list of builds cards */

@@ -1,5 +1,5 @@
 .cstm_clr {
-  --header-clr: var(--cyan);
+  --header-clr: var(--blue-600);
 }
 
 .brand_valid_form {
@@ -11,7 +11,7 @@
 }
 
 .err_cont {
-  color: var(--error);
+  color: var(--error-500);
   font-size: 0.9rem;
 }
 

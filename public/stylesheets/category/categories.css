@@ -1,10 +1,9 @@
 .cstm_clr {
-  --header-clr: var(--dark-lilac);
+  --header-clr: var(--lilac-800);
 }
 
 .ctgy_create_new {
   padding: 0.5rem;
-  color: var(--blue);
   text-decoration: underline;
 }
 
