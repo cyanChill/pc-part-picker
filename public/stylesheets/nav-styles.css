@@ -50,8 +50,8 @@
   aspect-ratio: 1;
   display: block;
   position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
+  top: 0.5rem;
+  right: 0.5rem;
 
   cursor: pointer;
   background-image: url("/images/ui/icon-hamburger.svg");

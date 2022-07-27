@@ -42,6 +42,7 @@ exports.getBuildInfo = async (req, listType) => {
       price: prod.price,
       image_url: prod.image_url,
       buy_link: prod.buy_link,
+      url_route: prod.url_route,
     };
   });
 

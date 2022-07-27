@@ -1,6 +1,11 @@
 extends ./layout
 
+block extraInfo 
+  link(rel='stylesheet', href='/stylesheets/error.css')
+
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  header.pg_header.cstm_clr 404 Error
+
+  div.flex.error_pg_cont
+    p Sorry, but something went wrong.
+    a(href="/") Return Home
