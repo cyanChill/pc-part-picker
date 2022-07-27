@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator");
 
+const filesHelper = require("../helpers/filesHelper");
 const cstmMiddleware = require("../helpers/customMiddleware");
 
 const Category = require("../models/category");
@@ -21,7 +22,10 @@ exports.categoryCreateGet = async (req, res, next) => {
   });
 };
 
-/* Function to handle the form submission of creating a category. */
+/*
+  Function to handle the form submission of creating a category.
+    ⭐ Image is not editable after creation.
+*/
 exports.categoryCreatePost = [
   ...cstmMiddleware.validateCategoryInputs,
 
@@ -30,20 +34,36 @@ exports.categoryCreatePost = [
 
     const newCtgyTemp = {
       name: req.body.name,
-      previewImg: req.body.img,
+      imgPath: req.file ? req.file.path : "",
       description: req.body.description,
     };
 
+    /* File & Admin Password Validation */
+    if (!req.file) {
+      errors.errors.push({ msg: "User must submit an image." });
+    } else {
+      if (!filesHelper.isImg(req.file)) {
+        errors.errors.push({ msg: "Uploaded file is not an image." });
+      }
+      if (!filesHelper.fileSizeIsLEQ(req.file, 0.5)) {
+        errors.errors.push({ msg: "Uploaded file is not <= 500KB in size." });
+      }
+    }
+
     if (req.body.pass !== process.env.ADMIN_PASSWORD) {
-      errors.errors.push({
-        value: req.body.pass,
-        msg: "Admin password is incorrect",
-        param: "pass",
-        location: "body",
-      });
+      errors.errors.push({ msg: "Admin password is incorrect" });
     }
 
     if (!errors.isEmpty()) {
+      try {
+        if (req.file) {
+          // Delete the file uploaded by multer
+          await filesHelper.deleteFileByPath(req.file.path);
+        }
+      } catch (err) {
+        console.log("File Deletion Error:", err);
+      }
+
       return res.render("category/category_form", {
         title: "Add a New Category",
         prevVal: newCtgyTemp,
@@ -85,6 +105,7 @@ exports.categoryUpdateGet = async (req, res, next) => {
   res.render("category/category_form", {
     title: "Update Category",
     prevVal: req.body.categoryData,
+    isUpdating: true,
   });
 };
 
@@ -97,23 +118,18 @@ exports.categoryUpdatePost = [
 
     const updatedContents = {
       name: req.body.name,
-      previewImg: req.body.img,
       description: req.body.description,
     };
 
     if (req.body.pass !== process.env.ADMIN_PASSWORD) {
-      errors.errors.push({
-        value: req.body.pass,
-        msg: "Admin password is incorrect",
-        param: "pass",
-        location: "body",
-      });
+      errors.errors.push({ msg: "Admin password is incorrect" });
     }
 
     if (!errors.isEmpty()) {
       return res.render("category/category_form", {
         title: "Update Category",
         prevVal: updatedContents,
+        isUpdating: true,
         pass: req.body.pass,
         errs: errors.errors,
       });
@@ -172,7 +188,8 @@ exports.categoryDeletePost = async (req, res, next) => {
 
   try {
     // Success! No products left in category
-    await Category.findByIdAndDelete(req.params.categoryId);
+    const result = await Category.findByIdAndDelete(req.params.categoryId);
+    await filesHelper.deleteFileByPath(result.imgPath); // Delete the file
     res.redirect("/");
   } catch (err) {
     return next(err);

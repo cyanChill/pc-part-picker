@@ -11,5 +11,5 @@ block content
   div.grid.ctgy_container
     each ctgy in categories 
       a(href=ctgy.url_route).btn.ign_a_hov.ctgy_btn
-        img(src=ctgy.previewImg onerror="this.src = '/images/fallback_product.png';").ctgy_img
+        img(src=ctgy.public_imgPath onerror="this.src = '/images/fallback_product.png';").ctgy_img
         span #{ctgy.name}

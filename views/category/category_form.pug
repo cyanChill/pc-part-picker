@@ -6,13 +6,16 @@ block extraInfo
 block content
   header.pg_header.cstm_clr= title
 
-  form(method="POST").flex.ctgy_valid_form
+  form(method="POST" enctype="multipart/form-data").flex.ctgy_valid_form
     label Category Name:
       input(type="text" name="name" value=(undefined===prevVal ? "" : prevVal.name) maxLength="30" required) 
     label Category Description:
       input(type="text" name="description" value=(undefined===prevVal ? "" : prevVal.description) maxLength="200" required) 
-    label Category Image:
-      input(type="text" name="img" value=(undefined===prevVal ? "" : prevVal.previewImg) required) 
+
+    if !isUpdating
+      label Category Image:
+        input(type="file" name="img" accept="image/*" required) 
+
     label Admin Password:
       input(type="text" name="pass" value=(undefined===pass ? "" : pass) minlength="6" required) 
 
@@ -23,4 +26,8 @@ block content
           each err in errs 
             li= err.msg
 
-    button(type="submit").btn.green.compressed Submit Category 
+    button(type="submit").btn.green.compressed 
+      if isUpdating 
+        | Update Category 
+      else 
+        | Add Category 

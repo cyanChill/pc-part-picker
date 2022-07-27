@@ -244,7 +244,7 @@ label {
   font-size: 1.05rem;
 }
 
-input,
+input:not([type="file"]),
 select {
   flex: 1;
   padding: 0.25rem 0.5rem;
@@ -255,7 +255,7 @@ select {
   outline: none;
 }
 
-input:focus {
+input:not([type="file"]):focus {
   border-color: var(--input-bdr-focus-clr);
 }
 
