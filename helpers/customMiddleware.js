@@ -110,40 +110,29 @@ exports.validateBuildSavePass = async (req, res, next) => {
   Custom req body validation middleware
 */
 exports.validateBuildListInputs = [
-  body("author_name")
+  body("author_name", "Author Name must be >1 but <=30 characters long.")
     .trim()
     .isLength({ min: 1, max: 30 })
-    .escape()
-    .withMessage("Author Name must be >1 but <=30 characters long.")
-    .isAlphanumeric()
-    .withMessage("Author Name has non-alphanumeric characters."),
-  body("build_name")
+    .escape(),
+  body("build_name", "Build Name must be >1 but <=30 characters long.")
     .trim()
     .isLength({ min: 1, max: 30 })
-    .escape()
-    .withMessage("Build Name must be >1 but <=30 characters long.")
-    .isAlphanumeric()
-    .withMessage("Build Name has non-alphanumeric characters."),
+    .escape(),
   body("description", "Description must be >1 but <=200 characters long.")
     .trim()
     .isLength({ min: 1, max: 200 })
     .escape(),
-  body("thumbnail_url", "Thumbnail URL must be a valid URL.").trim().isURL(),
 ];
 
 exports.validateCategoryInputs = [
-  body("name")
+  body("name", "Category Name must be >1 but <=30 characters long.")
     .trim()
     .isLength({ min: 1, max: 30 })
-    .escape()
-    .withMessage("Category Name must be >1 but <=30 characters long.")
-    .isAlphanumeric()
-    .withMessage("Category Name has non-alphanumeric characters."),
+    .escape(),
   body("description", "Description must be >1 but <=200 characters long.")
     .trim()
     .isLength({ min: 1, max: 200 })
     .escape(),
-  body("img").trim(),
 ];
 
 exports.validateProductInputs = [

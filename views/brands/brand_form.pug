@@ -7,7 +7,7 @@ block content
   header.pg_header.cstm_clr= title
 
   form(method="POST").flex.brand_valid_form
-    label Brand Name:
+    label Manufacturer Name:
       input(type="text" name="name" value=(undefined===prevVal ? "" : prevVal.name) maxLength="30" required) 
 
     if errs 
@@ -17,4 +17,4 @@ block content
           each err in errs 
             li= err.msg
 
-    button(type="submit").btn.green.compressed Submit Brand 
+    button(type="submit").btn.green.compressed Add New Manufacturer 

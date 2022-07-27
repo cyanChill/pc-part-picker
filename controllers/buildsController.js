@@ -1,5 +1,6 @@
 const { body, validationResult } = require("express-validator");
 
+const filesHelper = require("../helpers/filesHelper");
 const cstmMiddleware = require("../helpers/customMiddleware");
 const buildsHelper = require("../helpers/buildsHelper");
 const productHelper = require("../helpers/productHelper");
@@ -45,7 +46,10 @@ exports.buildCreateGet = async (req, res, next) => {
   }
 };
 
-/* Function to handle the form submission of creating a build. */
+/*
+  Function to handle the form submission of creating a build.
+    ⭐ Image is not editable after creation.
+*/
 exports.buildCreatePost = [
   ...cstmMiddleware.validateBuildListInputs,
   body("save_pass", "Password must be atleast 6 characters long.")
@@ -57,12 +61,7 @@ exports.buildCreatePost = [
     const { ctgies, selProds } = await buildsHelper.getBuildInfo(req, "curr");
 
     if (Object.keys(selProds).length === 0) {
-      errors.errors.push({
-        value: "",
-        msg: "Build must contain at least one component.",
-        param: "component",
-        location: "cookie",
-      });
+      errors.errors.push({ msg: "Build must contain at least one component." });
     }
     // Hash the save password
     const hashedPass = await hashHelper.hashPassword(req.body.save_pass);
@@ -76,12 +75,24 @@ exports.buildCreatePost = [
       author_name: req.body.author_name,
       build_name: req.body.build_name,
       description: req.body.description,
-      thumbnail_url: req.body.thumbnail_url,
+      imgPath: req.file ? req.file.path : "",
       components: currBuildMap,
       hashedSavePass: hashedPass,
     };
 
+    /* File Validation */
+    filesHelper.validateImg(req.file, errors.errors);
+
     if (!errors.isEmpty()) {
+      try {
+        if (req.file) {
+          // Delete the file uploaded by multer
+          await filesHelper.deleteFileByPath(req.file.path);
+        }
+      } catch (err) {
+        console.log("File Deletion Error:", err);
+      }
+
       return res.render("builds/build_form", {
         title: "PC Builder",
         categories: ctgies,
@@ -203,7 +214,7 @@ exports.buildDetailUpdateGet = async (req, res, next) => {
     categories: ctgies,
     comp_list: selProds,
     prevData: oldListData,
-    updating: true,
+    isUpdating: true,
   });
 };
 
@@ -216,12 +227,7 @@ exports.buildDetailUpdatePost = [
     const { ctgies, selProds } = await buildsHelper.getBuildInfo(req, "saved");
 
     if (Object.keys(selProds).length === 0) {
-      errors.errors.push({
-        value: "",
-        msg: "Build must contain at least one component.",
-        param: "component",
-        location: "cookie",
-      });
+      errors.errors.push({ msg: "Build must contain at least one component." });
     }
 
     const currBuildMap = new Map();
@@ -233,7 +239,6 @@ exports.buildDetailUpdatePost = [
       author_name: req.body.author_name,
       build_name: req.body.build_name,
       description: req.body.description,
-      thumbnail_url: req.body.thumbnail_url,
       components: currBuildMap,
     };
 
@@ -243,7 +248,7 @@ exports.buildDetailUpdatePost = [
         categories: ctgies,
         comp_list: selProds,
         prevData: updatedContents,
-        updating: true,
+        isUpdating: true,
         formError: true,
         errs: errors.errors,
       });
@@ -280,7 +285,8 @@ exports.buildDetailDeleteGet = async (req, res, next) => {
 */
 exports.buildDetailDeletePost = async (req, res, next) => {
   try {
-    await List.findByIdAndDelete(req.params.buildId);
+    const result = await List.findByIdAndDelete(req.params.buildId);
+    await filesHelper.deleteFileByPath(result.imgPath); // Delete the file
     // Clear saved build related cookies
     buildsHelper.cleanUpSaveBuildCookies(req, res, req.params.buildId);
     res.redirect("/");

@@ -30,6 +30,7 @@
 }
 
 .prd_form_feature_entry > button > svg {
+  fill: var(--primary-txt-clr);
   pointer-events: none;
   width: 1.5rem;
   aspect-ratio: 1;

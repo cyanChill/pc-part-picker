@@ -281,7 +281,7 @@ module.exports = {
     {
       category: "Memory",
       name: "Corsair Vengeance LPX 16GB (2x8GB) DDR4 DRAM 3200MHz",
-      short_name: "Corsair Vengeance LPX 16GB (2x8GB) DDR4 DRAM 3200MHz",
+      short_name: "Corsair Vengeance LPX 16GB DDR4 3200MHz",
       brand: "Corsair",
       price: 74.99,
       image_url:
@@ -297,7 +297,7 @@ module.exports = {
     {
       category: "Memory",
       name: "CORSAIR Vengeance DDR5 32GB (2x16GB) DDR5 5200MHz",
-      short_name: "CORSAIR Vengeance DDR5 32GB (2x16GB) DDR5 5200MHz",
+      short_name: "CORSAIR Vengeance DDR5 32GB DDR5 5200MHz",
       brand: "Corsair",
       price: 184.99,
       image_url:
@@ -378,13 +378,12 @@ module.exports = {
       author_name: "John",
       build_name: "Compensator 4000",
       description: "A spec-ed out gaming PC.",
-      thumbnail_url:
-        "https://cdna.pcpartpicker.com/static/forever/images/userbuild/399924.0f3f8f5fd30d18d9fa6427b597c2fb5d.1600.jpg",
+      imgPath: "public\\data\\uploads\\sample_build_img_1.jpg",
       components: {
         CPU: "Intel Core i9-12900KS",
         Motherboard: "ASUS ROG Strix Z690-E Gaming WiFi",
         "CPU Cooler": "Noctua NH-U12S chromax.Black",
-        Memory: "CORSAIR Vengeance DDR5 32GB (2x16GB) DDR5 5200MHz",
+        Memory: "CORSAIR Vengeance DDR5 32GB DDR5 5200MHz",
         Storage: "SAMSUNG 980 PRO SSD 1TB",
         "Video Card": "GeForce RTX 3060 Ti",
         Case: "Corsair 4000D Airflow - Black",
@@ -395,13 +394,12 @@ module.exports = {
       author_name: "Bob",
       build_name: "AMD Rises",
       description: "An AMD-Based PC.",
-      thumbnail_url:
-        "https://cdna.pcpartpicker.com/static/forever/images/userbuild/399924.0f3f8f5fd30d18d9fa6427b597c2fb5d.1600.jpg",
+      imgPath: "public\\data\\uploads\\sample_build_img_2.jpg",
       components: {
         CPU: "AMD Ryzen 9 5950X",
         Motherboard: "ASUS ROG Strix X570-E Gaming WiFi II",
         "CPU Cooler": "Noctua NH-U12S chromax.Black",
-        Memory: "Corsair Vengeance LPX 16GB (2x8GB) DDR4 DRAM 3200MHz",
+        Memory: "Corsair Vengeance LPX 16GB DDR4 3200MHz",
         Storage: "SAMSUNG 980 PRO SSD 1TB",
         "Video Card": "GeForce RTX 3060 Ti",
         Case: "Corsair 4000D Airflow - Black",

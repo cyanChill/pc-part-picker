@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const { upload } = require("../helpers/filesHelper");
 const cstmMiddleware = require("../helpers/customMiddleware");
 const categoryController = require("../controllers/categoryController");
 
@@ -9,7 +10,11 @@ router.get("/", categoryController.categoryGet);
 
 /* Routes to handle creating a category. */
 router.get("/create", categoryController.categoryCreateGet);
-router.post("/create", categoryController.categoryCreatePost);
+router.post(
+  "/create",
+  upload.single("img"),
+  categoryController.categoryCreatePost
+);
 
 /*
   Using Middleware for specific route to validate the ":categoryId" dynamic
@@ -22,7 +27,11 @@ router.get("/:categoryId", categoryController.categoryDetailGet);
 
 /* Routes to handle updating a category. */
 router.get("/:categoryId/update", categoryController.categoryUpdateGet);
-router.post("/:categoryId/update", categoryController.categoryUpdatePost);
+router.post(
+  "/:categoryId/update",
+  upload.none(),
+  categoryController.categoryUpdatePost
+);
 
 /* Routes to handle deleting a category. */
 router.get("/:categoryId/delete", categoryController.categoryDeleteGet);
