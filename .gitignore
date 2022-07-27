@@ -2,3 +2,15 @@ node_modules
 public/data/uploads/*
 
 .env
+
+# Don't ignore the sample files
+!public/data/uploads/case.png
+!public/data/uploads/cpu_cooler.png
+!public/data/uploads/cpu.png
+!public/data/uploads/memory.png
+!public/data/uploads/motherboard.png
+!public/data/uploads/power_supply.png
+!public/data/uploads/sample_build_img_1.jpg
+!public/data/uploads/sample_build_img_2.jpg
+!public/data/uploads/storage.png
+!public/data/uploads/video_card.png

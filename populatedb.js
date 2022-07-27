@@ -51,7 +51,7 @@ const categoryCreate = async (categoryInfo) => {
   try {
     const result = await Category.create({
       ...categoryInfo,
-      previewImg: `/images/products/${categoryInfo.name
+      imgPath: `public\\data\\uploads\\${categoryInfo.name
         .toLowerCase()
         .replace(" ", "_")}.png`,
     });

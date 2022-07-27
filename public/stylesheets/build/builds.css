@@ -1,5 +1,6 @@
 /* Holds list of builds cards */
 .builds-container {
+  width: 100%;
   grid-template-columns: 100%;
   gap: 1rem;
   padding-block: 1rem;
