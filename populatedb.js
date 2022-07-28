@@ -53,7 +53,7 @@ const categoryCreate = async (categoryInfo) => {
       ...categoryInfo,
       imgPath: `public\\data\\uploads\\${categoryInfo.name
         .toLowerCase()
-        .replace(" ", "_")}.png`,
+        .replace(" ", "_")}.webp`,
     });
     categoryIdRef[categoryInfo.name] = result._id;
   } catch (err) {

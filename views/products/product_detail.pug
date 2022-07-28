@@ -1,7 +1,7 @@
 extends ../layout
 
 block extraInfo
-  link(rel='stylesheet', href='/stylesheets/product/product-detail.css')
+  link(rel='stylesheet' href='/stylesheets/product/product-detail.css')
 
 block content
   header.pg_header.cstm_clr= title 
@@ -11,7 +11,7 @@ block content
     a(href=`${prodInfo.url_route}/delete` alt="Link to delete product").prod_edits Delete
 
   main.flex.prod_detail_pg 
-    img(src=prodInfo.image_url alt=`${prodInfo.name} product image` onerror="this.src = '/images/fallback_product.png';").prod_img
+    img(src=prodInfo.image_url alt=`${prodInfo.name} product image` onerror="this.src = '/images/fallback_product.webp';").prod_img
 
     div.flex
       form(method="POST" action=`${prodInfo.url_route}/add`)

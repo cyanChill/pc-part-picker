@@ -1,7 +1,7 @@
 extends ../layout
 
 block extraInfo 
-  link(rel='stylesheet', href='/stylesheets/category/categories.css')
+  link(rel='stylesheet' href='/stylesheets/category/categories.css')
 
 block content
   header.pg_header.cstm_clr= title
@@ -11,5 +11,5 @@ block content
   div.grid.ctgy_container
     each ctgy in categories 
       a(href=ctgy.url_route alt="Link to page with all products of category").btn.ign_a_hov.ctgy_btn
-        img(src=ctgy.public_imgPath alt=`${ctgy.name} preview image` onerror="this.src = '/images/fallback_product.png';").ctgy_img
+        img(src=ctgy.public_imgPath alt=`${ctgy.name} preview image` onerror="this.src = '/images/fallback_product.webp';").ctgy_img
         span #{ctgy.name}
