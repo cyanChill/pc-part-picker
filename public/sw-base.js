@@ -70,6 +70,11 @@ registerRoute(
   "GET"
 );
 
+/* 
+  -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+            Network-Only Strategy for POST Requests
+  -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
 // Regex for general structure of our post routes
 const POST_ROUTES_REGEX = [
   /(brands|builds|category|products)\/(create|deleteComponent)/,
@@ -96,8 +101,8 @@ registerRoute(
 );
 
 /*
-  Put at end as to have these cached routes be served if they were not found by
-  earlier routse
+  Put (near) the end as to have these cached routes be served if they
+  were not found by earlier routse
 */
 precacheAndRoute(
   [
@@ -110,3 +115,23 @@ precacheAndRoute(
     ignoreURLParametersMatching: [/^utm_/, /^fbclid$/],
   }
 );
+
+/* 
+  -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+          Cache-First Strategy For All Other Images
+  -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*/
+registerRoute(/.*\.(png|jpg|webp)|/, ({ event }) => {
+  // Look for image in cache
+  return caches.match(event.request).then((res) => {
+    if (res) return res;
+    // If doesn't exist in the cache, fetch the result
+    return fetch(event.request).then((res) => {
+      return caches.open("images").then((cache) => {
+        // Save Network response in cache
+        cache.put(event.request.url, res.clone());
+        return res; // Return network response
+      });
+    });
+  });
+});
