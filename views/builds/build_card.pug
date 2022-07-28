@@ -5,7 +5,7 @@ mixin build_card(buildInfo)
       img(src="/images/logo.webp" alt="")
       span= buildInfo.author_name
     //- Card Preview
-    img(src=buildInfo.public_imgPath alt=`${buildInfo.build_name} preview image` onerror="this.src = '/images/fallback_pc_build.jpg';").bld_cd_thb
+    img(src=buildInfo.public_imgPath alt=`${buildInfo.build_name} preview image` onerror="this.src = '/images/fallback_pc_build.webp';").bld_cd_thb
     //- Card Content
     div.flex.bld_cd_bld_info
       div.bld_cd_bld_sum
