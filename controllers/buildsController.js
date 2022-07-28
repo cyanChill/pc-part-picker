@@ -71,11 +71,10 @@ exports.buildCreatePost = [
       currBuildMap.set(compName, selProds[compName]._id);
     }
     // The object that will potentially be a new build list
-    const newList = {
+    let newList = {
       author_name: req.body.author_name,
       build_name: req.body.build_name,
       description: req.body.description,
-      imgPath: req.file ? req.file.path : "",
       components: currBuildMap,
       hashedSavePass: hashedPass,
     };
@@ -84,15 +83,6 @@ exports.buildCreatePost = [
     filesHelper.validateImg(req.file, errors.errors);
 
     if (!errors.isEmpty()) {
-      try {
-        if (req.file) {
-          // Delete the file uploaded by multer
-          await filesHelper.deleteFileByPath(req.file.path);
-        }
-      } catch (err) {
-        console.log("File Deletion Error:", err);
-      }
-
       return res.render("builds/build_form", {
         title: "PC Builder",
         categories: ctgies,
@@ -105,7 +95,10 @@ exports.buildCreatePost = [
     }
 
     try {
-      // Success!
+      // Success! - Update Image Format to .webp
+      const newPathName = filesHelper.convertImgToWEBP(req.file.buffer);
+      newList.imgPath = newPathName;
+
       const newBuildList = await List.create(newList);
       // Clean Cookies used for creating the build list
       buildsHelper.clearBuildCookies(req, res, "curr");

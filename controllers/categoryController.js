@@ -32,9 +32,8 @@ exports.categoryCreatePost = [
   async (req, res, next) => {
     const errors = validationResult(req);
 
-    const newCtgyTemp = {
+    let newCtgyTemp = {
       name: req.body.name,
-      imgPath: req.file ? req.file.path : "",
       description: req.body.description,
     };
 
@@ -46,15 +45,6 @@ exports.categoryCreatePost = [
     }
 
     if (!errors.isEmpty()) {
-      try {
-        if (req.file) {
-          // Delete the file uploaded by multer
-          await filesHelper.deleteFileByPath(req.file.path);
-        }
-      } catch (err) {
-        console.log("File Deletion Error:", err);
-      }
-
       return res.render("category/category_form", {
         title: "Add a New Category",
         prevVal: newCtgyTemp,
@@ -64,7 +54,10 @@ exports.categoryCreatePost = [
     }
 
     try {
-      // Success!
+      // Success! - Update Image Format to .webp
+      const newPathName = filesHelper.convertImgToWEBP(req.file.buffer);
+      newCtgyTemp.imgPath = newPathName;
+
       const newCategory = await Category.create(newCtgyTemp);
       res.redirect(newCategory.url_route); // Goto new category page
     } catch (err) {
