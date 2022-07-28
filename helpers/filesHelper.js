@@ -44,9 +44,17 @@ exports.deleteFileByPath = async (filePath) => {
 };
 
 /* Logic for converting images to webp */
-const convertImage = (img, outputName) => {
+const convertImage = async (img, outputName) => {
   // Takes a stream input and convert it to the file specified in "outputName"
-  ffmpeg().input(img).saveToFile(outputName);
+  // Made asynchronous due to img being loaded/created in time before the
+  // build detail page renders clientside
+  new Promise((resolve, reject) => {
+    ffmpeg()
+      .input(img)
+      .saveToFile(outputName)
+      .on("error", (err) => reject(err))
+      .on("end", () => resolve());
+  });
 };
 
 // Converts buffer to ReadableStream
@@ -59,11 +67,11 @@ const bufferToStream = (buffer) => {
 };
 
 // Expect input such as "req.file.buffer"
-exports.convertImgToWEBP = (fileBuffer) => {
+exports.convertImgToWEBP = async (fileBuffer) => {
   // Where we want to save the file
   const imgPath = `public\\data\\uploads\\${uuidv4()}.webp`;
   const stream = bufferToStream(fileBuffer);
-  convertImage(stream, `.\\${imgPath}`);
+  await convertImage(stream, `.\\${imgPath}`);
 
   return imgPath;
 };

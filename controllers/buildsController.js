@@ -96,7 +96,7 @@ exports.buildCreatePost = [
 
     try {
       // Success! - Update Image Format to .webp
-      const newPathName = filesHelper.convertImgToWEBP(req.file.buffer);
+      const newPathName = await filesHelper.convertImgToWEBP(req.file.buffer);
       newList.imgPath = newPathName;
 
       const newBuildList = await List.create(newList);

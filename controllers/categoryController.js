@@ -55,7 +55,7 @@ exports.categoryCreatePost = [
 
     try {
       // Success! - Update Image Format to .webp
-      const newPathName = filesHelper.convertImgToWEBP(req.file.buffer);
+      const newPathName = await filesHelper.convertImgToWEBP(req.file.buffer);
       newCtgyTemp.imgPath = newPathName;
 
       const newCategory = await Category.create(newCtgyTemp);
