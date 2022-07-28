@@ -1,26 +1,26 @@
 div#nav-wrapper.flex
   nav#main-nav.flex
-    a(href="/").flex.ign_a_hov.logo-container
+    a(href="/" alt="Link to home page").flex.ign_a_hov.logo-container
         img(src="/images/logo.png" alt="logo")
         | PC
         span.highlight Parts
         | List 
 
-    input(type="checkbox")#menu-ctrl 
+    input(type="checkbox" aria-label="Menu Controller")#menu-ctrl 
 
     ul.flex.sidebar
       li 
-        a(href="/builds/create").ign_a_hov 
-          object(type="image/svg+xml" data="/images/ui/wrench.svg")
+        a(href="/builds/create" alt="Link to PC build creation page").ign_a_hov 
+          object(type="image/svg+xml" data="/images/ui/wrench.svg" alt="")
           span PC Builder 
       li 
-        a(href="/builds").ign_a_hov
-          object(type="image/svg+xml" data="/images/ui/pc_case.svg")
+        a(href="/builds" alt="Link to page with all created builds").ign_a_hov
+          object(type="image/svg+xml" data="/images/ui/pc_case.svg" alt="")
           span Completed Builds 
       li 
-        a(href="/category").ign_a_hov 
-          object(type="image/svg+xml" data="/images/ui/cpu.svg")
+        a(href="/category" alt="Link to page with all product categories").ign_a_hov 
+          object(type="image/svg+xml" data="/images/ui/cpu.svg" alt="")
           span Browse Products 
       //- Light & Dark Mode Toggle
       li#theme_toggle_btn 
-        button(onclick="toggleTheme();")
+        button(onclick="toggleTheme();" aria-label="Toggles page theme")

@@ -1,11 +1,11 @@
 mixin build_card(buildInfo)
-  a(href=buildInfo.url_route).flex.ign_a_hov.bld_cd
+  a(href=buildInfo.url_route alt="Link to build detail page").flex.ign_a_hov.bld_cd
     //- Card Header
     div.flex.bld_cd_hdr
-      img(src="/images/logo.png")
+      img(src="/images/logo.png" alt="")
       span= buildInfo.author_name
     //- Card Preview
-    img(src=buildInfo.public_imgPath onerror="this.src = '/images/fallback_pc_build.jpg';").bld_cd_thb
+    img(src=buildInfo.public_imgPath alt=`${buildInfo.build_name} preview image` onerror="this.src = '/images/fallback_pc_build.jpg';").bld_cd_thb
     //- Card Content
     div.flex.bld_cd_bld_info
       div.bld_cd_bld_sum

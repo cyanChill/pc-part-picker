@@ -11,11 +11,11 @@ block content
       h1 Create & Share Your Builds! 
       p Have you've made a build or wanted to get into building PCs? Well 
         | this is the tool for you to show to the world your awesome PC!
-      a(href="/builds/create").flex.btn.ign_a_hov.hero_btn 
-        object(type="image/svg+xml" data="/images/ui/wrench.svg")
+      a(href="/builds/create" alt="Link to build creation page").flex.btn.ign_a_hov.hero_btn 
+        object(type="image/svg+xml" data="/images/ui/wrench.svg" alt="")
         span View the PC Builder
 
-    img(src="/images/logo.png").hero_img
+    img(src="/images/logo.png" alt="hero image").hero_img
 
   h2.secondary_header Completed Builds
 
@@ -24,6 +24,6 @@ block content
     each buildInfo in completedBuilds
       +build_card(buildInfo)
 
-    a(href="/builds").btn.flex.ign_a_hov.builds_btn
-      object(type="image/svg+xml" data="/images/ui/pc_case.svg")
+    a(href="/builds" alt="Link to page with list of all completed builds").btn.flex.ign_a_hov.builds_btn
+      object(type="image/svg+xml" data="/images/ui/pc_case.svg" alt="")
       | See All Completed Builds

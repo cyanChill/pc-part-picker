@@ -12,7 +12,7 @@ block content
 
   div(style="align-self: flex-start; margin-block: 0.25rem;").flex 
     if isUpdating 
-      a(href=`${prevData.url_route}/cancel`).btn.red.bld_form_cstm_btn
+      a(href=`${prevData.url_route}/cancel` alt="Link to cancel update of build").btn.red.bld_form_cstm_btn
         | Cancel Update
       
     button(onclick="hideSubmissionProcess();" class=(formError ? '' : 'hide')).btn.gold.bld_form_cstm_btn#editComp_btn
