@@ -4,13 +4,13 @@ public/data/uploads/*
 .env
 
 # Don't ignore the sample files
-!public/data/uploads/case.png
-!public/data/uploads/cpu_cooler.png
-!public/data/uploads/cpu.png
-!public/data/uploads/memory.png
-!public/data/uploads/motherboard.png
-!public/data/uploads/power_supply.png
-!public/data/uploads/sample_build_img_1.jpg
-!public/data/uploads/sample_build_img_2.jpg
-!public/data/uploads/storage.png
-!public/data/uploads/video_card.png
+!public/data/uploads/case.webp
+!public/data/uploads/cpu_cooler.webp
+!public/data/uploads/cpu.webp
+!public/data/uploads/memory.webp
+!public/data/uploads/motherboard.webp
+!public/data/uploads/power_supply.webp
+!public/data/uploads/sample_build_img_1.webp
+!public/data/uploads/sample_build_img_2.webp
+!public/data/uploads/storage.webp
+!public/data/uploads/video_card.webp

@@ -15,3 +15,17 @@ exports.homeGet = async (req, res, next) => {
     completedBuilds: informizedBuilds,
   });
 };
+
+exports.offlineGet = async (req, res, next) => {
+  res.render("redirect", {
+    title: "You Are Offline!.",
+    msg: "Sorry, but this page has not been cached.",
+  });
+};
+
+exports.unsupportedGet = async (req, res, next) => {
+  res.render("redirect", {
+    title: "This Action Is Not Supported Offline.",
+    msg: "Sorry, but this action is not supported offline. Please be connected to the internet in order to do this action",
+  });
+};

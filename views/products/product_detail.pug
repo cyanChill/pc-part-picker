@@ -1,34 +1,34 @@
 extends ../layout
 
 block extraInfo
-  link(rel='stylesheet', href='/stylesheets/product/product-detail.css')
+  link(rel='stylesheet' href='/stylesheets/product/product-detail.css')
 
 block content
   header.pg_header.cstm_clr= title 
 
   div
-    a(href=`${prodInfo.url_route}/update`).prod_edits Update
-    a(href=`${prodInfo.url_route}/delete`).prod_edits Delete
+    a(href=`${prodInfo.url_route}/update` alt="Link to update product").prod_edits Update
+    a(href=`${prodInfo.url_route}/delete` alt="Link to delete product").prod_edits Delete
 
   main.flex.prod_detail_pg 
-    img(src=prodInfo.image_url onerror="this.src = '/images/fallback_product.png';").prod_img
+    img(src=prodInfo.image_url alt=`${prodInfo.short_name} product image` onerror="this.src = '/images/fallback_product.webp';").prod_img
 
     div.flex
       form(method="POST" action=`${prodInfo.url_route}/add`)
         button(type="submit").btn.addProduct Add
 
-      a(href=prodInfo.buy_link target="_blank").btn.green.flex.ign_a_hov.buy_btn
+      a(href=prodInfo.buy_link target="_blank" alt="Link to buy product on Amazon").btn.green.flex.ign_a_hov.buy_btn
         span Buy
-        object(type="image/svg+xml" data="/images/products/amazon.svg")
+        object(type="image/svg+xml" data="/images/products/amazon.svg" alt="Amazon logo")
 
     div.grid.info_container 
       aside.prod_info
         div
           p Category 
-          a(href=prodInfo.category.url_route)= prodInfo.category.name
+          a(href=prodInfo.category.url_route alt="Link to goto page with all products in category")= prodInfo.category.name
         div
           p Manufacturer 
-          a(href=prodInfo.brand.url_route)= prodInfo.brand.name
+          a(href=prodInfo.brand.url_route alt="Link to goto page with all products of brand")= prodInfo.brand.name
         div
           p Price 
           p $#{prodInfo.price}

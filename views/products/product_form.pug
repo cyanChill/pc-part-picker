@@ -1,7 +1,7 @@
 extends ../layout
 
 block extraInfo 
-  link(rel='stylesheet', href='/stylesheets/product/product-form.css')
+  link(rel='stylesheet' href='/stylesheets/product/product-form.css')
   script(src="/javascripts/product/product_form.js" defer) 
 
 block content
@@ -38,7 +38,7 @@ block content
           div.flex.prd_form_feature_entry_inputs
             input(type="text" name="feat_name" placeholder="Feature Name" value=(feat.feature) maxLength="50" required) 
             input(type="text" name="feat_des" placeholder="Feature Description" value=(feat.description) maxLength="30" required) 
-          button(type="button" onclick="removeFeatureInput(this)")
+          button(type="button" onclick="removeFeatureInput(this)" aria-label="Remove product from build list")
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
 
     button(type="button" onclick="addFeatureInput();").btn.gold.compressed Add Another Feature

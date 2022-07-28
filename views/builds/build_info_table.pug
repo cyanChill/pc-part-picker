@@ -10,15 +10,15 @@ mixin build_info_table(categories, componentList, showSel, showRmv)
     each ctgy in categories 
       div.bld_tb_row
         div.flex.bld_tb_row_lbl
-          a(href=ctgy.url_route).bld_tb_ctgy_name= ctgy.name
+          a(href=ctgy.url_route alt="Link to page with all products in category").bld_tb_ctgy_name= ctgy.name
           div.show_mob.bld_tb_lbl_line
 
         //- If we have a product
         if componentList[ctgy.name]
           div.flex.bld_tb_sel_prod 
-            a(href=componentList[ctgy.name].url_route)
-              img(src=componentList[ctgy.name].image_url onerror="this.src = '/images/fallback_product.png';")
-            a(href=componentList[ctgy.name].url_route)
+            a(href=componentList[ctgy.name].url_route alt="Link to product detail page")
+              img(src=componentList[ctgy.name].image_url alt=`${componentList[ctgy.name].short_name} product image` onerror="this.src = '/images/fallback_product.webp';")
+            a(href=componentList[ctgy.name].url_route alt="Link to product detail page")
               | #{componentList[ctgy.name].short_name}
 
           p.bld_tb_prod_price 
@@ -26,9 +26,9 @@ mixin build_info_table(categories, componentList, showSel, showRmv)
             | $#{componentList[ctgy.name].price}
 
           div.flex.bld_tb_prod_actions
-            a(href=componentList[ctgy.name].buy_link target="_blank").btn.green.flex.bld_tb_buy_btn
+            a(href=componentList[ctgy.name].buy_link target="_blank" alt="Link to Amazon page for product").btn.green.flex.bld_tb_buy_btn
               span.show_mob Buy
-              object(type="image/svg+xml" data="/images/products/amazon.svg")
+              object(type="image/svg+xml" data="/images/products/amazon.svg" alt="Amazon logo")
 
             if showRmv 
               form(method="POST" action="/builds/create/deleteComponent").bld_tb_rmv_form
@@ -40,7 +40,7 @@ mixin build_info_table(categories, componentList, showSel, showRmv)
         //- If we don't have a product
         else 
           if showSel 
-            a(href=ctgy.url_route).btn.ign_a_hov.bld_tb_sel_btn
+            a(href=ctgy.url_route alt="Link to page with all products in category").btn.ign_a_hov.bld_tb_sel_btn
               | + Choose a #{ctgy.name}
             span.bld_tb_no_edit_rpl —
           else

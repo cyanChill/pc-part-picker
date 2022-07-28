@@ -378,7 +378,7 @@ module.exports = {
       author_name: "John",
       build_name: "Compensator 4000",
       description: "A spec-ed out gaming PC.",
-      imgPath: "public\\data\\uploads\\sample_build_img_1.jpg",
+      imgPath: "public\\data\\uploads\\sample_build_img_1.webp",
       components: {
         CPU: "Intel Core i9-12900KS",
         Motherboard: "ASUS ROG Strix Z690-E Gaming WiFi",
@@ -394,7 +394,7 @@ module.exports = {
       author_name: "Bob",
       build_name: "AMD Rises",
       description: "An AMD-Based PC.",
-      imgPath: "public\\data\\uploads\\sample_build_img_2.jpg",
+      imgPath: "public\\data\\uploads\\sample_build_img_2.webp",
       components: {
         CPU: "AMD Ryzen 9 5950X",
         Motherboard: "ASUS ROG Strix X570-E Gaming WiFi II",

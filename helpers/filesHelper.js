@@ -1,17 +1,13 @@
-const fs = require("fs/promises");
 const { v4: uuidv4 } = require("uuid");
+const fs = require("fs/promises");
+// Libraries to help img conversion to .webp
+const ffmpeg = require("fluent-ffmpeg");
+const { Readable } = require("stream");
 // Multer Logic
 const multer = require("multer");
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/data/uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${uuidv4()}.${file.mimetype.split("/")[1]}`);
-  },
-});
 
-exports.upload = multer({ storage: storage });
+// Save file data into buffer instead of creating it (for efficiency)
+exports.upload = multer({ storage: multer.memoryStorage() });
 
 /* Checks to see if uploaded file is an image */
 exports.isImg = (fileObj) => {
@@ -45,4 +41,37 @@ exports.deleteFileByPath = async (filePath) => {
   } catch (err) {
     throw new Error("Failed to delete file.");
   }
+};
+
+/* Logic for converting images to webp */
+const convertImage = (img, outputName) => {
+  // Takes a stream input and convert it to the file specified in "outputName"
+  // Made asynchronous due to img being loaded/created in time before the
+  // build detail page renders clientside
+  return new Promise((resolve, reject) => {
+    ffmpeg()
+      .input(img)
+      .saveToFile(outputName)
+      .on("error", (err) => reject(err))
+      .on("end", () => resolve());
+  });
+};
+
+// Converts buffer to ReadableStream
+const bufferToStream = (buffer) => {
+  const readable = new Readable();
+  readable._read = () => {};
+  readable.push(buffer);
+  readable.push(null);
+  return readable;
+};
+
+// Expect input such as "req.file.buffer"
+exports.convertImgToWEBP = async (fileBuffer) => {
+  // Where we want to save the file
+  const imgPath = `public\\data\\uploads\\${uuidv4()}.webp`;
+  const stream = bufferToStream(fileBuffer);
+  await convertImage(stream, `.\\${imgPath}`);
+
+  return imgPath;
 };

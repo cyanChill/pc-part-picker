@@ -1,7 +1,7 @@
 extends ./layout
 
 block extraInfo 
-  link(rel='stylesheet', href='/stylesheets/delete-group.css')
+  link(rel='stylesheet' href='/stylesheets/delete-group.css')
 
 //- Used for deleting either a category or brand
 block content
@@ -17,7 +17,7 @@ block content
       ul
         each prod in groupProducts 
           li 
-            a(href=prod.url_route)= prod.short_name
+            a(href=prod.url_route alt=`Link to ${prod.short_name} page`)= prod.short_name
 
   else 
     //- If we don't have any products in the category
@@ -35,5 +35,5 @@ block content
               li Admin password is incorrect.
         
         div.flex 
-          a(href=currGroup.url_route style="display: block; text-align:center").btn.green.compressed Cancel
+          a(href=currGroup.url_route alt=`Link to cancel deletion` style="display: block; text-align:center").btn.green.compressed Cancel
           button(type="submit").btn.red.compressed Confirm 

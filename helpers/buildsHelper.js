@@ -19,12 +19,10 @@ exports.getBuildInfo = async (req, listType) => {
   // Wait until all promises have finished (regardless of resolve or reject)
   const prodsInfo = await Promise.allSettled(
     prevItems.map((prodId) =>
-      Product.findById(prodId, "category name short_name price image_url")
-        .populate("category")
-        .catch((e) => {
-          console.log(e);
-          return e;
-        })
+      Product.findById(
+        prodId,
+        "category name short_name price image_url"
+      ).populate("category")
     )
   );
   // Keep the products w/ successful promise & returned a value (handles

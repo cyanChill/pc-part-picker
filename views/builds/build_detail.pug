@@ -2,8 +2,8 @@ extends ../layout
 include ./build_info_table
 
 block extraInfo 
-  link(rel='stylesheet', href='/stylesheets/build/build-detail.css')
-  link(rel='stylesheet', href='/stylesheets/build/build-info-table.css')
+  link(rel='stylesheet' href='/stylesheets/build/build-detail.css')
+  link(rel='stylesheet' href='/stylesheets/build/build-info-table.css')
 
 block content
   //- Header
@@ -12,7 +12,7 @@ block content
     p.pg_header_subHead By #{buildInfo.author_name}
     p.pg_header_subText= buildInfo.description
 
-  img(src=buildInfo.public_imgPath onerror="this.src = '/images/fallback_pc_build.jpg';").thumbnail_img
+  img(src=buildInfo.public_imgPath alt=`${buildInfo.build_name} preview image` onerror="this.src = '/images/fallback_pc_build.webp';").thumbnail_img
 
   +build_info_table(categories, comp_list, false, false)
 
@@ -21,6 +21,6 @@ block content
     | #{totalPrice}
 
   div.flex
-    a(href=`${buildInfo.url_route}/update`).btn Update Build
-    a(href=`${buildInfo.url_route}/delete`).btn Delete Build
+    a(href=`${buildInfo.url_route}/update` alt="Link to update build").btn Update Build
+    a(href=`${buildInfo.url_route}/delete` alt="Link to delete build").btn Delete Build
 

@@ -1,6 +1,7 @@
 {
-  "short_name": "PCPartsList",
   "name": "PC Parts List",
+  "short_name": "PCPartsList",
+  "description": "An application where you can share your PC builds.",
   "icons": [
     {
       "src": "/images/pwa/favicon-16x16.png",
@@ -15,7 +16,8 @@
     {
       "src": "/images/pwa/android-chrome-192x192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "maskable"
     },
     {
       "src": "/images/pwa/android-chrome-512x512.png",
@@ -25,6 +27,9 @@
   ],
   "start_url": ".",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "lang": "en-US"
 }

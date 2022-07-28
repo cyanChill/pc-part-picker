@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "devstart": "nodemon ./bin/www",
+    "build-sw": "workbox injectManifest workbox-config.js",
+    "devstart": "npm run build-sw & nodemon ./bin/www",
     "serverstart": "SET DEBUG=express-pc-parts-list:* & npm run devstart"
   },
   "dependencies": {
@@ -14,11 +15,16 @@
     "dotenv": "^16.0.1",
     "express": "~4.16.1",
     "express-validator": "^6.14.2",
+    "fluent-ffmpeg": "^2.1.2",
     "http-errors": "~1.6.3",
     "mongoose": "^6.4.5",
     "morgan": "~1.9.1",
     "multer": "^1.4.5-lts.1",
     "pug": "^3.0.2",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "workbox-cli": "^6.5.4",
+    "workbox-expiration": "^6.5.4"
   }
 }

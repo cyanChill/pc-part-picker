@@ -1,7 +1,7 @@
 extends ../layout
 
 block extraInfo 
-  link(rel='stylesheet', href='/stylesheets/build/build-delete.css')
+  link(rel='stylesheet' href='/stylesheets/build/build-delete.css')
 
 block content
   header(style="--header-clr: var(--error-500);").pg_header= title
@@ -11,7 +11,7 @@ block content
       | Confirm Deletion of Build
 
     div.flex
-      a(href=`/builds/${buildId}/cancel`).btn.green.compressed Cancel
+      a(href=`/builds/${buildId}/cancel` alt="Link to cancel build deletion").btn.green.compressed Cancel
 
       form(method="POST")
         button(type="submit").btn.red.compressed Confirm 

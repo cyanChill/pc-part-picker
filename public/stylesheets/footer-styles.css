@@ -63,7 +63,7 @@ body.dark {
 }
 
 .footer_pg_links li {
-  padding-block-start: 0.25rem;
+  padding-block: 0.25rem;
 }
 
 .footer_pg_links li > a {

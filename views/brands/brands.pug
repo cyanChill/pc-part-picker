@@ -1,17 +1,17 @@
 extends ../layout
 
 block extraInfo 
-  link(rel='stylesheet', href='/stylesheets/brand/brands.css')
+  link(rel='stylesheet' href='/stylesheets/brand/brands.css')
 
 block content
   //- Header
   header.pg_header.cstm_clr= title 
 
-  a(href="/brands/create").underline.brands_add_man Add a Manufacturer
+  a(href="/brands/create" alt="Link to page to create a brand").underline.brands_add_man Add a Manufacturer
 
   //- List of brands
   ul.brands_cont
     each brand in brands
       li 
-        a(href=brand.url_route)= brand.name
+        a(href=brand.url_route alt="Link to specific brand page")= brand.name
   

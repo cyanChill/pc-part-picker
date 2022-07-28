@@ -2,8 +2,8 @@ extends ../layout
 include ../products/products_table
 
 block extraInfo 
-  link(rel='stylesheet', href='/stylesheets/category/category-detail.css')
-  link(rel='stylesheet', href='/stylesheets/product/products-table.css')
+  link(rel='stylesheet' href='/stylesheets/category/category-detail.css')
+  link(rel='stylesheet' href='/stylesheets/product/products-table.css')
 
 block content
   header.pg_header.cstm_clr
@@ -11,8 +11,8 @@ block content
     p.pg_header_subText= category.description
   
   div 
-    a(href=`/products/create?ctgyId=${category._id}`).ctgy_edits Add
-    a(href=`${category.url_route}/update`).ctgy_edits Update
-    a(href=`${category.url_route}/delete`).ctgy_edits Delete
+    a(href=`/products/create?ctgyId=${category._id}` alt="Link to add a product to category").ctgy_edits Add
+    a(href=`${category.url_route}/update` alt="Link to update category").ctgy_edits Update
+    a(href=`${category.url_route}/delete` alt="Link to delete category").ctgy_edits Delete
 
   +products_table(products, "Manufacturer")

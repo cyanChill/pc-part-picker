@@ -11,19 +11,19 @@ mixin products_table(products, col2Type)
     each prod in products
       div.prod_tb_entry
         div.flex.prod_tb_sel_prod 
-          a(href=prod.url_route)
-            img(src=prod.image_url onerror="this.src = '/images/fallback_product.png';")
-          a(href=prod.url_route)
+          a(href=prod.url_route alt="Link to goto product detail page")
+            img(src=prod.image_url alt=`${prod.short_name} product image` onerror="this.src = '/images/fallback_product.webp';")
+          a(href=prod.url_route alt="Link to goto product detail page")
             | #{prod.name}
 
         p.prod_tb_col2
           if col2Type === "Manufacturer"
             span.show_mob Manufacturer
-            a(href=(prod.brand.url_route))
+            a(href=(prod.brand.url_route) alt="Link to goto page with all products of brand")
               | #{prod.brand.name}
           else if col2Type === "Category"
             span.show_mob Category
-            a(href=prod.category.url_route)
+            a(href=prod.category.url_route alt="Link to goto page with all products in category")
               | #{prod.category.name}
           else 
             | ""
@@ -36,9 +36,9 @@ mixin products_table(products, col2Type)
           span.show_mob Price
           | $#{prod.simplifiedPrice}
 
-        a(href=prod.buy_link target="_blank").btn.green.flex.ign_a_hov.prod_tb_buy_btn
+        a(href=prod.buy_link target="_blank" alt="Link to buy product on Amazon").btn.green.flex.ign_a_hov.prod_tb_buy_btn
           span Buy
-          object(type="image/svg+xml" data="/images/products/amazon.svg")
+          object(type="image/svg+xml" data="/images/products/amazon.svg" alt="Amazon logo")
 
         form(method="POST" action=`${prod.url_route}/add`).prod_tb_add_action
           button(type="submit").btn.flex.prod_tb_add_btn  Add
