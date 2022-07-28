@@ -5,13 +5,17 @@ html(lang='en')
     meta(charset='utf-8')
     link(rel="icon" href='/images/pwa/favicon.ico')
     meta(name='viewport', content='width=device-width, initial-scale=1')
+
     link(rel="apple-touch-icon" href="/images/pwa/apple-touch-icon.png")
+    meta(name="description" content="An application where you can share your PC builds.")
+    meta(name="theme-color" content="#000000")
     link(rel="manifest" href="/manifest.json")
 
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/nav-styles.css')
     link(rel='stylesheet', href='/stylesheets/footer-styles.css')
 
+    script(src="/javascripts/pwa.js" defer)
     script(src="/javascripts/nav.js" defer) 
 
     block extraInfo

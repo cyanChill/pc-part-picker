@@ -1,0 +1,11 @@
+extends ./layout
+
+block extraInfo 
+  link(rel='stylesheet', href='/stylesheets/redirect.css')
+
+block content
+  header.pg_header.cstm_clr= title
+
+  div.flex.offline_msg_cont
+    p= msg
+    a(href="/") Return to the home page.

@@ -49,7 +49,7 @@
   --link-clr: var(--blue-300);
 
   /* Table Colors */
-  --tb-label-line-clr: var(--grey-600);
+  --tb-label-line-clr: var(--grey-150);
   --tb-price-clr: var(--green-300);
   --tb-btn-txt-clr: white;
   --tb-rmv-btn-bdr-clr: var(--grey-150);
