@@ -11,7 +11,7 @@ block content
     a(href=`${prodInfo.url_route}/delete` alt="Link to delete product").prod_edits Delete
 
   main.flex.prod_detail_pg 
-    img(src=prodInfo.image_url alt=`${prodInfo.name} product image` onerror="this.src = '/images/fallback_product.webp';").prod_img
+    img(src=prodInfo.image_url alt=`${prodInfo.short_name} product image` onerror="this.src = '/images/fallback_product.webp';").prod_img
 
     div.flex
       form(method="POST" action=`${prodInfo.url_route}/add`)

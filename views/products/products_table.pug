@@ -12,7 +12,7 @@ mixin products_table(products, col2Type)
       div.prod_tb_entry
         div.flex.prod_tb_sel_prod 
           a(href=prod.url_route alt="Link to goto product detail page")
-            img(src=prod.image_url alt=`${prodInfo.name} product image` onerror="this.src = '/images/fallback_product.webp';")
+            img(src=prod.image_url alt=`${prod.short_name} product image` onerror="this.src = '/images/fallback_product.webp';")
           a(href=prod.url_route alt="Link to goto product detail page")
             | #{prod.name}
 
