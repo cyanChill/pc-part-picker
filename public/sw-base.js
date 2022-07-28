@@ -2,9 +2,11 @@ importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js"
 );
 const { ExpirationPlugin } = workbox.expiration;
-const { precacheAndRoute, createHandlerBoundToURL } = workbox.precaching;
+const { precacheAndRoute, getCacheKeyForURL } = workbox.precaching;
 const { NavigationRoute, registerRoute } = workbox.routing;
 const { StaleWhileRevalidate, NetworkFirst } = workbox.strategies;
+
+const VERSION_NUMBER = "v1.0.0";
 
 /* 
   -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -47,7 +49,7 @@ registerRoute(
           return caches.open("page-routes").then((cache) => {
             return cache.match(event.request).then((res) => {
               if (res) return res; // Return dynamic cache result
-              return caches.match(event.request); // Return precache result
+              return caches.match(getCacheKeyForURL("/")); // Return precache result
             });
           });
         } else {
@@ -60,7 +62,7 @@ registerRoute(
             })
             .catch((err) => {
               // Render Offline Fallback Page
-              return caches.match("/offline");
+              return caches.match(getCacheKeyForURL("/offline"));
             });
         }
       });
@@ -87,7 +89,7 @@ registerRoute(
       }) // Return response fetched
       .catch((err) => {
         // Render Unsupported Action Fallback Page
-        return caches.match("/unsupported");
+        return caches.match(getCacheKeyForURL("/unsupported"));
       });
   },
   "POST"
@@ -99,9 +101,9 @@ registerRoute(
 */
 precacheAndRoute(
   [
-    { url: "/", revision: null },
-    { url: "/offline", revision: null }, // This route is generally static
-    { url: "/unsupported", revision: null }, // This route is generally static
+    { url: "/", revision: VERSION_NUMBER },
+    { url: "/offline", revision: VERSION_NUMBER },
+    { url: "/unsupported", revision: VERSION_NUMBER },
     ...self.__WB_MANIFEST,
   ],
   {
