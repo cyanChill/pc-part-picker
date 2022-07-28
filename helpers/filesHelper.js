@@ -44,11 +44,11 @@ exports.deleteFileByPath = async (filePath) => {
 };
 
 /* Logic for converting images to webp */
-const convertImage = async (img, outputName) => {
+const convertImage = (img, outputName) => {
   // Takes a stream input and convert it to the file specified in "outputName"
   // Made asynchronous due to img being loaded/created in time before the
   // build detail page renders clientside
-  new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     ffmpeg()
       .input(img)
       .saveToFile(outputName)
