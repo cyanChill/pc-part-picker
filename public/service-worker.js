@@ -1,3 +1,6 @@
+// Disable Workbox Debug Messages
+self.__WB_DISABLE_DEV_LOGS = true;
+
 importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js"
 );
