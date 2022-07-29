@@ -21,7 +21,7 @@ const routeExpirationManager = new CacheExpiration(PG_ROUTES_CACHE_NAME, {
 const DYNAMIC_IMGS_CACHE_NAME = "images";
 const imgExpirationManager = new CacheExpiration(DYNAMIC_IMGS_CACHE_NAME, {
   maxAgeSeconds: 60 * 60 * 24 * 3,
-  maxEntries: 20,
+  maxEntries: 30,
 });
 
 /* 

@@ -4,7 +4,9 @@ This is a project built from using `express-generator` and is run purely on Node
 
 This application allows users to share a PC build they already made or plan to make with other users.
 
-> Supports Dark Mode!
+> Supports Dark Mode & Limited Offline Mode (via cached pages)!
+
+**Live Demo Site:** https://cyanchill-pc-parts-list.herokuapp.com/
 
 ## Permissions
 
@@ -22,10 +24,16 @@ This application allows users to share a PC build they already made or plan to m
 - Delete Manufacturers
 - Update/Delete Products
 
-### .env File
+## .env File
 
 We utilze 2 environment variables: `MONGO_URI` and `ADMIN_PASSWORD`.
 
-### Uploads
+## Uploads
 
 We utilized the `multer` package to handle image upload for Categories & Build Lists. We don't do this for Products due to the amount of products we can have (comparatively, we won't have much Categories and not as much Builds compared to products).
+
+- We use the `fluent-ffmpeg` package to convert uploaded images to `.webp` for storage efficiency.
+
+# How To Run
+
+Since the service worker file is already created, all you have to do (after creating a MongoDB database & setting the `.env` variables) is run `npm start` to run the app.
