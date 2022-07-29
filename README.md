@@ -6,6 +6,10 @@ This application allows users to share a PC build they already made or plan to m
 
 > Supports Dark Mode & Limited Offline Mode (via cached pages)!
 
+
+https://user-images.githubusercontent.com/83375816/181835204-cf845b43-0309-4af6-85c3-1e22700de36b.mp4
+
+
 ## Permissions
 
 **Normal Users** should be able to:
