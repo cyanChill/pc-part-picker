@@ -6,8 +6,6 @@ This application allows users to share a PC build they already made or plan to m
 
 > Supports Dark Mode & Limited Offline Mode (via cached pages)!
 
-**Live Demo Site:** https://cyanchill-pc-parts-list.herokuapp.com/
-
 ## Permissions
 
 **Normal Users** should be able to:
