@@ -7,6 +7,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const compression = require("compression");
 
 // Application Routes Imports
 const indexRouter = require("./routes/index");
@@ -34,6 +35,9 @@ const Product = require("./models/product");
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+
+// Response Compression
+app.use(compression());
 
 app.use(logger("dev"));
 app.use(express.json());
