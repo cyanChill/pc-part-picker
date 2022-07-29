@@ -7,7 +7,7 @@ block extraInfo
 block content
   header.pg_header.cstm_clr= title
 
-  form(method="POST").flex.prod_form
+  form(method="POST" autocomplete="off").flex.prod_form
     label Product Name:
       input(type="text" name="name" value=(undefined===prevVal ? "" : prevVal.name) maxLength="100" required) 
     label Product Short Name:

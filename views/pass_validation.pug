@@ -5,7 +5,7 @@ block extraInfo
   script(src="/javascripts/pass-validation.js" defer) 
 
 block content
-  form(method="POST" action=submitURL).flex.pass_valid_form
+  form(method="POST" action=submitURL autocomplete="off").flex.pass_valid_form
     input(type="url" name="redirect_route").hide#pass_valid_redirectInput
     //- Expected to be used for various password-validation areas (ie:
     //- "Save" password, "Admin" password)

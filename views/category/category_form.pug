@@ -6,7 +6,7 @@ block extraInfo
 block content
   header.pg_header.cstm_clr= title
 
-  form(method="POST" enctype="multipart/form-data").flex.ctgy_valid_form
+  form(method="POST" autocomplete="off" enctype="multipart/form-data").flex.ctgy_valid_form
     label Category Name:
       input(type="text" name="name" value=(undefined===prevVal ? "" : prevVal.name) maxLength="30" required) 
     label Category Description:

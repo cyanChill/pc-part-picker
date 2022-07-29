@@ -32,7 +32,7 @@ block content
   button(onclick="showSubmissionProcess();" class=(formError ? 'hide' : '')).btn.gold.bld_form_cstm_btn#prepSub_btn
     | Finalize Submission
 
-  form(method="POST" enctype="multipart/form-data" class=(formError ? '' : 'hide')).flex#bldSub_form
+  form(method="POST" autocomplete="off" enctype="multipart/form-data" class=(formError ? '' : 'hide')).flex#bldSub_form
     label Author Name:
       input(type="text" name="author_name" value=(undefined===prevData ? "" : prevData.author_name) maxlength="30" required) 
     label Build Name:

@@ -24,7 +24,7 @@ block content
     div.flex.grp_delete_cont
       b Confirm Deletion of #{groupType}
 
-      form(method="POST").flex.grp_delete_form
+      form(method="POST" autocomplete="off").flex.grp_delete_form
         label Admin Password:
           input(type="text" name="pass" minlength="6" required) 
 

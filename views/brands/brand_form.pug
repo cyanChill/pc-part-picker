@@ -6,7 +6,7 @@ block extraInfo
 block content
   header.pg_header.cstm_clr= title
 
-  form(method="POST").flex.brand_valid_form
+  form(method="POST" autocomplete="off").flex.brand_valid_form
     label Manufacturer Name:
       input(type="text" name="name" value=(undefined===prevVal ? "" : prevVal.name) maxLength="30" required) 
 
